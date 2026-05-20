@@ -26,6 +26,10 @@
 - When converting markdown post bodies to `*.11ty.js`, keep the prose in `render()` and pass it through `data.functions.markdown`.
 - When `data.functions.markdown` renders fenced code blocks, wire markdown-it to the syntaxhighlight plugin’s Markdown highlighter so ` ```lang ` fences become Prism HTML automatically.
 - In `*.11ty.js` layouts, add CSS and JS with literal `<style>` and `<script>` blocks in the returned HTML so the bundle plugin can collect them, and emit the collected output with `this.getBundle()` or `this.getBundleFileUrl()`.
+- Use a small `SchemaOrg.11ty.js` helper, or the same pattern in place, when a page needs JSON-LD output.
+- Base layouts should always emit `WebSite` and `WebPage` schema, and post layouts should add `Article` through `layoutSchema` or `pageSchema` only when the content actually needs it.
+- Keep schema data tied to the current page and site metadata. Do not bring over extra node types or fields from the old project unless this repo uses them.
+- When a layout outputs JSON-LD, add `eleventy:ignore` to that `<script type="application/ld+json">` tag so the bundle plugin does not hoist it into the JS bundle.
 - Store the base site URL in `_data/metadata.js` without a trailing slash, and add path separators explicitly when composing URLs in templates or helpers.
 - Avoid single-use variables when the expression is clear enough inline inside the template.
 - Avoid precomputing values only used once in `render()`.

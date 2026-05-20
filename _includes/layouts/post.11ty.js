@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 
+import { defineArticle } from '@unhead/schema-org';
+
 const prismThemeCss = readFileSync( new URL( '../../node_modules/prismjs/themes/prism-okaidia.css', import.meta.url ), 'utf8' );
 const prismDiffCss = readFileSync( new URL( '../../css/prism-diff.css', import.meta.url ), 'utf8' );
 
@@ -7,6 +9,25 @@ export default class Post {
 	data() {
 		return {
 			layout: 'layouts/base.11ty.js',
+			eleventyComputed: {
+				/**
+				 * Build the Article schema for this post.
+				 */
+				layoutSchema( data ) {
+					return {
+						Article: defineArticle( {
+							headline: data.title,
+							description: data.description || data.metadata.description,
+							author: {
+								name: data.metadata.author.name,
+								url: data.metadata.author.url,
+							},
+							datePublished: data.page?.date || data.date,
+							dateModified: data.page?.date || data.date,
+						} ),
+					};
+				},
+			},
 		};
 	}
 

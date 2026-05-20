@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs';
 
 import navigationPlugin from '@11ty/eleventy-navigation';
+import { defineWebPage, defineWebSite } from '@unhead/schema-org';
+
+import SchemaOrg from '../SchemaOrg.11ty.js';
 
 const baseCss = readFileSync( new URL( '../../css/index.css', import.meta.url ), 'utf8' );
 const headingAnchorsJs = readFileSync( new URL( '../../node_modules/@zachleat/heading-anchors/heading-anchors.js', import.meta.url ), 'utf8' );
@@ -42,6 +45,23 @@ export default class Base {
 					<title>${ data.functions.escapeHtml( data.title || data.metadata.title ) }</title>
 					<meta name="description" content="${ data.functions.escapeHtml( data.description || data.metadata.description ) }">
 					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.functions.escapeHtml( data.metadata.title ) }">
+
+					${ new SchemaOrg().render( data, {
+						WebSite: defineWebSite( {
+							name: data.metadata.title,
+							description: data.metadata.description,
+							inLanguage: data.metadata.language,
+							url: data.metadata.url,
+						} ),
+						WebPage: defineWebPage( {
+							name: data.title || data.metadata.title,
+							description: data.description || data.metadata.description,
+							inLanguage: data.metadata.language,
+							url: new URL( data.page?.url || '/', data.metadata.url ).href,
+						} ),
+						...( data.layoutSchema || {} ),
+						...( data.pageSchema || {} ),
+					} ) }
 
 					<!-- The bundle plugin collects literal <style> and <script> blocks from layouts. -->
 					<style>${ baseCss }</style>
