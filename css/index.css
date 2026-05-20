@@ -35,14 +35,9 @@
 	}
 }
 
-
 /* Global stylesheet */
 * {
 	box-sizing: border-box;
-}
-
-@view-transition {
-	navigation: auto;
 }
 
 html,
@@ -295,4 +290,3 @@ header {
 .post-metadata time {
 	margin-right: 1em;
 }
-

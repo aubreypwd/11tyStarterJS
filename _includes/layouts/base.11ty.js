@@ -69,7 +69,7 @@ export default class Base {
 						</p>
 					</footer>
 
-					<!-- This page ${ functions.escapeHtml( currentUrl ) } was built on ${ functions.escapeHtml( this.currentBuildDate() ) } -->
+					<!-- This page ${ functions.escapeHtml( currentUrl ) } was built on ${ functions.escapeHtml( functions.currentBuildDate() ) } -->
 					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
 				</body>
 			</html>

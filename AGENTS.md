@@ -18,11 +18,15 @@
 - Put repeated formatting, tag, and markdown helpers in `_data/functions.js` only when this project actually uses them.
 - Before adding a helper, check for a real current call site or an immediate near-term need in this project.
 - Do not copy helpers from the old project just because they existed there.
+- Source the site origin and canonical URL from `_data/metadata.js` instead of hardcoding the same base URL in config or templates.
+- Prefer `_data/functions.js` for simple reusable build helpers like `currentBuildDate` instead of adding config shortcodes.
 - Remove helpers, filters, and includes when the last real call site is converted away.
 - When converting a Nunjucks file to `*.11ty.js`, remove the old file and any support code that becomes unused.
 - Use `*.11tydata.js` for shared folder-level post metadata such as tags and layout when several posts share it.
 - When converting markdown post bodies to `*.11ty.js`, keep the prose in `render()` and pass it through `data.functions.markdown`.
+- When `data.functions.markdown` renders fenced code blocks, wire markdown-it to the syntaxhighlight plugin’s Markdown highlighter so ` ```lang ` fences become Prism HTML automatically.
 - In `*.11ty.js` layouts, add CSS and JS with literal `<style>` and `<script>` blocks in the returned HTML so the bundle plugin can collect them, and emit the collected output with `this.getBundle()` or `this.getBundleFileUrl()`.
+- Store the base site URL in `_data/metadata.js` without a trailing slash, and add path separators explicitly when composing URLs in templates or helpers.
 - Avoid single-use variables when the expression is clear enough inline inside the template.
 - Avoid precomputing values only used once in `render()`.
 - Do not create helper methods just to rename a simple value, fallback, or ternary.
@@ -53,6 +57,7 @@
 - Use template literals for content strings that might plausibly contain both single and double quotes, contractions, quoted phrases, or interpolation.
 - When writing JavaScript code inside an outer template literal, escape any inner JavaScript template literal backticks so the outer template is not terminated early.
 - Do not use double quotes for JavaScript strings unless there is a specific reason.
+- Use consecutive `//` comment lines for toggleable examples or options that may be uncommented later; use `/* ... */` for explanatory prose and longer documentation.
 - Keep `/* html */` on nested HTML fragments too, including inline fallback HTML such as `<code>`.
 
 ## Frontend Direction
