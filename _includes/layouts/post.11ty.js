@@ -10,14 +10,18 @@ export default class Post {
 		};
 	}
 
+	/**
+	 * Turn one tag into a link to its archive page.
+	 */
 	renderTagItem( tag, functions ) {
-		const tagUrl = `/tags/${ this.slugify( tag ) }/`;
-
 		return /* html */ `
-			<a href="${ functions.escapeHtml( tagUrl ) }" class="post-tag">${ functions.escapeHtml( tag ) }</a>
+			<a href="${ functions.escapeHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escapeHtml( tag ) }</a>
 		`;
 	}
 
+	/**
+	 * Hide the tag list when a post has no tags.
+	 */
 	renderTagsList( tags, functions ) {
 		if ( ! tags.length ) {
 			return '';
@@ -30,6 +34,9 @@ export default class Post {
 		} ).join( '' );
 	}
 
+	/**
+	 * Link to the neighboring posts in the archive.
+	 */
 	renderPreviousNextLinks( posts, currentUrl, functions ) {
 		const currentIndex = posts.findIndex( ( post ) => post.url === currentUrl );
 
@@ -57,25 +64,23 @@ export default class Post {
 	}
 
 	render( data ) {
-		const functions = data.functions;
-		const tags = functions.filterTagList( data.tags || [] );
+		// Prefer Eleventy’s page date when it exists, otherwise use the post date.
 		const date = data.page?.date || data.date;
-		const posts = data.collections?.posts || [];
 
 		return /* html */ `
 			<style>${ prismThemeCss }</style>
 			<style>${ prismDiffCss }</style>
 
-			<h1>${ functions.escapeHtml( data.title ) }</h1>
+			<h1>${ data.functions.escapeHtml( data.title ) }</h1>
 
 			<ul class="post-metadata">
-				<li><time datetime="${ functions.escapeHtml( functions.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ functions.escapeHtml( functions.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
-				${ this.renderTagsList( tags, functions ) }
+				<li><time datetime="${ data.functions.escapeHtml( data.functions.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ data.functions.escapeHtml( data.functions.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
+				${ this.renderTagsList( data.functions.filterTagList( data.tags || [] ), data.functions ) }
 			</ul>
 
 			${ data.content }
 
-			${ this.renderPreviousNextLinks( posts, data.page?.url || '', functions ) }
+			${ this.renderPreviousNextLinks( data.collections?.posts || [], data.page?.url || '', data.functions ) }
 		`;
 	}
 }

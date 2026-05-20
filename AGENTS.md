@@ -29,10 +29,12 @@
 - Store the base site URL in `_data/metadata.js` without a trailing slash, and add path separators explicitly when composing URLs in templates or helpers.
 - Avoid single-use variables when the expression is clear enough inline inside the template.
 - Avoid precomputing values only used once in `render()`.
+- Do not alias direct Eleventy data lookups like `data.collections.*`, `data.metadata.*`, or `data.functions` just to rename them; inline them unless the value is derived or reused in a meaningful way.
 - Do not create helper methods just to rename a simple value, fallback, or ternary.
 - Use helper methods only when they render a meaningful chunk, perform a non-trivial transformation, or handle branching that is too complex to read inline.
 - Do not reduce everything into one large `render()` when named class methods improve readability.
 - Add shared escaping helpers to `_data/functions.js` only when multiple templates need them and there is a real call site.
+- Use `/** ... */` docblocks for functions in `*.11ty.js` files except `data()` and `render()`, and keep the text short and plain language.
 - Prefix returned template literals with an appropriate language comment, such as `/* html */`, `/* css */`, `/* xml */`, or `/* txt */`.
 
 ## Eleventy Data Flow

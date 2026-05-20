@@ -2,6 +2,7 @@ export default class TagPages {
 	data() {
 		return {
 			pagination: {
+				// Page through Eleventy’s collections object one tag at a time.
 				data: 'collections',
 				size: 1,
 				alias: 'tag',
@@ -21,6 +22,9 @@ export default class TagPages {
 		};
 	}
 
+	/**
+	 * Render one tagged post in the list.
+	 */
 	renderPostListItem( post, currentUrl, functions ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
@@ -30,6 +34,9 @@ export default class TagPages {
 		`;
 	}
 
+	/**
+	 * Render the tagged posts newest-first.
+	 */
 	renderPostsList( posts, currentUrl, functions ) {
 		return /* html */ `
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
@@ -39,13 +46,10 @@ export default class TagPages {
 	}
 
 	render( data ) {
-		const posts = data.collections?.[ data.tag ] || [];
-		const functions = data.functions;
-
 		return /* html */ `
-			<h1>Tagged “${ functions.escapeHtml( data.tag ) }”</h1>
+			<h1>Tagged “${ data.functions.escapeHtml( data.tag ) }”</h1>
 
-			${ this.renderPostsList( posts, data.page?.url, functions ) }
+			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url, data.functions ) }
 
 			<p>See <a href="/tags/">all tags</a>.</p>
 		`;

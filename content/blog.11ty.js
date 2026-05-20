@@ -8,6 +8,9 @@ export default class Blog {
 		};
 	}
 
+	/**
+	 * Render one post link and date for the archive list.
+	 */
 	renderPostListItem( post, currentUrl, functions ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
@@ -17,6 +20,9 @@ export default class Blog {
 		`;
 	}
 
+	/**
+	 * Render the archive list in post order.
+	 */
 	renderPostsList( posts, currentUrl, functions ) {
 		return /* html */ `
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
@@ -26,13 +32,10 @@ export default class Blog {
 	}
 
 	render( data ) {
-		const posts = data.collections?.posts || [];
-		const functions = data.functions;
-
 		return /* html */ `
 			<h1>Archive</h1>
 
-			${ this.renderPostsList( posts, data.page?.url, functions ) }
+			${ this.renderPostsList( data.collections?.posts || [], data.page?.url, data.functions ) }
 		`;
 	}
 }
