@@ -1,6 +1,6 @@
 export default {
 	tags: [
-		"posts"
+		'posts'
 	],
-	"layout": "layouts/post.njk",
+	layout: 'layouts/post.11ty.js',
 };
