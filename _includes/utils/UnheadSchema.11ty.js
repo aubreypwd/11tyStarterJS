@@ -1,7 +1,8 @@
 import { createSchemaOrgGraph } from '@unhead/schema-org';
 
-export default class SchemaOrg {
+export default class UnheadSchema {
 	render( data, schema = {} ) {
+
 		const graph = createSchemaOrgGraph();
 		const path = data.page?.url || '/';
 

@@ -1,36 +1,17 @@
+// Node
 import { readFileSync } from 'node:fs';
 
+// Navigation
 import navigationPlugin from '@11ty/eleventy-navigation';
-import { defineWebPage, defineWebSite } from '@unhead/schema-org';
 
-import SchemaOrg from '../SchemaOrg.11ty.js';
+// Partials
+import Head from '../partials/Head.11ty.js';
+import Body from '../partials/Body.11ty.js';
+import Schema from '../partials/Schema.11ty.js';
 
 export default class Base {
-	/**
-	 * Turn one navigation entry into a list item.
-	 */
-	renderNavigationItem( entry, currentUrl, functions ) {
-		const url = entry.url || entry.data?.page?.url || '';
-
-		return /* html */ `
-			<li class="nav-item">
-				<a href="${ functions.escapeHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ functions.escapeHtml( entry.title || entry.key || url ) }</a>
-			</li>
-		`;
-	}
-
-	/**
-	 * Build the header navigation list.
-	 */
-	renderNavigation( entries, currentUrl, functions ) {
-		return /* html */ `
-			<ul class="nav">
-				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl, functions ) ).join( '' ) }
-			</ul>
-		`;
-	}
-
 	render( data ) {
+
 		const currentUrl = data.page?.url || '';
 
 		return /* html */ `
@@ -43,27 +24,14 @@ export default class Base {
 					<meta name="description" content="${ data.functions.escapeHtml( data.description || data.metadata.description ) }">
 					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.functions.escapeHtml( data.metadata.title ) }">
 
-					${ new SchemaOrg().render( data, {
-						WebSite: defineWebSite( {
-							name: data.metadata.title,
-							description: data.metadata.description,
-							inLanguage: data.metadata.language,
-							url: data.metadata.url,
-						} ),
-						WebPage: defineWebPage( {
-							name: data.title || data.metadata.title,
-							description: data.description || data.metadata.description,
-							inLanguage: data.metadata.language,
-							url: new URL( data.page?.url || '/', data.metadata.url ).href,
-						} ),
-						...( data.layoutSchema || {} ),
-						...( data.pageSchema || {} ),
-					} ) }
+					${ new Schema().render( data, this ) }
 
 					<!-- The bundle plugin collects literal <style> and <script> blocks from layouts. -->
 					<style>${ readFileSync( new URL( '../../css/index.css', import.meta.url ), 'utf8' ) }</style>
 					<script type="module">${ readFileSync( new URL( '../../node_modules/@zachleat/heading-anchors/heading-anchors.js', import.meta.url ), 'utf8' ) }</script>
 					<style>${ this.getBundle( 'css' ) }</style>
+
+					${ new Head().render( data, this ) }
 				</head>
 				<body>
 					<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
@@ -90,8 +58,35 @@ export default class Base {
 					</footer>
 
 					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
+					${ new Body().render( data, this ) }
 				</body>
 			</html>
-		`.trimStart();
+		`
+			// Trim the start so we get <DOCTYPE> right away.
+			.trimStart();
+	}
+
+	/**
+	 * Turn one navigation entry into a list item.
+	 */
+	renderNavigationItem( entry, currentUrl, functions ) {
+		const url = entry.url || entry.data?.page?.url || '';
+
+		return /* html */ `
+			<li class="nav-item">
+				<a href="${ functions.escapeHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ functions.escapeHtml( entry.title || entry.key || url ) }</a>
+			</li>
+		`;
+	}
+
+	/**
+	 * Build the header navigation list.
+	 */
+	renderNavigation( entries, currentUrl, functions ) {
+		return /* html */ `
+			<ul class="nav">
+				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl, functions ) ).join( '' ) }
+			</ul>
+		`;
 	}
 }
