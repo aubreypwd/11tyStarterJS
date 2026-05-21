@@ -23,7 +23,8 @@
 - Remove helpers, filters, and includes when the last real call site is converted away.
 - When converting a Nunjucks file to `*.11ty.js`, remove the old file and any support code that becomes unused.
 - Use `*.11tydata.js` for shared folder-level post metadata such as tags and layout when several posts share it.
-- When converting markdown post bodies to `*.11ty.js`, keep the prose in `render()` and pass it through `data.functions.markdown`.
+- Blog posts under `content/blog` should stay as plain markdown files with simple YAML front matter.
+- When converting other markdown content to `*.11ty.js`, keep the prose in `render()` and pass it through `data.functions.markdown`.
 - When `data.functions.markdown` renders fenced code blocks, wire markdown-it to the syntaxhighlight plugin’s Markdown highlighter so ` ```lang ` fences become Prism HTML automatically.
 - In `*.11ty.js` layouts, add CSS and JS with literal `<style>` and `<script>` blocks in the returned HTML so the bundle plugin can collect them, and emit the collected output with `this.getBundle()` or `this.getBundleFileUrl()`.
 - Use a small `SchemaOrg.11ty.js` helper, or the same pattern in place, when a page needs JSON-LD output.
