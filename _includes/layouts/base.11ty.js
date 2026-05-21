@@ -16,13 +16,13 @@ export default class Base {
 
 		return /* html */ `
 			<!doctype html>
-			<html lang="${ data.functions.escapeHtml( data.metadata.language ) }">
+			<html lang="${ data.functions.escHtml( data.metadata.language ) }">
 				<head>
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>${ data.functions.escapeHtml( data.title || data.metadata.title ) }</title>
-					<meta name="description" content="${ data.functions.escapeHtml( data.description || data.metadata.description ) }">
-					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.functions.escapeHtml( data.metadata.title ) }">
+					<title>${ data.functions.escHtml( data.title || data.metadata.title ) }</title>
+					<meta name="description" content="${ data.functions.escHtml( data.description || data.metadata.description ) }">
+					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.functions.escHtml( data.metadata.title ) }">
 
 					${ new Schema().render( data, this ) }
 
@@ -37,7 +37,7 @@ export default class Base {
 					<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
 
 					<header>
-						<a href="/" class="home-link">${ data.functions.escapeHtml( data.metadata.title ) }</a>
+						<a href="/" class="home-link">${ data.functions.escHtml( data.metadata.title ) }</a>
 
 						<nav>
 							<h2 class="visually-hidden">Top level navigation menu</h2>
@@ -53,7 +53,7 @@ export default class Base {
 
 					<footer>
 						<p>
-							<em>Built with <a href="https://www.11ty.dev/">${ data.functions.escapeHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
+							<em>Built with <a href="https://www.11ty.dev/">${ data.functions.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
 						</p>
 					</footer>
 
@@ -74,7 +74,7 @@ export default class Base {
 
 		return /* html */ `
 			<li class="nav-item">
-				<a href="${ functions.escapeHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ functions.escapeHtml( entry.title || entry.key || url ) }</a>
+				<a href="${ functions.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ functions.escHtml( entry.title || entry.key || url ) }</a>
 			</li>
 		`;
 	}

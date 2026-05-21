@@ -11,7 +11,7 @@ export default class Tags {
 	renderTagListItem( tag, functions ) {
 		return /* html */ `
 			<li>
-				<a href="${ functions.escapeHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escapeHtml( tag ) }</a>
+				<a href="${ functions.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escHtml( tag ) }</a>
 			</li>
 		`;
 	}

@@ -24,7 +24,7 @@ export default function() {
 			return new Date().toISOString();
 		},
 
-		escapeHtml: ( content ) => {
+		escHtml: ( content ) => {
 			return String( content ?? '' )
 				.replace( /&/g, '&amp;' )
 				.replace( /</g, '&lt;' )

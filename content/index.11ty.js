@@ -16,8 +16,8 @@ export default class Index {
 	renderPostListItem( post, currentUrl, functions ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ functions.escapeHtml( post.url ) }" class="postlist-link">${ post.data?.title ? functions.escapeHtml( post.data.title ) : /* html */ `<code>${ functions.escapeHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ functions.escapeHtml( functions.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ functions.escapeHtml( functions.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+				<a href="${ functions.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? functions.escHtml( post.data.title ) : /* html */ `<code>${ functions.escHtml( post.url ) }</code>` }</a>
+				<time class="postlist-date" datetime="${ functions.escHtml( functions.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ functions.escHtml( functions.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}

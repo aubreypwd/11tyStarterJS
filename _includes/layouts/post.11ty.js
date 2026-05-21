@@ -36,7 +36,7 @@ export default class Post {
 	 */
 	renderTagItem( tag, functions ) {
 		return /* html */ `
-			<a href="${ functions.escapeHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escapeHtml( tag ) }</a>
+			<a href="${ functions.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escHtml( tag ) }</a>
 		`;
 	}
 
@@ -75,10 +75,10 @@ export default class Post {
 		return /* html */ `
 			<ul class="links-nextprev">
 				${ previousPost ? /* html */ `
-					<li class="links-nextprev-prev">← Previous<br> <a href="${ functions.escapeHtml( previousPost.url ) }">${ functions.escapeHtml( previousPost.data?.title || previousPost.url ) }</a></li>
+					<li class="links-nextprev-prev">← Previous<br> <a href="${ functions.escHtml( previousPost.url ) }">${ functions.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>
 				` : '' }
 				${ nextPost ? /* html */ `
-					<li class="links-nextprev-next">Next →<br><a href="${ functions.escapeHtml( nextPost.url ) }">${ functions.escapeHtml( nextPost.data?.title || nextPost.url ) }</a></li>
+					<li class="links-nextprev-next">Next →<br><a href="${ functions.escHtml( nextPost.url ) }">${ functions.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>
 				` : '' }
 			</ul>
 		`;
@@ -92,10 +92,10 @@ export default class Post {
 			<style>${ prismThemeCss }</style>
 			<style>${ prismDiffCss }</style>
 
-			<h1>${ data.functions.escapeHtml( data.title ) }</h1>
+			<h1>${ data.functions.escHtml( data.title ) }</h1>
 
 			<ul class="post-metadata">
-				<li><time datetime="${ data.functions.escapeHtml( data.functions.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ data.functions.escapeHtml( data.functions.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
+				<li><time datetime="${ data.functions.escHtml( data.functions.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ data.functions.escHtml( data.functions.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
 				${ this.renderTagsList( data.functions.filterTagList( data.tags || [] ), data.functions ) }
 			</ul>
 

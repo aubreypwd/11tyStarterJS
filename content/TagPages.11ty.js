@@ -28,8 +28,8 @@ export default class TagPages {
 	renderPostListItem( post, currentUrl, functions ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ functions.escapeHtml( post.url ) }" class="postlist-link">${ post.data?.title ? functions.escapeHtml( post.data.title ) : /* html */ `<code>${ functions.escapeHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ functions.escapeHtml( functions.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ functions.escapeHtml( functions.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+				<a href="${ functions.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? functions.escHtml( post.data.title ) : /* html */ `<code>${ functions.escHtml( post.url ) }</code>` }</a>
+				<time class="postlist-date" datetime="${ functions.escHtml( functions.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ functions.escHtml( functions.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}
@@ -47,7 +47,7 @@ export default class TagPages {
 
 	render( data ) {
 		return /* html */ `
-			<h1>Tagged “${ data.functions.escapeHtml( data.tag ) }”</h1>
+			<h1>Tagged “${ data.functions.escHtml( data.tag ) }”</h1>
 
 			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url, data.functions ) }
 
