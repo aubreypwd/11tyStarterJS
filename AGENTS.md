@@ -13,6 +13,7 @@
 ## Template Style
 
 - Prefer `*.11ty.js` files for new or modified Eleventy templates, layouts, and includes.
+- Use PascalCase filenames for class-based `*.11ty.js` files so the filename matches the exported class name. Keep any output extension such as `.xml` in the filename when the template needs it.
 - Keep templates readable and template-first: when possible, have `render()` directly return the HTML template literal.
 - Use `data()` in `*.11ty.js` files for template data such as `layout`, `permalink`, and `eleventyNavigation`.
 - Put repeated formatting, tag, and markdown helpers in `_data/functions.js` only when this project actually uses them.

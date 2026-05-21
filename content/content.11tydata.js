@@ -1,3 +1,3 @@
 export default {
-	layout: 'layouts/home.11ty.js',
+	layout: 'layouts/Home.11ty.js',
 };

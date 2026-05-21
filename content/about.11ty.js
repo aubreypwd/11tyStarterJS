@@ -1,6 +1,7 @@
 export default class About {
 	data() {
 		return {
+			permalink: '/about/',
 			eleventyNavigation: {
 				key: 'About',
 				order: 3,

@@ -2,5 +2,5 @@ export default {
 	tags: [
 		'posts'
 	],
-	layout: 'layouts/post.11ty.js',
+	layout: 'layouts/Post.11ty.js',
 };

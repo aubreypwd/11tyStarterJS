@@ -1,6 +1,7 @@
 export default class Index {
 	data() {
 		return {
+			permalink: '/',
 			eleventyNavigation: {
 				key: 'Home',
 				order: 1,

@@ -5,7 +5,7 @@ const messageBoxCss = readFileSync( new URL( '../../css/message-box.css', import
 export default class Home {
 	data() {
 		return {
-			layout: 'layouts/base.11ty.js',
+			layout: 'layouts/Base.11ty.js',
 		};
 	}
 
@@ -18,7 +18,7 @@ export default class Home {
 				<ol>
 					<li>Edit <code>_data/metadata.js</code> with your blog’s information.</li>
 					<li>(Optional) Edit <code>eleventy.config.js</code> with your <a href="https://www.11ty.dev/docs/config/">configuration preferences</a>.</li>
-					<li>Delete this message from <code>_includes/layouts/home.11ty.js</code>.</li>
+					<li>Delete this message from <code>_includes/layouts/Home.11ty.js</code>.</li>
 				</ol>
 				<p><em>This is an <a href="https://www.11ty.dev/">Eleventy project</a> created from the <a href="https://github.com/11ty/11tyStarterJS"><code>11tyStarterJS</code> repo</a>.</em></p>
 			</div>

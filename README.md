@@ -97,20 +97,20 @@ Deploy this Eleventy site in just a few clicks on these services:
 
 ### Implementation Notes
 
-- `content/about.11ty.js` is an example of a content page.
+- `content/About.11ty.js` is an example of a content page.
 - `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
-- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top level site navigation. This is in use on `content/index.11ty.js` and `content/about.11ty.js`.
+- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top level site navigation. This is in use on `content/Index.11ty.js` and `content/About.11ty.js`.
 - Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
 - The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
 - This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
-	- `_includes/layouts/base.11ty.js`: the top level HTML structure
-	- `_includes/layouts/home.11ty.js`: the home page template (wrapped into `base.11ty.js`)
-	- `_includes/layouts/post.11ty.js`: the blog post template (wrapped into `base.11ty.js`)
+	- `_includes/layouts/Base.11ty.js`: the top level HTML structure
+	- `_includes/layouts/Home.11ty.js`: the home page template (wrapped into `Base.11ty.js`)
+	- `_includes/layouts/Post.11ty.js`: the blog post template (wrapped into `Base.11ty.js`)
 - The archive and tag pages render their post lists directly in `*.11ty.js` templates now, so there is no shared `postslist.njk` include.
 
 #### Content Security Policy
 
 If your site enforces a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (as public-facing sites should), you have a few choices (pick one):
 
-1. In `base.11ty.js`, replace the inline CSS bundle output with a `this.getBundleFileUrl( 'css' )` link if you need a separate stylesheet file.
+1. In `Base.11ty.js`, replace the inline CSS bundle output with a `this.getBundleFileUrl( 'css' )` link if you need a separate stylesheet file.
 2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).

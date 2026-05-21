@@ -8,7 +8,7 @@ const prismDiffCss = readFileSync( new URL( '../../css/prism-diff.css', import.m
 export default class Post {
 	data() {
 		return {
-			layout: 'layouts/base.11ty.js',
+			layout: 'layouts/Base.11ty.js',
 			eleventyComputed: {
 				/**
 				 * Build the Article schema for this post.

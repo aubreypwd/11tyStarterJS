@@ -1,4 +1,10 @@
 export default class Tags {
+	data() {
+		return {
+			permalink: '/tags/',
+		};
+	}
+
 	/**
 	 * Turn one tag into a link to its tag archive page.
 	 */

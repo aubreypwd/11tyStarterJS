@@ -1,6 +1,7 @@
 export default class Blog {
 	data() {
 		return {
+			permalink: '/blog/',
 			eleventyNavigation: {
 				key: 'Archive',
 				order: 2,
