@@ -3,6 +3,7 @@ import { createSchemaOrgGraph } from '@unhead/schema-org';
 export default class SchemaOrg {
 	render( data, schema = {} ) {
 		const graph = createSchemaOrgGraph();
+		const path = data.page?.url || '/';
 
 		graph.push( Object.values( schema ).filter( Boolean ) );
 
@@ -12,11 +13,11 @@ export default class SchemaOrg {
 					'@context': 'https://schema.org',
 					'@graph': graph.resolveGraph( {
 						host: data.metadata.url,
-						path: data.page?.url || '/',
+						path,
 						inLanguage: data.metadata.language,
 						title: data.title || data.metadata.title,
 						description: data.description || data.metadata.description,
-						trailingSlash: true,
+						trailingSlash: path === '/' || path.endsWith( '/' ),
 					} ),
 				}, null, 2 ) }
 			</script>
