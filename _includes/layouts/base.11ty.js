@@ -5,9 +5,6 @@ import { defineWebPage, defineWebSite } from '@unhead/schema-org';
 
 import SchemaOrg from '../SchemaOrg.11ty.js';
 
-const baseCss = readFileSync( new URL( '../../css/index.css', import.meta.url ), 'utf8' );
-const headingAnchorsJs = readFileSync( new URL( '../../node_modules/@zachleat/heading-anchors/heading-anchors.js', import.meta.url ), 'utf8' );
-
 export default class Base {
 	/**
 	 * Turn one navigation entry into a list item.
@@ -64,9 +61,8 @@ export default class Base {
 					} ) }
 
 					<!-- The bundle plugin collects literal <style> and <script> blocks from layouts. -->
-					<style>${ baseCss }</style>
-					<script type="module">${ headingAnchorsJs }</script>
-
+					<style>${ readFileSync( new URL( '../../css/index.css', import.meta.url ), 'utf8' ) }</style>
+					<script type="module">${ readFileSync( new URL( '../../node_modules/@zachleat/heading-anchors/heading-anchors.js', import.meta.url ), 'utf8' ) }</script>
 					<style>${ this.getBundle( 'css' ) }</style>
 				</head>
 				<body>
@@ -93,7 +89,6 @@ export default class Base {
 						</p>
 					</footer>
 
-					<!-- This page ${ data.functions.escapeHtml( currentUrl ) } was built on ${ data.functions.escapeHtml( data.functions.currentBuildDate() ) } -->
 					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
 				</body>
 			</html>
