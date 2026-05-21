@@ -16,17 +16,17 @@
 - Use PascalCase filenames for class-based `*.11ty.js` files so the filename matches the exported class name. Keep any output extension such as `.xml` in the filename when the template needs it.
 - Keep templates readable and template-first: when possible, have `render()` directly return the HTML template literal.
 - Use `data()` in `*.11ty.js` files for template data such as `layout`, `permalink`, and `eleventyNavigation`.
-- Put repeated formatting, tag, and markdown helpers in `_data/functions.js` only when this project actually uses them.
+- Put repeated formatting, tag, and markdown helpers in `_data/fn.js` only when this project actually uses them.
 - Before adding a helper, check for a real current call site or an immediate near-term need in this project.
 - Do not copy helpers from the old project just because they existed there.
 - Source the site origin and canonical URL from `_data/metadata.js` instead of hardcoding the same base URL in config or templates.
-- Prefer `_data/functions.js` for simple reusable build helpers like `currentBuildDate` instead of adding config shortcodes.
+- Prefer `_data/fn.js` for simple reusable build helpers like `currentBuildDate` instead of adding config shortcodes.
 - Remove helpers, filters, and includes when the last real call site is converted away.
 - When converting a Nunjucks file to `*.11ty.js`, remove the old file and any support code that becomes unused.
 - Use `*.11tydata.js` for shared folder-level post metadata such as tags and layout when several posts share it.
 - Blog posts under `content/blog` should stay as plain markdown files with simple YAML front matter.
-- When converting other markdown content to `*.11ty.js`, keep the prose in `render()` and pass it through `data.functions.markdown`.
-- When `data.functions.markdown` renders fenced code blocks, wire markdown-it to the syntaxhighlight plugin’s Markdown highlighter so ` ```lang ` fences become Prism HTML automatically.
+- When converting other markdown content to `*.11ty.js`, keep the prose in `render()` and pass it through `data.fn.markdown`.
+- When `data.fn.markdown` renders fenced code blocks, wire markdown-it to the syntaxhighlight plugin’s Markdown highlighter so ` ```lang ` fences become Prism HTML automatically.
 - In `*.11ty.js` layouts, add CSS and JS with literal `<style>` and `<script>` blocks in the returned HTML so the bundle plugin can collect them, and emit the collected output with `this.getBundle()` or `this.getBundleFileUrl()`.
 - Use a small `SchemaOrg.11ty.js` helper, or the same pattern in place, when a page needs JSON-LD output.
 - Base layouts should always emit `WebSite` and `WebPage` schema, and post layouts should add `Article` through `layoutSchema` or `pageSchema` only when the content actually needs it.
@@ -39,7 +39,7 @@
 - Do not create helper methods just to rename a simple value, fallback, or ternary.
 - Use helper methods only when they render a meaningful chunk, perform a non-trivial transformation, or handle branching that is too complex to read inline.
 - Do not reduce everything into one large `render()` when named class methods improve readability.
-- Add shared escaping helpers to `_data/functions.js` only when multiple templates need them and there is a real call site.
+- Add shared escaping helpers to `_data/fn.js` only when multiple templates need them and there is a real call site.
 - Use `/** ... */` docblocks for functions in `*.11ty.js` files except `data()` and `render()`, and keep the text short and plain language.
 - Prefix returned template literals with an appropriate language comment, such as `/* html */`, `/* css */`, `/* xml */`, or `/* txt */`.
 

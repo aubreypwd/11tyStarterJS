@@ -20,8 +20,8 @@ export default class Sitemap {
 
 				return /* xml */ `
 					<url>
-						<loc>${ data.functions.escHtml( absoluteUrl ) }</loc>
-						<lastmod>${ data.functions.escHtml( data.functions.dateToFormat( page.date, 'yyyy-LL-dd' ) ) }</lastmod>
+						<loc>${ data.fn.escHtml( absoluteUrl ) }</loc>
+						<lastmod>${ data.fn.escHtml( data.fn.dateToFormat( page.date, 'yyyy-LL-dd' ) ) }</lastmod>
 					</url>
 				`;
 			} ).join( '' ) }

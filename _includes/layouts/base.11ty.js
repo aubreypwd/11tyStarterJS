@@ -16,13 +16,13 @@ export default class Base {
 
 		return /* html */ `
 			<!doctype html>
-			<html lang="${ data.functions.escHtml( data.metadata.language ) }">
+			<html lang="${ data.fn.escHtml( data.metadata.language ) }">
 				<head>
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>${ data.functions.escHtml( data.title || data.metadata.title ) }</title>
-					<meta name="description" content="${ data.functions.escHtml( data.description || data.metadata.description ) }">
-					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.functions.escHtml( data.metadata.title ) }">
+					<title>${ data.fn.escHtml( data.title || data.metadata.title ) }</title>
+					<meta name="description" content="${ data.fn.escHtml( data.description || data.metadata.description ) }">
+					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.metadata.title ) }">
 
 					${ new Schema().render( data, this ) }
 
@@ -37,11 +37,11 @@ export default class Base {
 					<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
 
 					<header>
-						<a href="/" class="home-link">${ data.functions.escHtml( data.metadata.title ) }</a>
+						<a href="/" class="home-link">${ data.fn.escHtml( data.metadata.title ) }</a>
 
 						<nav>
 							<h2 class="visually-hidden">Top level navigation menu</h2>
-							${ this.renderNavigation( navigationPlugin.navigation.find( data.collections?.all || [] ), currentUrl, data.functions ) }
+							${ this.renderNavigation( navigationPlugin.navigation.find( data.collections?.all || [] ), currentUrl, data.fn ) }
 						</nav>
 					</header>
 
@@ -53,7 +53,7 @@ export default class Base {
 
 					<footer>
 						<p>
-							<em>Built with <a href="https://www.11ty.dev/">${ data.functions.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
+							<em>Built with <a href="https://www.11ty.dev/">${ data.fn.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
 						</p>
 					</footer>
 
@@ -69,12 +69,12 @@ export default class Base {
 	/**
 	 * Turn one navigation entry into a list item.
 	 */
-	renderNavigationItem( entry, currentUrl, functions ) {
+	renderNavigationItem( entry, currentUrl, fn ) {
 		const url = entry.url || entry.data?.page?.url || '';
 
 		return /* html */ `
 			<li class="nav-item">
-				<a href="${ functions.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ functions.escHtml( entry.title || entry.key || url ) }</a>
+				<a href="${ fn.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ fn.escHtml( entry.title || entry.key || url ) }</a>
 			</li>
 		`;
 	}
@@ -82,10 +82,10 @@ export default class Base {
 	/**
 	 * Build the header navigation list.
 	 */
-	renderNavigation( entries, currentUrl, functions ) {
+	renderNavigation( entries, currentUrl, fn ) {
 		return /* html */ `
 			<ul class="nav">
-				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl, functions ) ).join( '' ) }
+				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl, fn ) ).join( '' ) }
 			</ul>
 		`;
 	}

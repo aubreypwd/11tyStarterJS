@@ -8,10 +8,10 @@ export default class Tags {
 	/**
 	 * Turn one tag into a link to its tag archive page.
 	 */
-	renderTagListItem( tag, functions ) {
+	renderTagListItem( tag, fn ) {
 		return /* html */ `
 			<li>
-				<a href="${ functions.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ functions.escHtml( tag ) }</a>
+				<a href="${ fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ fn.escHtml( tag ) }</a>
 			</li>
 		`;
 	}
@@ -22,9 +22,9 @@ export default class Tags {
 			<h1>Tags</h1>
 
 			<ul>
-				${ data.functions.filterTagList( Object.keys( data.collections || {} ) )
+				${ data.fn.filterTagList( Object.keys( data.collections || {} ) )
 					.sort( ( a, b ) => b.localeCompare( a ) )
-					.map( ( tag ) => this.renderTagListItem( tag, data.functions ) )
+					.map( ( tag ) => this.renderTagListItem( tag, data.fn ) )
 					.join( '' ) }
 			</ul>
 		`;

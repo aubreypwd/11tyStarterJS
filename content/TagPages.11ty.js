@@ -25,11 +25,11 @@ export default class TagPages {
 	/**
 	 * Render one tagged post in the list.
 	 */
-	renderPostListItem( post, currentUrl, functions ) {
+	renderPostListItem( post, currentUrl, fn ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ functions.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? functions.escHtml( post.data.title ) : /* html */ `<code>${ functions.escHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ functions.escHtml( functions.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ functions.escHtml( functions.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+				<a href="${ fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? fn.escHtml( post.data.title ) : /* html */ `<code>${ fn.escHtml( post.url ) }</code>` }</a>
+				<time class="postlist-date" datetime="${ fn.escHtml( fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ fn.escHtml( fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}
@@ -37,19 +37,19 @@ export default class TagPages {
 	/**
 	 * Render the tagged posts newest-first.
 	 */
-	renderPostsList( posts, currentUrl, functions ) {
+	renderPostsList( posts, currentUrl, fn ) {
 		return /* html */ `
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
-				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl, functions ) ).join( '' ) }
+				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl, fn ) ).join( '' ) }
 			</ol>
 		`;
 	}
 
 	render( data ) {
 		return /* html */ `
-			<h1>Tagged “${ data.functions.escHtml( data.tag ) }”</h1>
+			<h1>Tagged “${ data.fn.escHtml( data.tag ) }”</h1>
 
-			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url, data.functions ) }
+			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url, data.fn ) }
 
 			<p>See <a href="/tags/">all tags</a>.</p>
 		`;

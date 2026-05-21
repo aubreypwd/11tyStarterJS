@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
-import markdownPrismJsOptions from '../node_modules/@11ty/eleventy-plugin-syntaxhighlight/src/markdownSyntaxHighlightOptions.js';
+import markdownPrismJsOptions from '@11ty/eleventy-plugin-syntaxhighlight/src/markdownSyntaxHighlightOptions.js';
 
 const markdownLibrary = markdownIt( {
 	html: true,
