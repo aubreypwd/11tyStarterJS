@@ -39,6 +39,7 @@
 - Do not create helper methods just to rename a simple value, fallback, or ternary.
 - Use helper methods only when they render a meaningful chunk, perform a non-trivial transformation, or handle branching that is too complex to read inline.
 - Do not reduce everything into one large `render()` when named class methods improve readability.
+- When a `*.11ty.js` class has helper methods that reuse `data.fn`, assign `this.fn = data.fn` at the top of `render()` and use `this.fn` inside those helpers instead of threading `fn` through every call.
 - Add shared escaping helpers to `_data/fn.js` only when multiple templates need them and there is a real call site.
 - Use `/** ... */` docblocks for functions in `*.11ty.js` files except `data()` and `render()`, and keep the text short and plain language.
 - Prefix returned template literals with an appropriate language comment, such as `/* html */`, `/* css */`, `/* xml */`, or `/* txt */`.

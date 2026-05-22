@@ -1,4 +1,5 @@
 export default class TagPages {
+
 	data() {
 		return {
 			pagination: {
@@ -22,14 +23,27 @@ export default class TagPages {
 		};
 	}
 
+	render( data ) {
+
+		this.fn = data.fn;
+
+		return /* html */ `
+			<h1>Tagged “${ this.fn.escHtml( data.tag ) }”</h1>
+
+			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url ) }
+
+			<p>See <a href="/tags/">all tags</a>.</p>
+		`;
+	}
+
 	/**
 	 * Render one tagged post in the list.
 	 */
-	renderPostListItem( post, currentUrl, fn ) {
+	renderPostListItem( post, currentUrl ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? fn.escHtml( post.data.title ) : /* html */ `<code>${ fn.escHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ fn.escHtml( fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ fn.escHtml( fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+				<a href="${ this.fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? this.fn.escHtml( post.data.title ) : /* html */ `<code>${ this.fn.escHtml( post.url ) }</code>` }</a>
+				<time class="postlist-date" datetime="${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}
@@ -37,21 +51,11 @@ export default class TagPages {
 	/**
 	 * Render the tagged posts newest-first.
 	 */
-	renderPostsList( posts, currentUrl, fn ) {
+	renderPostsList( posts, currentUrl ) {
 		return /* html */ `
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
-				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl, fn ) ).join( '' ) }
+				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl ) ).join( '' ) }
 			</ol>
-		`;
-	}
-
-	render( data ) {
-		return /* html */ `
-			<h1>Tagged “${ data.fn.escHtml( data.tag ) }”</h1>
-
-			${ this.renderPostsList( data.collections?.[ data.tag ] || [], data.page?.url, data.fn ) }
-
-			<p>See <a href="/tags/">all tags</a>.</p>
 		`;
 	}
 }

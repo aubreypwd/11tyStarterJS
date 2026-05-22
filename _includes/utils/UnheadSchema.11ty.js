@@ -1,7 +1,11 @@
 import { createSchemaOrgGraph } from '@unhead/schema-org';
 
 export default class UnheadSchema {
+
+	// Render
 	render( data, schema = {} ) {
+
+		this.fn = data.fn;
 
 		const graph = createSchemaOrgGraph();
 		const path = data.page?.url || '/';

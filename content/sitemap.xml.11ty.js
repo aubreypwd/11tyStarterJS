@@ -8,6 +8,8 @@ export default class Sitemap {
 	}
 
 	render( data ) {
+		this.fn = data.fn;
+
 		return /* xml */ `
 			<?xml version="1.0" encoding="utf-8"?>
 			<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -20,8 +22,8 @@ export default class Sitemap {
 
 				return /* xml */ `
 					<url>
-						<loc>${ data.fn.escHtml( absoluteUrl ) }</loc>
-						<lastmod>${ data.fn.escHtml( data.fn.dateToFormat( page.date, 'yyyy-LL-dd' ) ) }</lastmod>
+						<loc>${ this.fn.escHtml( absoluteUrl ) }</loc>
+						<lastmod>${ this.fn.escHtml( this.fn.dateToFormat( page.date, 'yyyy-LL-dd' ) ) }</lastmod>
 					</url>
 				`;
 			} ).join( '' ) }

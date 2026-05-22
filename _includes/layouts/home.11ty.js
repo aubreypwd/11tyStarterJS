@@ -3,13 +3,19 @@ import { readFileSync } from 'node:fs';
 const messageBoxCss = readFileSync( new URL( '../../css/message-box.css', import.meta.url ), 'utf8' );
 
 export default class Home {
+
+	// Data
 	data() {
 		return {
 			layout: 'layouts/Base.11ty.js',
 		};
 	}
 
+	// Render
 	render( data ) {
+
+		this.fn = data.fn;
+
 		return /* html */ `
 			<style>${ messageBoxCss }</style>
 

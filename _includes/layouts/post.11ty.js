@@ -6,10 +6,13 @@ const prismThemeCss = readFileSync( new URL( '../../node_modules/prismjs/themes/
 const prismDiffCss = readFileSync( new URL( '../../css/prism-diff.css', import.meta.url ), 'utf8' );
 
 export default class Post {
+
+	// Data
 	data() {
 		return {
 			layout: 'layouts/Base.11ty.js',
 			eleventyComputed: {
+
 				/**
 				 * Build the Article schema for this post.
 				 */
@@ -31,26 +34,51 @@ export default class Post {
 		};
 	}
 
+	// Render
+	render( data ) {
+
+		this.fn = data.fn;
+
+		// Prefer Eleventy’s page date when it exists, otherwise use the post date.
+		const date = data.page?.date || data.date;
+
+		return /* html */ `
+			<style>${ prismThemeCss }</style>
+			<style>${ prismDiffCss }</style>
+
+			<h1>${ this.fn.escHtml( data.title ) }</h1>
+
+			<ul class="post-metadata">
+				<li><time datetime="${ this.fn.escHtml( this.fn.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ this.fn.escHtml( this.fn.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
+				${ this.renderTagsList( this.fn.filterTagList( data.tags || [] ) ) }
+			</ul>
+
+			${ data.content }
+
+			${ this.renderPreviousNextLinks( data.collections?.posts || [], data.page?.url || '' ) }
+		`;
+	}
+
 	/**
 	 * Turn one tag into a link to its archive page.
 	 */
-	renderTagItem( tag, fn ) {
+	renderTagItem( tag ) {
 		return /* html */ `
-			<a href="${ fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ fn.escHtml( tag ) }</a>
+			<a href="${ this.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ this.fn.escHtml( tag ) }</a>
 		`;
 	}
 
 	/**
 	 * Hide the tag list when a post has no tags.
 	 */
-	renderTagsList( tags, fn ) {
+	renderTagsList( tags ) {
 		if ( ! tags.length ) {
 			return '';
 		}
 
 		return tags.map( ( tag, index ) => {
 			return /* html */ `
-				<li>${ this.renderTagItem( tag, fn ) }${ index < tags.length - 1 ? ', ' : '' }</li>
+				<li>${ this.renderTagItem( tag ) }${ index < tags.length - 1 ? ', ' : '' }</li>
 			`;
 		} ).join( '' );
 	}
@@ -58,7 +86,7 @@ export default class Post {
 	/**
 	 * Link to the neighboring posts in the archive.
 	 */
-	renderPreviousNextLinks( posts, currentUrl, fn ) {
+	renderPreviousNextLinks( posts, currentUrl ) {
 		const currentIndex = posts.findIndex( ( post ) => post.url === currentUrl );
 
 		if ( currentIndex === -1 ) {
@@ -75,33 +103,12 @@ export default class Post {
 		return /* html */ `
 			<ul class="links-nextprev">
 				${ previousPost ? /* html */ `
-					<li class="links-nextprev-prev">← Previous<br> <a href="${ fn.escHtml( previousPost.url ) }">${ fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>
+					<li class="links-nextprev-prev">← Previous<br> <a href="${ this.fn.escHtml( previousPost.url ) }">${ this.fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>
 				` : '' }
 				${ nextPost ? /* html */ `
-					<li class="links-nextprev-next">Next →<br><a href="${ fn.escHtml( nextPost.url ) }">${ fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>
+					<li class="links-nextprev-next">Next →<br><a href="${ this.fn.escHtml( nextPost.url ) }">${ this.fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>
 				` : '' }
 			</ul>
-		`;
-	}
-
-	render( data ) {
-		// Prefer Eleventy’s page date when it exists, otherwise use the post date.
-		const date = data.page?.date || data.date;
-
-		return /* html */ `
-			<style>${ prismThemeCss }</style>
-			<style>${ prismDiffCss }</style>
-
-			<h1>${ data.fn.escHtml( data.title ) }</h1>
-
-			<ul class="post-metadata">
-				<li><time datetime="${ data.fn.escHtml( data.fn.dateToFormat( date, 'yyyy-LL-dd' ) ) }">${ data.fn.escHtml( data.fn.dateToFormat( date, 'LLLL yyyy' ) ) }</time></li>
-				${ this.renderTagsList( data.fn.filterTagList( data.tags || [] ), data.fn ) }
-			</ul>
-
-			${ data.content }
-
-			${ this.renderPreviousNextLinks( data.collections?.posts || [], data.page?.url || '', data.fn ) }
 		`;
 	}
 }

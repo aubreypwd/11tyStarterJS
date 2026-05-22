@@ -12,11 +12,11 @@ export default class Blog {
 	/**
 	 * Render one post link and date for the archive list.
 	 */
-	renderPostListItem( post, currentUrl, fn ) {
+	renderPostListItem( post, currentUrl ) {
 		return /* html */ `
 			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? fn.escHtml( post.data.title ) : /* html */ `<code>${ fn.escHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ fn.escHtml( fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ fn.escHtml( fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+				<a href="${ this.fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? this.fn.escHtml( post.data.title ) : /* html */ `<code>${ this.fn.escHtml( post.url ) }</code>` }</a>
+				<time class="postlist-date" datetime="${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}
@@ -24,19 +24,21 @@ export default class Blog {
 	/**
 	 * Render the archive list in post order.
 	 */
-	renderPostsList( posts, currentUrl, fn ) {
+	renderPostsList( posts, currentUrl ) {
 		return /* html */ `
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
-				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl, fn ) ).join( '' ) }
+				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl ) ).join( '' ) }
 			</ol>
 		`;
 	}
 
 	render( data ) {
+		this.fn = data.fn;
+
 		return /* html */ `
 			<h1>Archive</h1>
 
-			${ this.renderPostsList( data.collections?.posts || [], data.page?.url, data.fn ) }
+			${ this.renderPostsList( data.collections?.posts || [], data.page?.url ) }
 		`;
 	}
 }

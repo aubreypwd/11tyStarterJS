@@ -10,19 +10,23 @@ import Body from '../partials/Body.11ty.js';
 import Schema from '../partials/Schema.11ty.js';
 
 export default class Base {
+
+	// Render
 	render( data ) {
+
+		this.fn = data.fn;
 
 		const currentUrl = data.page?.url || '';
 
 		return /* html */ `
 			<!doctype html>
-			<html lang="${ data.fn.escHtml( data.metadata.language ) }">
+			<html lang="${ this.fn.escHtml( data.metadata.language ) }">
 				<head>
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>${ data.fn.escHtml( data.title || data.metadata.title ) }</title>
-					<meta name="description" content="${ data.fn.escHtml( data.description || data.metadata.description ) }">
-					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.metadata.title ) }">
+					<title>${ this.fn.escHtml( data.title || data.metadata.title ) }</title>
+					<meta name="description" content="${ this.fn.escHtml( data.description || data.metadata.description ) }">
+					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ this.fn.escHtml( data.metadata.title ) }">
 
 					${ new Schema().render( data, this ) }
 
@@ -37,11 +41,11 @@ export default class Base {
 					<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
 
 					<header>
-						<a href="/" class="home-link">${ data.fn.escHtml( data.metadata.title ) }</a>
+						<a href="/" class="home-link">${ this.fn.escHtml( data.metadata.title ) }</a>
 
 						<nav>
 							<h2 class="visually-hidden">Top level navigation menu</h2>
-							${ this.renderNavigation( navigationPlugin.navigation.find( data.collections?.all || [] ), currentUrl, data.fn ) }
+							${ this.renderNavigation( navigationPlugin.navigation.find( data.collections?.all || [] ), currentUrl ) }
 						</nav>
 					</header>
 
@@ -53,12 +57,12 @@ export default class Base {
 
 					<footer>
 						<p>
-							<em>Built with <a href="https://www.11ty.dev/">${ data.fn.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
+							<em>Built with <a href="https://www.11ty.dev/">${ this.fn.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
 						</p>
 					</footer>
 
 					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
-					${ new Body().render( data, this ) }
+					${ new Body( this.fn ).render( data, this ) }
 				</body>
 			</html>
 		`
@@ -69,12 +73,12 @@ export default class Base {
 	/**
 	 * Turn one navigation entry into a list item.
 	 */
-	renderNavigationItem( entry, currentUrl, fn ) {
+	renderNavigationItem( entry, currentUrl ) {
 		const url = entry.url || entry.data?.page?.url || '';
 
 		return /* html */ `
 			<li class="nav-item">
-				<a href="${ fn.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ fn.escHtml( entry.title || entry.key || url ) }</a>
+				<a href="${ this.fn.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ this.fn.escHtml( entry.title || entry.key || url ) }</a>
 			</li>
 		`;
 	}
@@ -82,10 +86,10 @@ export default class Base {
 	/**
 	 * Build the header navigation list.
 	 */
-	renderNavigation( entries, currentUrl, fn ) {
+	renderNavigation( entries, currentUrl ) {
 		return /* html */ `
 			<ul class="nav">
-				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl, fn ) ).join( '' ) }
+				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl ) ).join( '' ) }
 			</ul>
 		`;
 	}
