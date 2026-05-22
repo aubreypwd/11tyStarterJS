@@ -21,6 +21,7 @@
 - Do not copy helpers from the old project just because they existed there.
 - Source the site origin and canonical URL from `_data/metadata.js` instead of hardcoding the same base URL in config or templates.
 - Prefer `_data/fn.js` for simple reusable build helpers like `currentBuildDate` instead of adding config shortcodes.
+- Document every helper in `_data/fn.js` with a WordPress-style docblock that includes a short summary, a blank line, and the right `@param` and `@return` tags.
 - Remove helpers, filters, and includes when the last real call site is converted away.
 - When converting a Nunjucks file to `*.11ty.js`, remove the old file and any support code that becomes unused.
 - Use `*.11tydata.js` for shared folder-level post metadata such as tags and layout when several posts share it.
