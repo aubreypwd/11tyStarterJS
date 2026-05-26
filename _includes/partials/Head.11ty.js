@@ -6,7 +6,7 @@ export default class Head {
 		this.context = context;
 
 		return /* html */ `
-		<!-- Place your own <head> content here -->
+			<!-- Place your own <head> content here -->
 		`;
 	}
 }

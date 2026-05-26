@@ -1,5 +1,10 @@
-import UnheadSchema from '../utils/UnheadSchema.11ty.js';
-import { defineWebPage, defineWebSite } from '@unhead/schema-org';
+import UnheadSchema
+	from '../utils/UnheadSchema.11ty.js';
+
+import {
+	defineWebPage,
+	defineWebSite
+} from '@unhead/schema-org';
 
 export default class Schema {
 
@@ -10,18 +15,21 @@ export default class Schema {
 		this.context = context;
 
 		return new UnheadSchema().render( data, {
+
 			WebSite: defineWebSite( {
 				name: data.metadata.title,
 				description: data.metadata.description,
 				inLanguage: data.metadata.language,
-				url: data.metadata.url,
+				url: data.metadata.url, // Website URL.
 			} ),
+
 			WebPage: defineWebPage( {
-				name: data.title || data.metadata.title,
-				description: data.description || data.metadata.description,
+				name: data.metadata.title,
+				description: data.metadata.description,
 				inLanguage: data.metadata.language,
-				url: new URL( data.page?.url || '/', data.metadata.url ).href,
+				url: data.url, // Page URL.
 			} ),
+
 			...( data.layoutSchema || {} ),
 			...( data.pageSchema || {} ),
 		} );

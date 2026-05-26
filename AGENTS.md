@@ -60,7 +60,7 @@
 
 ## JavaScript Formatting
 
-- Follow WordPress Coding Standards as closely as practical for JavaScript style.
+- Follow WordPress Coding Standards as closely as possible for JavaScript, HTML, and CSS. Only deviate when Eleventy or a local repo rule requires it.
 - Use tabs for indentation.
 - Include spaces inside function call parentheses and conditional expressions, for example `render( data )` and `${ post.url === currentUrl ? ' active' : '' }`.
 - Use single quotes for simple JavaScript strings and string comparisons.
@@ -69,6 +69,22 @@
 - Do not use double quotes for JavaScript strings unless there is a specific reason.
 - Use consecutive `//` comment lines for toggleable examples or options that may be uncommented later; use `/* ... */` for explanatory prose and longer documentation.
 - Keep `/* html */` on nested HTML fragments too, including inline fallback HTML such as `<code>`.
+
+## HTML And CSS Formatting
+
+- Follow WordPress Coding Standards as closely as possible for HTML.
+- Follow WordPress CSS Coding Standards for CSS wherever the syntax maps cleanly.
+- Use tabs for indentation in HTML and CSS.
+- Keep nested HTML and nested CSS blocks indented clearly and consistently.
+- Always indent code inside `<script>` tags one tab deeper than the `<script>` tag itself, and keep the closing `</script>` aligned with the opening tag.
+- Put each selector in a selector list on its own line.
+- Put one space before opening braces, including `@media (min-width: 60em) {`.
+- Indent declarations and nested rules with one tab per level.
+- Put one blank line between sibling nested rules when it improves readability.
+- Use spaces around operators inside CSS functions, such as `calc( var( --columnPaddingNormal ) * 2 + var( --layoutWidth ) )`.
+- Use lowercase hex colors.
+- Keep property declarations as `property: value;` with one space after the colon.
+- Format multiline values such as `src:` lists with continuation lines indented one tab deeper than the property.
 
 ## Frontend Direction
 
