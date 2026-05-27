@@ -8,7 +8,7 @@ export default class UnheadSchema {
 		this.fn = data.fn;
 
 		const graph = createSchemaOrgGraph();
-		const path = data.page?.url || '/';
+		const path = data.page?.url || '/'; // Might be the home dir.
 
 		graph.push( Object.values( schema ).filter( Boolean ) );
 
@@ -17,9 +17,9 @@ export default class UnheadSchema {
 				${ JSON.stringify( {
 					'@context': 'https://schema.org',
 					'@graph': graph.resolveGraph( {
-						host: data.metadata.url,
-						path,
-						inLanguage: data.metadata.language,
+						path: path,
+						host: data.metadata.url || data.page.url,
+						inLanguage: data.language || data.metadata.language,
 						title: data.title || data.metadata.title,
 						description: data.description || data.metadata.description,
 						trailingSlash: path === '/' || path.endsWith( '/' ),

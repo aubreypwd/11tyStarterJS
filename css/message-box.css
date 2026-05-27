@@ -1,4 +1,4 @@
-/* Message Box */
+/* Message Box: Mostly to show how bundling works, see Index.11ty.js */
 .message-box {
 	--color-message-box: #ffc;
 

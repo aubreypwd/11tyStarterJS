@@ -1,4 +1,6 @@
 export default class Index {
+
+	// Data
 	data() {
 		return {
 			permalink: '/',
@@ -8,6 +10,25 @@ export default class Index {
 			},
 			numberOfLatestPostsToShow: 3,
 		};
+	}
+
+	// Render
+	render( data ) {
+
+		this.fn = data.fn;
+
+		const postsToShow = data.numberOfLatestPostsToShow || 3;
+		const postsCount = ( data.collections?.posts || [] ).length;
+		const latestPostsCount = Math.min( postsCount, postsToShow );
+		const morePosts = postsCount - postsToShow;
+
+		return /* html */ `
+			<h1>Latest ${ latestPostsCount } Post${ latestPostsCount === 1 ? '' : 's' }</h1>
+
+			${ this.renderPostsList( ( data.collections?.posts || [] ).slice( -postsToShow ).reverse(), postsCount, data.page?.url ) }
+
+			${ morePosts > 0 ? /* html */ `<p>${ morePosts } more post${ morePosts === 1 ? '' : 's' } can be found in <a href="/blog/">the archive</a>.</p>` : `` }
+		`;
 	}
 
 	/**
@@ -30,25 +51,6 @@ export default class Index {
 			<ol reversed class="postlist" style="--postlist-index: ${ postsCount + 1 }">
 				${ posts.map( ( post ) => this.renderPostListItem( post, currentUrl ) ).join( '' ) }
 			</ol>
-		`;
-	}
-
-	render( data ) {
-		this.fn = data.fn;
-
-		const postsToShow = data.numberOfLatestPostsToShow || 3;
-		const postsCount = ( data.collections?.posts || [] ).length;
-		const latestPostsCount = Math.min( postsCount, postsToShow );
-		const morePosts = postsCount - postsToShow;
-
-		return /* html */ `
-			<h1>Latest ${ latestPostsCount } Post${ latestPostsCount === 1 ? '' : 's' }</h1>
-
-			${ this.renderPostsList( ( data.collections?.posts || [] ).slice( -postsToShow ).reverse(), postsCount, data.page?.url ) }
-
-			${ morePosts > 0 ? /* html */ `
-				<p>${ morePosts } more post${ morePosts === 1 ? '' : 's' } can be found in <a href="/blog/">the archive</a>.</p>
-			` : '' }
 		`;
 	}
 }

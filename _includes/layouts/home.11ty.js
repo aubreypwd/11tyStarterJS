@@ -1,7 +1,5 @@
 import { readFileSync } from 'node:fs';
 
-const messageBoxCss = readFileSync( new URL( '../../css/message-box.css', import.meta.url ), 'utf8' );
-
 export default class Home {
 
 	// Data
@@ -17,12 +15,14 @@ export default class Home {
 		this.fn = data.fn;
 
 		return /* html */ `
-			<style>${ messageBoxCss }</style>
+
+			<!-- Gets Bundled When Used -->
+			<style>${ readFileSync( new URL( '../../css/message-box.css', import.meta.url ), 'utf8' ) }</style>
 
 			<!-- Delete this block, which will also remove the component CSS from the bundle -->
 			<div class="message-box">
 				<ol>
-					<li>Edit <code>_data/metadata.js</code> with your blog’s information.</li>
+					<li>Edit <code>_data/metadata.js</code> with your blog's information.</li>
 					<li>(Optional) Edit <code>eleventy.config.js</code> with your <a href="https://www.11ty.dev/docs/config/">configuration preferences</a>.</li>
 					<li>Delete this message from <code>_includes/layouts/Home.11ty.js</code>.</li>
 				</ol>

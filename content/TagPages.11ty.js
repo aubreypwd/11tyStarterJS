@@ -1,28 +1,35 @@
 export default class TagPages {
 
+	// Data
 	data() {
 		return {
+
 			pagination: {
+
 				// Page through Eleventy’s collections object one tag at a time.
 				data: 'collections',
 				size: 1,
 				alias: 'tag',
 				filter: [ 'all', 'posts' ],
 			},
+
 			eleventyExcludeFromCollections: true,
 			eleventyComputed: {
+
 				title( data ) {
 					return `Tagged '${ data.tag }'`;
 				},
+
 				permalink: function( data ) {
-					// If DuplicatePermalinkOutputError occurs, check that no tag occurs
-					// with differing case, e.g. "RSS" and "rss".
+
+					// If DuplicatePermalinkOutputError occurs, check that no tag occurs with differing case, e.g. "RSS" and "rss".
 					return `/tags/${ this.slugify( data.tag ) }/`;
 				},
 			},
 		};
 	}
 
+	// Render
 	render( data ) {
 
 		this.fn = data.fn;

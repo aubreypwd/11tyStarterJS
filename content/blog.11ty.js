@@ -1,4 +1,6 @@
 export default class Blog {
+
+	// Data
 	data() {
 		return {
 			permalink: '/blog/',
@@ -7,6 +9,18 @@ export default class Blog {
 				order: 2,
 			},
 		};
+	}
+
+	// Render
+	render( data ) {
+
+		this.fn = data.fn;
+
+		return /* html */ `
+			<h1>Archive</h1>
+
+			${ this.renderPostsList( data.collections?.posts || [], data.page?.url ) }
+		`;
 	}
 
 	/**
@@ -29,16 +43,6 @@ export default class Blog {
 			<ol reversed class="postlist" style="--postlist-index: ${ posts.length + 1 }">
 				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( post, currentUrl ) ).join( '' ) }
 			</ol>
-		`;
-	}
-
-	render( data ) {
-		this.fn = data.fn;
-
-		return /* html */ `
-			<h1>Archive</h1>
-
-			${ this.renderPostsList( data.collections?.posts || [], data.page?.url ) }
 		`;
 	}
 }

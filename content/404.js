@@ -1,4 +1,6 @@
 export default class NotFound {
+
+	// Data
 	data() {
 		return {
 			permalink: '404.html',
@@ -6,8 +8,10 @@ export default class NotFound {
 		};
 	}
 
+	// Render
 	render() {
 		return /* html */ `
+
 			<h1>Content not found.</h1>
 
 			<p>Go <a href="/">home</a>.</p>

@@ -1,4 +1,6 @@
 export default class Sitemap {
+
+	// Data
 	data() {
 		return {
 			permalink: '/sitemap.xml',
@@ -7,7 +9,9 @@ export default class Sitemap {
 		};
 	}
 
+	// Render
 	render( data ) {
+
 		this.fn = data.fn;
 
 		return /* xml */ `
