@@ -1,20 +1,43 @@
-import { readFileSync } from 'node:fs';
-
 import { defineArticle } from '@unhead/schema-org';
-
-const prismThemeCss = readFileSync( new URL( '../../node_modules/prismjs/themes/prism-okaidia.css', import.meta.url ), 'utf8' );
-const prismDiffCss = readFileSync( new URL( '../../css/prism-diff.css', import.meta.url ), 'utf8' );
-
+/**
+ * Defines the blog-post layout.
+ *
+ * @since Unknown
+ */
 export default class Post {
 
-	// Data
+	/**
+	 * CSS file paths keyed by numeric load priority.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @type {object}
+	 */
+	static styles = {
+		10: 'node_modules/prismjs/themes/prism-okaidia.css',
+	};
+
+	/**
+	 * Provides post layout data and article schema.
+	 *
+	 * @since Unknown
+	 *
+	 * @return {object} Post layout data.
+	 */
 	data() {
 
 		return {
 			layout: 'layouts/Base.11ty.js',
 			eleventyComputed: {
 
-				// Schema
+				/**
+				 * Builds article schema for the current post.
+				 *
+				 * @since Unknown
+				 *
+				 * @param {object} data Eleventy data cascade.
+				 * @return {object} Article schema data.
+				 */
 				layoutSchema( data ) {
 					return {
 
@@ -35,56 +58,78 @@ export default class Post {
 		};
 	}
 
-	// Render
+	/**
+	 * Renders a blog post.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {string} Rendered post content.
+	 */
 	render( data ) {
 
-		this.fn = data.fn;
-
+		// Content
 		return /* html */ `
-			<style>${ prismThemeCss }</style>
-			<style>${ prismDiffCss }</style>
+			<h1>${ data.fn.escHtml( data.title ) }</h1>
 
-			<h1>${ this.fn.escHtml( data.title ) }</h1>
-
-			<ul class="post-metadata">
+			<ul class="PostMetadata">
 				<li>
-					<time datetime="${ this.fn.escHtml( this.fn.dateToFormat( data.date ?? data.page?.date, 'yyyy-LL-dd' ) ) }">
-						${ this.fn.escHtml( this.fn.dateToFormat( data.date ?? data.page?.date, 'LLLL dd, yyyy' ) ) }
+					<time datetime="${ data.fn.escHtml( data.fn.dateToFormat( data.date ?? data.page?.date, 'yyyy-LL-dd' ) ) }">
+						${ data.fn.escHtml( data.fn.dateToFormat( data.date ?? data.page?.date, 'LLLL dd, yyyy' ) ) }
 					</time>
 				</li>
 
-				${ this.renderTagsList( this.fn.filterTagList( data.tags || [] ) ) }
+				${ this.renderTagsList( data, data.fn.filterTagList( data.tags || [] ) ) }
 			</ul>
 
 			${ data.content }
 
-			${ this.renderPreviousNextLinks( data.collections?.posts || [], data.page?.url || '' ) }
+			${ this.renderPreviousNextLinks( data, data.collections?.posts || [], data.page?.url || '' ) }
 		`;
 	}
 
 	/**
 	 * Turn one tag into a link to its archive page.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {string} tag Tag name.
+	 * @return {string} Tag link HTML.
 	 */
-	renderTagItem( tag ) {
-		return /* html */ `<a href="${ this.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ this.fn.escHtml( tag ) }</a>`;
+	renderTagItem( data, tag ) {
+		return /* html */ `<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a>`;
 	}
 
 	/**
 	 * Hide the tag list when a post has no tags.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {array} tags Tag names.
+	 * @return {string} Tag list HTML.
 	 */
-	renderTagsList( tags ) {
+	renderTagsList( data, tags ) {
 
 		if ( ! tags.length ) {
 			return ``;
 		}
 
-		return tags.map( ( tag, index ) => /* html */ `<li>${ this.renderTagItem( tag ) }${ index < tags.length - 1 ? ', ' : '' }</li>` ).join( '' );
+		return tags.map( ( tag, index ) => /* html */ `<li>${ this.renderTagItem( data, tag ) }${ index < tags.length - 1 ? ', ' : '' }</li>` ).join( '' );
 	}
 
 	/**
 	 * Link to the neighboring posts in the archive.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {array} posts Post records.
+	 * @param {string} currentUrl Current post URL.
+	 * @return {string} Previous and next links HTML.
 	 */
-	renderPreviousNextLinks( posts, currentUrl ) {
+	renderPreviousNextLinks( data, posts, currentUrl ) {
 
 		const currentIndex = posts.findIndex( ( post ) => post.url === currentUrl );
 
@@ -100,9 +145,9 @@ export default class Post {
 		}
 
 		return /* html */ `
-			<ul class="links-nextprev">
-				${ previousPost ? /* html */ `<li class="links-nextprev-prev">← Previous<br> <a href="${ this.fn.escHtml( previousPost.url ) }">${ this.fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>` : `` }
-				${ nextPost ? /* html */ `<li class="links-nextprev-next">Next →<br><a href="${ this.fn.escHtml( nextPost.url ) }">${ this.fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>` : `` }
+			<ul class="PostNavigation">
+				${ previousPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--previous">← Previous<br> <a href="${ data.fn.escHtml( previousPost.url ) }">${ data.fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>` : `` }
+				${ nextPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--next">Next →<br><a href="${ data.fn.escHtml( nextPost.url ) }">${ data.fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>` : `` }
 			</ul>
 		`;
 	}

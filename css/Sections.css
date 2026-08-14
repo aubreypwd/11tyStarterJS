@@ -1,0 +1,35 @@
+.SectionHeader {
+
+	align-items: center;
+	gap: var(--space-xs);
+
+	.SectionHeader__brow {
+
+		text-align: center;
+		color: var(--color-gold);
+		font-weight: 500;
+		font-size: var(--type-0);
+		line-height: var(--type-0);
+		margin: 0;
+		letter-spacing: 0.2px;
+	}
+
+	.SectionHeader__heading {
+
+		text-align: center;
+		font-family: var(--font-family-system);
+		font-size: var(--type-5);
+		line-height: var(--type-5);
+		font-weight: 100;
+		color: var(--color-black);
+		letter-spacing: 1px;
+		margin: 0;
+	}
+
+	.SectionHeader__separator {
+
+		border-bottom: 3px solid var(--color-gold);
+		width: 40px;
+		margin: var(--space-s) 0 var(--space-s) 0;
+	}
+}

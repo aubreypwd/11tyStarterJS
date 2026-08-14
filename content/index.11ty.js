@@ -1,55 +1,130 @@
+/**
+ * Renders the homepage.
+ *
+ * @since August 13, 2026
+ */
 export default class Index {
 
-	// Data
+	/**
+	 * Provides homepage data.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @return {object} Homepage data.
+	 */
 	data() {
 		return {
 			permalink: '/',
-			eleventyNavigation: {
-				key: 'Home',
-				order: 1,
+			layout: 'layouts/Page.11ty.js',
+			eleventyComputed: {
+
+				/**
+				 * Build the homepage title from the starter category.
+				 *
+				 * @since August 13, 2026
+				 *
+				 * @param {object} data Eleventy data cascade.
+				 * @return {string} Homepage title.
+				 */
+				title( data ) {
+					return data.fn.serviceCategoryTitle( data, data.ServiceCategories.websiteDesign.title );
+				},
 			},
-			numberOfLatestPostsToShow: 3,
 		};
 	}
 
-	// Render
+	/**
+	 * Renders the homepage hero and social proof.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {string} Homepage HTML.
+	 */
 	render( data ) {
+		return /* html */ `
 
-		this.fn = data.fn;
+			<section class="Hero Container Container--none Hero--secondary">
+				<div class="Hero__content Container Hero__content--text-only">
 
+					<div class="Hero__info">
+						<h1 class="Hero__heading">A Better Local-Business Website Starting Point</h1>
+						<span class="Hero__separator"></span>
+
+						<h2 class="Hero__sub-heading">Located in ${ data.fn.escHtml( data.schema.localBusiness.address.addressLocality ) }, New Mexico</h2>
+						<p class="Hero__description">A reusable Eleventy foundation for clear service pages, useful content, and an easy way for customers to get in touch.</p>
+
+						<p class="Hero__actions">
+							${ data.partials.ContactButton.render( data, this, 'Contact Us' ) }
+						</p>
+					</div>
+				</div>
+			</section>
+
+			${ data.partials.SocialProof.render( data, this ) }
+
+			<!-- @TODO: Add a business-specific featured service section. -->
+		`;
+	}
+
+	/**
+	 * Renders the latest posts block.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {string} Latest-posts HTML.
+	 */
+	renderPosts( data ) {
 		const postsToShow = data.numberOfLatestPostsToShow || 3;
 		const postsCount = ( data.collections?.posts || [] ).length;
 		const latestPostsCount = Math.min( postsCount, postsToShow );
 		const morePosts = postsCount - postsToShow;
 
 		return /* html */ `
+
 			<h1>Latest ${ latestPostsCount } Post${ latestPostsCount === 1 ? '' : 's' }</h1>
 
-			${ this.renderPostsList( ( data.collections?.posts || [] ).slice( -postsToShow ).reverse(), postsCount, data.page?.url ) }
+			${ this.renderPostsList( data, ( data.collections?.posts || [] ).slice( -postsToShow ).reverse(), postsCount, data.page?.url ) }
 
-			${ morePosts > 0 ? /* html */ `<p>${ morePosts } more post${ morePosts === 1 ? '' : 's' } can be found in <a href="/blog/">the archive</a>.</p>` : `` }
+			${ morePosts > 0 ? /* html */ `<p>${ morePosts } more post${ morePosts === 1 ? '' : 's' } can be found in <a href="/blog/">the archive</a>.</p>` : '' }
 		`;
 	}
 
 	/**
-	 * Render one post link and date for a post list.
+	 * Renders one post link and date for a post list.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {object} post Post record.
+	 * @param {string} currentUrl Current URL.
+	 * @return {string} Rendered post-list item.
 	 */
-	renderPostListItem( post, currentUrl ) {
+	renderPostListItem( data, post, currentUrl ) {
 		return /* html */ `
-			<li class="postlist-item${ post.url === currentUrl ? ' postlist-item-active' : '' }">
-				<a href="${ this.fn.escHtml( post.url ) }" class="postlist-link">${ post.data?.title ? this.fn.escHtml( post.data.title ) : /* html */ `<code>${ this.fn.escHtml( post.url ) }</code>` }</a>
-				<time class="postlist-date" datetime="${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ this.fn.escHtml( this.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
+			<li class="PostList__item${ post.url === currentUrl ? ' PostList__item--active' : '' }">
+				<a href="${ data.fn.escHtml( post.url ) }" class="PostList__link">${ post.data?.title ? data.fn.escHtml( post.data.title ) : /* html */ `<code>${ data.fn.escHtml( post.url ) }</code>` }</a>
+				<time class="PostList__date" datetime="${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
 		`;
 	}
 
 	/**
-	 * Render the ordered list of latest posts.
+	 * Renders the ordered list of latest posts.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {array} posts Posts to display.
+	 * @param {number} postsCount Total post count.
+	 * @param {string} currentUrl Current URL.
+	 * @return {string} Post-list HTML.
 	 */
-	renderPostsList( posts, postsCount, currentUrl ) {
+	renderPostsList( data, posts, postsCount, currentUrl ) {
 		return /* html */ `
-			<ol reversed class="postlist" style="--postlist-index: ${ postsCount + 1 }">
-				${ posts.map( ( post ) => this.renderPostListItem( post, currentUrl ) ).join( '' ) }
+			<ol reversed class="PostList" style="--postlist-index: ${ postsCount + 1 }">
+				${ posts.map( ( post ) => this.renderPostListItem( data, post, currentUrl ) ).join( '' ) }
 			</ol>
 		`;
 	}

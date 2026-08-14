@@ -1,96 +1,139 @@
-// Node
-import { readFileSync } from 'node:fs';
-
-// Navigation
-import navigationPlugin from '@11ty/eleventy-navigation';
-
-// Partials
-import Head from '../partials/Head.11ty.js';
-import Body from '../partials/Body.11ty.js';
-import Schema from '../partials/Schema.11ty.js';
-
+/**
+ * Renders the base site layout.
+ *
+ * @since Unknown
+ */
 export default class Base {
 
-	// Render
-	render( data ) {
+	/**
+	 * JavaScript file paths keyed by numeric load priority.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @type {object}
+	 */
+	static scripts = {
+		20: 'node_modules/@zachleat/heading-anchors/heading-anchors.js',
+	};
 
-		this.fn = data.fn;
+	/**
+	 * Provides shared layout data.
+	 *
+	 * @since Unknown
+	 *
+	 * @return {object} Shared layout data.
+	 */
+	data() {
+		return {
+			sectionClasses: {
+				Services: 'Container--xxl Container--light Container--top-left',
+				Testimonials: 'Container--xxl Container--shadow Container--top-right',
+				Bios: 'Container Container--xxl Container--light Container--top-left',
+				Contact: 'Container--xxl Container--shadow Container--top-left Container--alt',
+				ServiceAreas: 'Container--light Container--xxl Container--top-right',
+			}
+		}
+	}
 
-		const currentUrl = data.page?.url || '';
+	/**
+	 * Renders the complete HTML document.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {Promise} Rendered HTML document.
+	 */
+	async render( data ) {
+		// Class Props
+		this.currentUrl = data.page?.url || '';
 
+		// Content
 		return /* html */ `
 			<!doctype html>
-			<html lang="${ this.fn.escHtml( data.metadata.language ) }">
+
+			<html lang="${ data.fn.escHtml( data.metadata.language ) }">
 				<head>
+					<title>${ data.fn.escHtml( data.title || data.schema?.localBusiness?.name ) }</title>
+
+					<!-- Meta -->
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>${ this.fn.escHtml( data.title || data.metadata.title ) }</title>
-					<meta name="description" content="${ this.fn.escHtml( data.description || data.metadata.description ) }">
-					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ this.fn.escHtml( data.metadata.title ) }">
+					<meta name="description" content="${ data.fn.escHtml( data.description || data.schema.localBusiness.description ) }">
+					<link rel="canonical" href="${ data.fn.escHtml( new URL( data.page.url, data.metadata.url ).href ) }">
 
-					${ new Schema().render( data, this ) }
+					<!-- Open Graph -->
+					<meta property="og:title" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
+					<meta property="og:description" content="${ data.fn.escHtml( data.description || data.schema.localBusiness.description ) }">
+					<meta property="og:type" content="${ data.page?.inputPath?.includes( '/blog' ) ? 'article' : 'website' }">
+					<meta property="og:site_name" content="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
+					<meta property="og:url" content="${ data.fn.escHtml( new URL( data.page.url, data.metadata.url ).href ) }">
 
-					<!-- The bundle plugin collects literal <style> and <script> blocks from layouts. -->
-					<style>${ readFileSync( new URL( '../../css/index.css', import.meta.url ), 'utf8' ) }</style>
-					<script type="module">${ readFileSync( new URL( '../../node_modules/@zachleat/heading-anchors/heading-anchors.js', import.meta.url ), 'utf8' ) }</script>
+					<!-- Twitter -->
+					<meta name="twitter:card" content="summary_large_image">
+					<meta property="og:image" content=""> <!-- @TODO: Add the social sharing image. -->
+					<meta name="twitter:image" content=""> <!-- @TODO: Add the social sharing image. -->
+
+					<!-- Icons -->
+					<link rel="icon" type="image/png" sizes="48x48" href=""> <!-- @TODO: Add the 48x48 favicon. -->
+					<link rel="icon" type="image/png" sizes="32x32" href=""> <!-- @TODO: Add the 32x32 favicon. -->
+					<link rel="apple-touch-icon" href=""> <!-- @TODO: Add the Apple touch icon. -->
+					<link rel="preload" href="" as="font" type="font/woff2" crossorigin> <!-- @TODO: Add the primary local font preload. -->
+					<link rel="preload" href="" as="font" type="font/woff2" crossorigin> <!-- @TODO: Add the display local font preload. -->
+					<link rel="preload" as="image" href=""> <!-- @TODO: Add a page-specific hero image preload when a verified image is available. -->
+
+					<!-- RSS -->
+					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
+
+					<!-- Schema -->
+					${ data.partials.Schema.render( data, this ) }
+
+					<!-- @TODO: Add Analytics -->
+
+					<!-- Styles -->
+					${ data.fn.renderStyle( '../css/GoogleFonts.css', data ) }
+					${ data.fn.renderStyle( '../css/Base.css', data ) }
+					${ data.fn.renderStyle( '../css/SmoothScrolling.css', data ) }
+					${ data.fn.renderStyle( '../css/Colors.css', data ) }
+					${ data.fn.renderStyle( '../css/Posts.css', data ) }
+					${ data.fn.renderStyle( '../css/A11y.css', data ) }
+					${ data.fn.renderStyle( '../css/Utopia.css', data ) }
+					${ data.fn.renderStyle( '../css/Lists.css', data ) }
+					${ data.fn.renderStyle( '../css/Buttons.css', data ) }
+					${ data.fn.renderStyle( '../css/Containers.css', data ) }
+					${ data.fn.renderStyle( '../css/Hero.css', data ) }
+					${ data.fn.renderStyle( '../css/Sections.css', data ) }
+					${ await data.fn.renderStyles( data ) }
 					<style>${ this.getBundle( 'css' ) }</style>
-
-					${ new Head().render( data, this ) }
 				</head>
-				<body>
-					<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
 
-					<header>
-						<a href="/" class="home-link">${ this.fn.escHtml( data.metadata.title ) }</a>
+			<body class="Site">
+				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden Button Button--primary">Skip to main content</a>
 
-						<nav>
-							<h2 class="visually-hidden">Top level navigation menu</h2>
-							${ this.renderNavigation( navigationPlugin.navigation.find( data.collections?.all || [] ), currentUrl ) }
-						</nav>
-					</header>
+					<!-- Header -->
+					${ data.partials.Header.render( data, this ) }
 
-					<main id="main">
-						<heading-anchors>
-							${ data.content }
-						</heading-anchors>
+					<main id="main" class="Site__main Container Container--none">
+
+						<!-- Content -->
+						${ data.content }
+
+						<!-- Services show on the homepage; the remaining sections show on every page. -->
+						${ '/' === data.page?.url ? data.partials.Services.render( data, this, data.sectionClasses.Services ) : `` }
+
+						${ data.partials.Testimonials.render( data, this, data.sectionClasses.Testimonials ) }
+						${ data.partials.Bios.render( data, this, data.sectionClasses.Bios ) }
+						${ data.partials.Contact.render( data, this, data.sectionClasses.Contact ) }
+						${ data.partials.ServiceAreas.render( data, this, data.sectionClasses.ServiceAreas ) }
 					</main>
 
-					<footer>
-						<p>
-							<em>Built with <a href="https://www.11ty.dev/">${ this.fn.escHtml( data.eleventy?.generator || 'Eleventy' ) }</a></em>
-						</p>
-					</footer>
+					<!-- Footer -->
+					${ data.partials.Footer.render( data, this ) }
 
+					<!-- Scripts -->
+					${ await data.fn.renderScripts( data ) }
 					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
-					${ new Body( this.fn ).render( data, this ) }
 				</body>
 			</html>
-		`
-			// Trim the start so we get <DOCTYPE> right away.
-			.trimStart();
-	}
-
-	/**
-	 * Turn one navigation entry into a list item.
-	 */
-	renderNavigationItem( entry, currentUrl ) {
-		const url = entry.url || entry.data?.page?.url || '';
-
-		return /* html */ `
-			<li class="nav-item">
-				<a href="${ this.fn.escHtml( url ) }"${ url === currentUrl ? ' aria-current="page"' : '' }>${ this.fn.escHtml( entry.title || entry.key || url ) }</a>
-			</li>
-		`;
-	}
-
-	/**
-	 * Build the header navigation list.
-	 */
-	renderNavigation( entries, currentUrl ) {
-		return /* html */ `
-			<ul class="nav">
-				${ entries.map( ( entry ) => this.renderNavigationItem( entry, currentUrl ) ).join( '' ) }
-			</ul>
-		`;
+		`.trimStart(); // Trim the start so we get <doctype> right away.
 	}
 }

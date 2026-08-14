@@ -1,0 +1,142 @@
+.Contact {
+
+	> .Contact__content {
+		align-items: center;
+	}
+
+	.Contact__layout {
+		flex-direction: row;
+		gap: var( --space-l );
+
+		@media ( max-width: 677px ) {
+			flex-direction: column;
+		}
+	}
+
+	.Contact__call-text,
+	.Contact__contact-form {
+		@media ( max-width: 677px ) {
+			width: auto;
+		}
+	}
+
+	.Contact__call-text {
+		width: 33%;
+
+		.Contact__actions {
+			flex-direction: row;
+			gap: var( --space-s );
+
+			@media ( max-width: 477px ) {
+				flex-direction: column;
+			}
+		}
+
+		.Contact__hours {
+			gap: var( --space-xs );
+
+			.BusinessHours {
+				font-size: var( --type--1 );
+				gap: var( --space-2xs );
+
+				@media ( max-width: 677px ) {
+					flex-direction: row;
+					flex-wrap: wrap;
+					gap: var( --space-2xs );
+				}
+
+				.BusinessHours__row {
+					@media ( max-width: 677px ) {
+						width: 48%;
+					}
+				}
+
+				.BusinessHours__day {
+					color: var( --color-black );
+					text-transform: uppercase;
+					font-weight: 700;
+					font-size: var( --type--2 );
+
+					@media ( max-width: 677px ) {
+						font-size: var( --type--1 );
+					}
+				}
+
+				.BusinessHours__value {
+					color: var( --color-slate );
+				}
+			}
+		}
+
+		.Contact__phone {
+			font-size: var( --type--1 );
+			display: flex;
+			flex-direction: row;
+			gap: var( --space-3xs );
+
+			.Contact__phone-link {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.Contact__contact-form {
+		width: 65%;
+
+		.Contact__form {
+			gap: var( --space-m );
+
+			.Contact__label {
+				display: flex;
+				flex-direction: column;
+				gap: var( --space-3xs );
+				align-items: flex-start;
+				color: var( --color-slate );
+				font-size: var( --type--1 );
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+
+			.Contact__input,
+			.Contact__textarea {
+				border: 1px solid var( --color-stone );
+				padding: var( --space-2xs );
+				border-radius: 3px;
+				font-family: var( --font-family-system );
+				font-size: var( --type-0 );
+				color: var( --color-black );
+				box-shadow: var( --box-shadow );
+			}
+
+			.Contact__textarea {
+				width: 90%;
+				min-height: 150px;
+
+				@media ( max-width: 677px ) {
+					width: 100%;
+				}
+			}
+
+			.Contact__input {
+				width: 80%;
+
+				@media ( max-width: 677px ) {
+					width: 100%;
+				}
+			}
+
+			.Button {
+				align-self: flex-start;
+			}
+		}
+	}
+
+	.Contact__heading {
+		color: var( --color-gold );
+		text-transform: uppercase;
+		font-size: var( --type--1 );
+		font-weight: 700;
+		letter-spacing: .5px;
+		margin: 0;
+	}
+}

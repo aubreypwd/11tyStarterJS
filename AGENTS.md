@@ -6,6 +6,7 @@
 - Do not use Python for commands, scripts, one-off inspection, parsing, file edits, transformations, or automation.
 - Do not write or run non-Bash scripts to examine files or repository contents unless explicitly asked for that exact tool.
 - Use Bash for shell work and prefer basic utilities such as `rg`, `sed`, `awk`, `find`, `ls`, `cat`, `head`, `tail`, and `wc`.
+- Treat `/Users/aubreypwd/Sites/11ty/ABQMedicalSpa/AGENTS/LAB.md` as reference-only. Do not copy it, recreate it, or add an `AGENTS/LAB.md` file to this starter.
 - Do not run build commands by default.
 - You may run `npm run build` only to test code changes, and only after the user confirms in writing whether or not you can run it for that task.
 - Do not run Node checks unless explicitly asked.
@@ -40,7 +41,7 @@
 - Do not create helper methods just to rename a simple value, fallback, or ternary.
 - Use helper methods only when they render a meaningful chunk, perform a non-trivial transformation, or handle branching that is too complex to read inline.
 - Do not reduce everything into one large `render()` when named class methods improve readability.
-- When a `*.11ty.js` class has helper methods that reuse `data.fn`, assign `this.fn = data.fn` at the top of `render()` and use `this.fn` inside those helpers instead of threading `fn` through every call.
+- When a `*.11ty.js` class has helper methods that reuse `data.fn`, pass `data` to those helpers and use `data.fn` directly; do not assign or use `this.fn`.
 - Add shared escaping helpers to `_data/fn.js` only when multiple templates need them and there is a real call site.
 - Use `/** ... */` docblocks for functions in `*.11ty.js` files except `data()` and `render()`, and keep the text short and plain language.
 - Prefix returned template literals with an appropriate language comment, such as `/* html */`, `/* css */`, `/* xml */`, or `/* txt */`.

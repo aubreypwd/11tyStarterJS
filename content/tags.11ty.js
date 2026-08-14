@@ -1,26 +1,43 @@
+/**
+ * Renders the tag archive page.
+ *
+ * @since Unknown
+ */
 export default class Tags {
 
-	// Data
+	/**
+	 * Provides tag archive data.
+	 *
+	 * @since Unknown
+	 *
+	 * @return {object} Tag archive data.
+	 */
 	data() {
 		return {
+			layout: 'layouts/Page.11ty.js',
 			permalink: '/tags/',
 		};
 	}
 
-	// Render
+	/**
+	 * Renders the tag archive.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {string} Tag archive HTML.
+	 */
 	render( data ) {
-
-		this.fn = data.fn;
 
 		return /* html */ `
 			<h1>Tags</h1>
 
 			<ul>
 				${
-					// Start with every collection name, remove Eleventy’s built-in buckets, and sort the rest.
-					this.fn.filterTagList( Object.keys( data.collections || {} ) )
+					// Start with every collection name, remove Eleventy's built-in buckets, and sort the rest.
+					data.fn.filterTagList( Object.keys( data.collections || {} ) )
 						.sort( ( a, b ) => b.localeCompare( a ) )
-						.map( ( tag ) => this.renderTagListItem( tag ) )
+						.map( ( tag ) => this.renderTagListItem( data, tag ) )
 						.join( '' )
 				}
 			</ul>
@@ -29,11 +46,17 @@ export default class Tags {
 
 	/**
 	 * Turn one tag into a link to its tag archive page.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @param {string} tag Tag name.
+	 * @return {string} Tag link HTML.
 	 */
-	renderTagListItem( tag ) {
+	renderTagListItem( data, tag ) {
 		return /* html */ `
 			<li>
-				<a href="${ this.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="post-tag">${ this.fn.escHtml( tag ) }</a>
+			<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a>
 			</li>
 		`;
 	}

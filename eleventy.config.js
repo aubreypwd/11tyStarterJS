@@ -1,12 +1,26 @@
+/**
+ * Configures the Eleventy build.
+ *
+ * @since Unknown
+ */
+
 import { HtmlBasePlugin, IdAttributePlugin, InputPathToUrlTransformPlugin } from '@11ty/eleventy';
 import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import pluginNavigation from '@11ty/eleventy-navigation';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import pluginSyntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import metadata from './_data/metadata.js';
+import schema from './_data/schema.js';
 
-/** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
+/**
+ * Registers the site's Eleventy configuration.
+ *
+ * @since Unknown
+ *
+ * @param {object} eleventyConfig Eleventy configuration object.
+ */
 export default function( eleventyConfig ) {
+	const business = schema.localBusiness;
 
 	// See _data/eleventyDataSchema.js.
 	eleventyConfig.addPreprocessor( 'drafts', '*', ( data ) => {
@@ -68,21 +82,15 @@ export default function( eleventyConfig ) {
 		type: 'atom',
 		outputPath: '/feed/feed.xml',
 		stylesheet: 'pretty-atom-feed.xsl',
-		templateData: {
-			eleventyNavigation: {
-				key: 'Feed',
-				order: 4,
-			},
-		},
 		collection: {
 			name: 'posts',
 			limit: 10,
 		},
 		metadata: {
 			language: metadata.language,
-			title: metadata.title,
-			subtitle: metadata.description,
-			base: metadata.url,
+			title: business.name,
+			subtitle: business.description,
+				base: metadata.url,
 			author: {
 				name: metadata.author.name,
 				email: metadata.author.email,
@@ -111,7 +119,7 @@ export default function( eleventyConfig ) {
 	} );
 
 	eleventyConfig.addPlugin( IdAttributePlugin, {
-		// By default we use Eleventy’s built-in `slugify` filter:
+		// By default we use Eleventy's built-in `slugify` filter:
 		// slugify: eleventyConfig.getFilter( 'slugify' ),
 		// selector: 'h1,h2,h3,h4,h5,h6', // default
 	} );

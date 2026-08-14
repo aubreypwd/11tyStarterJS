@@ -1,0 +1,179 @@
+:root {
+
+	/* Base Fonts */
+	--font-family-system: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+
+	--box-shadow: 0 2px 4px rgba(64, 58, 56, 0.03),
+		0 10px 28px rgba(64, 58, 56, 0.08);
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.Unmargin {
+	margin: 0;
+}
+
+/* Body */
+	body {
+
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+
+	align-items: center;
+
+	min-height: 100vh;
+
+	font-size: var(--type-0);
+	font-family: var(--font-family-system);
+
+	overflow: hidden;
+
+	div,
+	main,
+	header,
+	footer,
+	nav,
+	section,
+	article,
+	aside,
+	form,
+	fieldset,
+	figure,
+	figcaption,
+	details,
+	dialog,
+	ul {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* Customizations */
+body {
+	margin: 0;
+}
+
+html,
+body {
+	background-color: var(--color-cloth);
+	color: var(--color-black);
+}
+
+a {
+	color: var(--color-slate);
+}
+
+/* Starter */
+
+html {
+	overflow-y: scroll;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+/* Fluid images */
+img{
+	max-width: 100%;
+}
+img[width][height] {
+	height: auto;
+}
+img[src$=".svg"] {
+	width: 100%;
+	height: auto;
+	max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+/* Code */
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+/* Diff syntax */
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+
+.Visibility--hidden {
+	display: none;
+}
+
+.NoPointerEvents {
+	&,
+	* {
+		pointer-events: none;
+	}
+}

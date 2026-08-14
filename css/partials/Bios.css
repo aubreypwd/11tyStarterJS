@@ -1,0 +1,151 @@
+.Bios__list {
+
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--space-l);
+	justify-content: space-between;
+
+	.Bios__secondary {
+
+		gap: var(--space-l);
+		flex-direction: row;
+		justify-content: space-between;
+
+		@media(max-width: 1139px) {
+			flex-direction: column;
+		}
+	}
+}
+
+.Bio {
+
+	flex-direction: row;
+	flex: 0 0 48.5%;
+	gap: 0;
+	overflow: hidden;
+
+	box-shadow: var(--box-shadow);
+	border-radius: var(--space-xs);
+	border: 1px solid #dadada;
+	background-color: var(--color-white);
+
+	&:hover {
+		.Bio__image {
+			filter: brightness(103%);
+		}
+	}
+
+	@media(max-width: 619px) {
+		flex-direction: column;
+	}
+
+	&.Bio--main {
+
+		flex: 0 0 100%;
+		border: 1px solid var(--color-shine);
+
+		.Bio__info {
+			.Bio__blurb {
+				font-size: var(--type-0);
+				line-height: var(--type-1);
+			}
+		}
+
+		.Bio__image {
+			object-position: center;
+		}
+	}
+
+	.Bio__figure {
+
+		width: 35%;
+
+		background: white;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		min-width: 250px;
+		overflow: hidden;
+
+		@media(max-width: 619px) {
+
+			min-width: 100%;
+			width: 100%;
+			height: 300px;
+		}
+	}
+
+	.Bio__image {
+
+		display: block;
+		height: 100%;
+		width: 100%;
+
+		object-fit: cover;
+		object-position: center;
+
+		transition: 0.5s filter ease-in;
+	}
+
+	.Bio__portrait {
+		display: grid;
+		place-items: center;
+		height: 100%;
+		min-height: 220px;
+		background: var( --color-shine );
+		color: var( --color-foundation );
+			font-family: var( --font-family-system );
+		font-size: var( --type-4 );
+		font-weight: 700;
+	}
+
+	.Bio__info {
+
+		flex-direction: column;
+		padding: var(--space-l);
+		gap: var(--space-s);
+		justify-content: space-between;
+
+		background-position: right;
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		padding-right: clamp( var(--space-l), 4vw, var(--space-3xl) );
+
+		.Bio__header {
+
+			gap: var(--space-xs);
+
+			.Bio__title {
+				color: var(--color-slate);
+				font-size: var(--type--1);
+			}
+
+			.Bio__name {
+				font-size: var(--type-3);
+				font-family: var(--font-family-system);
+				letter-spacing: 1px;
+				font-weight: 600;
+			}
+
+			.Bio__credentials {
+
+				font-size: var(--type--1);
+				color: var(--color-gold);
+				text-transform: uppercase;
+				border-bottom: 2px solid var(--color-gold);
+				align-self: flex-start;
+				padding-bottom: var(--space-2xs);
+			}
+		}
+
+		.Bio__blurb {
+
+			font-size: calc( var(--type--1) * 1.1 );
+			line-height: calc( var(--type-0) * 1.1 );
+
+			flex-direction: column;
+			gap: var(--space-s);
+		}
+	}
+}

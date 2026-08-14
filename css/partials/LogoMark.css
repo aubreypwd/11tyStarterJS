@@ -1,0 +1,29 @@
+.LogoMark {
+
+	text-decoration: none;
+
+	display: flex;
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: flex-start;
+
+	.LogoMark__wordmark {
+
+		color: var(--color-slate);
+		font-size: var(--type-5);
+		font-weight: 100;
+		font-family: var(--font-family-system);
+
+		letter-spacing: 0;
+	}
+
+	.LogoMark__descriptor {
+		color: var(--color-gold);
+
+		font-weight: 700;
+		font-size: var(--type--3);
+		font-family: var(--font-family-system);
+		text-transform: uppercase;
+	}
+}

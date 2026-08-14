@@ -1,0 +1,25 @@
+.ServiceCategory__services {
+
+	& > .Container__content > .SectionHeader {
+
+		.SectionHeader__heading {
+
+			font-size: var(--type-4);
+			/* color: var(--color-clay); */
+		}
+	}
+
+	.ServiceCategory__service-list {
+
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-xl);
+
+		padding: var(--space-l) 0;
+
+		@media(max-width: 768px) {
+			padding: var(--space-l) 0 var(--space-l);
+		}
+	}
+}
