@@ -18,15 +18,16 @@ export default class Page {
 			eleventyComputed: {
 
 				/**
-				 * Provide a default title for pages without one.
+				 * Build a LAB-style title for the current page.
 				 *
 				 * @since August 10, 2026
+				 * @since August 13, 2026 Uses data.fn.labTitle.
 				 *
 				 * @param {object} data Eleventy data cascade.
 				 * @return {string} Page title.
 				 */
 				title ( data ) {
-					return data.title || data.schema?.localBusiness?.name;
+					return data.fn.labTitle( data, data.title );
 				},
 			}
 		};

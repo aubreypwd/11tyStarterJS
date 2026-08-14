@@ -18,7 +18,7 @@ export default class NotFound {
 			layout: 'layouts/Page.11ty.js',
 			permalink: '404.html',
 			eleventyExcludeFromCollections: true,
-			title: 'Page not found | 11ty Starter JS',
+			title: 'Page not found',
 		};
 	}
 

@@ -2,7 +2,6 @@ import UnheadSchema
 	from '../utils/UnheadSchema.11ty.js';
 
 import {
-	defineLocalBusiness,
 	defineWebPage,
 	defineWebSite
 } from '@unhead/schema-org';
@@ -42,11 +41,6 @@ export default class Schema {
 				description: data.description,
 				inLanguage: data.metadata.language,
 				url: data.url, // Page URL.
-			} ),
-
-			LocalBusiness: defineLocalBusiness( {
-				...data.schema.localBusiness,
-				url: data.metadata.url,
 			} ),
 
 			...( data.layoutSchema || {} ),

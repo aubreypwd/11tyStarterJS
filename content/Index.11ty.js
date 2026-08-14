@@ -16,7 +16,7 @@ export default class Index {
 		return {
 			permalink: '/',
 			layout: 'layouts/Page.11ty.js',
-			title: '11ty Starter JS',
+			title: 'Local Business',
 			eleventyNavigation: {
 				key: 'Home',
 				title: 'Home',

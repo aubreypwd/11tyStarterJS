@@ -446,15 +446,25 @@ export default {
 	},
 
 	/**
-	 * Get a service category title.
+	 * Builds a LAB-style page title.
 	 *
-	 * @since August 10, 2026
+	 * @since August 13, 2026
 	 *
 	 * @param {object} data Eleventy data cascade.
-	 * @param {string} category The name of the GBP service category.
-	 * @return {string} Service category title.
+	 * @param {string} title Page or category title.
+	 * @return {string} LAB-style page title.
 	 */
-	serviceCategoryTitle( data, category ) {
-		return `${ category } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.metadata.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
-	}
+	labTitle( data, title ) {
+
+		if ( null === data || 'object' !== typeof data ) {
+			return '';
+		}
+
+		if ( 'string' !== typeof title || '' === title.trim() ) {
+			title = 'Local Business';
+		}
+
+		return `${ title } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.metadata.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
+	},
+
 };

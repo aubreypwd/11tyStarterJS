@@ -16,7 +16,7 @@ export default class Partials {
 		return {
 			layout: 'layouts/Page.11ty.js',
 			permalink: '/partials/',
-			title: 'Partials | 11ty Starter JS',
+			title: 'Partials',
 			description: 'Reusable address and business-hours partials for the starter site.',
 			eleventyNavigation: {
 				key: 'Partials',

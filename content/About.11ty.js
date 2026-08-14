@@ -17,7 +17,7 @@ export default class About {
 		return {
 			layout: 'layouts/Page.11ty.js',
 			permalink: '/about/',
-			title: 'About | 11ty Starter JS',
+			title: 'About',
 			description: 'A simple about page for a local-business website starter.',
 			eleventyNavigation: {
 				key: 'About',
