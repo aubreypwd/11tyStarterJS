@@ -18,7 +18,7 @@ export default class Page {
 			eleventyComputed: {
 
 				/**
-				 * Build the page title with the starter category context.
+				 * Provide a default title for pages without one.
 				 *
 				 * @since August 10, 2026
 				 *
@@ -26,7 +26,7 @@ export default class Page {
 				 * @return {string} Page title.
 				 */
 				title ( data ) {
-					return `${ data.title || data.schema?.localBusiness?.name } ${ data.metadata.settings.titleSeparator } ${ data.fn.serviceCategoryTitle( data, data.ServiceCategories.websiteDesign.title ) }`;
+					return data.title || data.schema?.localBusiness?.name;
 				},
 			}
 		};

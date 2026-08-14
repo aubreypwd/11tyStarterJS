@@ -16,25 +16,17 @@ export default class Index {
 		return {
 			permalink: '/',
 			layout: 'layouts/Page.11ty.js',
-			eleventyComputed: {
-
-				/**
-				 * Build the homepage title from the starter category.
-				 *
-				 * @since August 13, 2026
-				 *
-				 * @param {object} data Eleventy data cascade.
-				 * @return {string} Homepage title.
-				 */
-				title( data ) {
-					return data.fn.serviceCategoryTitle( data, data.ServiceCategories.websiteDesign.title );
-				},
+			title: '11ty Starter JS',
+			eleventyNavigation: {
+				key: 'Home',
+				title: 'Home',
+				order: 1,
 			},
 		};
 	}
 
 	/**
-	 * Renders the homepage hero and social proof.
+	 * Renders the minimal starter homepage.
 	 *
 	 * @since August 13, 2026
 	 *
@@ -43,27 +35,8 @@ export default class Index {
 	 */
 	render( data ) {
 		return /* html */ `
-
-			<section class="Hero Container Container--none Hero--secondary">
-				<div class="Hero__content Container Hero__content--text-only">
-
-					<div class="Hero__info">
-						<h1 class="Hero__heading">A Better Local-Business Website Starting Point</h1>
-						<span class="Hero__separator"></span>
-
-						<h2 class="Hero__sub-heading">Located in ${ data.fn.escHtml( data.schema.localBusiness.address.addressLocality ) }, New Mexico</h2>
-						<p class="Hero__description">A reusable Eleventy foundation for clear service pages, useful content, and an easy way for customers to get in touch.</p>
-
-						<p class="Hero__actions">
-							${ data.partials.ContactButton.render( data, this, 'Contact Us' ) }
-						</p>
-					</div>
-				</div>
-			</section>
-
-			${ data.partials.SocialProof.render( data, this ) }
-
-			<!-- @TODO: Add a business-specific featured service section. -->
+			<h1>${ data.fn.escHtml( data.schema.localBusiness.name ) }</h1>
+			<p>A minimal Eleventy starter for a local business website. Replace this content with the site's homepage.</p>
 		`;
 	}
 

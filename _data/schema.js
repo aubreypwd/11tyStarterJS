@@ -8,7 +8,7 @@
 
 export default {
 	localBusiness: {
-		'@type': [ 'ProfessionalService' ],
+		'@type': 'LocalBusiness',
 		'@id': 'https://example.com/#local-business',
 		name: '11ty Starter JS',
 		legalName: '11ty Starter JS',
@@ -62,43 +62,5 @@ export default {
 				email: 'hello@example.com',
 			},
 		],
-		founder: {
-			'@id': 'https://example.com/#alex-rivera',
-		},
-		owner: {
-			'@id': 'https://example.com/#alex-rivera',
-		},
-		employee: [
-			{ '@id': 'https://example.com/#alex-rivera' },
-			{ '@id': 'https://example.com/#morgan-lee' },
-			{ '@id': 'https://example.com/#taylor-kim' },
-		],
-	},
-
-	alexRivera: {
-		'@type': 'Person',
-		'@id': 'https://example.com/#alex-rivera',
-		name: 'Alex Rivera',
-		jobTitle: 'Owner and Project Lead',
-		description: 'Alex Rivera is the fictional owner and project lead for this starter business example.',
-		worksFor: { '@id': 'https://example.com/#local-business' },
-	},
-
-	morganLee: {
-		'@type': 'Person',
-		'@id': 'https://example.com/#morgan-lee',
-		name: 'Morgan Lee',
-		jobTitle: 'Client Support Coordinator',
-		description: 'Morgan Lee is a fictional client support coordinator for this starter business example.',
-		worksFor: { '@id': 'https://example.com/#local-business' },
-	},
-
-	taylorKim: {
-		'@type': 'Person',
-		'@id': 'https://example.com/#taylor-kim',
-		name: 'Taylor Kim',
-		jobTitle: 'Operations Coordinator',
-		description: 'Taylor Kim is a fictional operations coordinator for this starter business example.',
-		worksFor: { '@id': 'https://example.com/#local-business' },
 	},
 };

@@ -74,16 +74,6 @@
 		}
 	}
 
-	&.Container--alt {
-		> .Container__content {
-			.SectionHeader {
-				.SectionHeader__heading {
-					color: var(--color-slate);
-				}
-			}
-		}
-	}
-
 	> .Container__content {
 
 		max-width: 100%;

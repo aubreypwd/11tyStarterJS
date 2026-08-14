@@ -6,6 +6,17 @@
 export default class Address {
 
 	/**
+	 * CSS file paths keyed by numeric load priority.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @type {object}
+	 */
+	static styles = {
+		10: 'css/partials/Address.css',
+	};
+
+	/**
 	 * Renders the address block.
 	 *
 	 * @since Unknown

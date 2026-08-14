@@ -35,11 +35,7 @@ export default class Header {
 
 				<nav class="SiteHeader__menu" id="navigation">
 					<p class="VisuallyHidden">Top level navigation menu</p>
-					${ this.renderNavigation() }
-				</nav>
-
-				<nav class="SiteHeader__actions" aria-label="Header actions">
-					${ data.partials.ContactButton.render( data, this ) }
+					${ this.renderNavigation( data ) }
 				</nav>
 			</header>
 		`;
@@ -50,14 +46,19 @@ export default class Header {
 	 *
 	 * @since August 13, 2026
 	 *
+	 * @param {object} data Eleventy data cascade.
 	 * @return {string} Rendered navigation list.
 	 */
-	renderNavigation() {
+	renderNavigation( data ) {
 		return /* html */ `
 			<ul class="List List--unlisted SiteHeader__nav">
-				<li class="SiteHeader__item"><a class="SiteHeader__link" href="/#services" title="Explore the example services.">Our Services</a></li>
-				<li class="SiteHeader__item"><a class="SiteHeader__link" href="#about" title="Learn more about the example team.">About Us</a></li>
-				<li class="SiteHeader__item"><a class="SiteHeader__link" href="/blog/" title="Read useful business notes.">Blog</a></li>
+				${ data.fn.navigationItems( data ).map( function( navigation ) {
+					return /* html */ `
+						<li class="SiteHeader__item">
+							<a class="SiteHeader__link" href="${ data.fn.escHtml( navigation.url ) }"${ navigation.url === data.page?.url ? ' aria-current="page"' : '' }>${ data.fn.escHtml( navigation.title ) }</a>
+						</li>
+					`;
+				} ).join( '' ) }
 			</ul>
 		`;
 	}

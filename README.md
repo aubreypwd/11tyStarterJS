@@ -99,17 +99,16 @@ Deploy this Eleventy site in just a few clicks on these services:
 
 - `content/About.11ty.js` is an example of a content page.
 - `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
-- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top level site navigation. This is in use on `content/Index.11ty.js` and `content/About.11ty.js`.
+- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top-level site navigation. This is in use on the Home, About, and Blog pages.
 - Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
 - The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
-- This project uses four [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
-	- `_includes/layouts/Base.11ty.js`: the top level HTML structure and shared local-business sections
+- This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
+	- `_includes/layouts/Base.11ty.js`: the top-level HTML structure and shared local-business schema
 	- `_includes/layouts/Page.11ty.js`: general content pages
 	- `_includes/layouts/Post.11ty.js`: blog post pages with Article schema
-	- `_includes/layouts/ServiceCategory.11ty.js`: reusable service-category landing pages
 - `_includes/partials/` is automatically registered as `data.partials`, so reusable components can be edited or added without maintaining a central import list.
-- `_data/schema.js`, `_data/ServiceCategories.js`, and `AGENTS/Business Information.md` contain fictional starter values that must be replaced before launch.
-- The starter uses a contact form rather than an external scheduling integration. Link calls to action to `#contact` and adapt the form to the business's chosen provider.
+- `_data/schema.js` contains fictional LocalBusiness starter values that must be replaced before launch.
+- The starter keeps address, business hours, and a simple footer available for reuse without assuming a particular contact or booking workflow.
 - The archive and tag pages render their post lists directly in `*.11ty.js` templates now, so there is no shared `postslist.njk` include.
 
 #### Content Security Policy

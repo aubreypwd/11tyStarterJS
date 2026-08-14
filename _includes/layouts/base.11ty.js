@@ -17,25 +17,6 @@ export default class Base {
 	};
 
 	/**
-	 * Provides shared layout data.
-	 *
-	 * @since Unknown
-	 *
-	 * @return {object} Shared layout data.
-	 */
-	data() {
-		return {
-			sectionClasses: {
-				Services: 'Container--xxl Container--light Container--top-left',
-				Testimonials: 'Container--xxl Container--shadow Container--top-right',
-				Bios: 'Container Container--xxl Container--light Container--top-left',
-				Contact: 'Container--xxl Container--shadow Container--top-left Container--alt',
-				ServiceAreas: 'Container--light Container--xxl Container--top-right',
-			}
-		}
-	}
-
-	/**
 	 * Renders the complete HTML document.
 	 *
 	 * @since Unknown
@@ -44,9 +25,6 @@ export default class Base {
 	 * @return {Promise} Rendered HTML document.
 	 */
 	async render( data ) {
-		// Class Props
-		this.currentUrl = data.page?.url || '';
-
 		// Content
 		return /* html */ `
 			<!doctype html>
@@ -77,9 +55,6 @@ export default class Base {
 					<link rel="icon" type="image/png" sizes="48x48" href=""> <!-- @TODO: Add the 48x48 favicon. -->
 					<link rel="icon" type="image/png" sizes="32x32" href=""> <!-- @TODO: Add the 32x32 favicon. -->
 					<link rel="apple-touch-icon" href=""> <!-- @TODO: Add the Apple touch icon. -->
-					<link rel="preload" href="" as="font" type="font/woff2" crossorigin> <!-- @TODO: Add the primary local font preload. -->
-					<link rel="preload" href="" as="font" type="font/woff2" crossorigin> <!-- @TODO: Add the display local font preload. -->
-					<link rel="preload" as="image" href=""> <!-- @TODO: Add a page-specific hero image preload when a verified image is available. -->
 
 					<!-- RSS -->
 					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
@@ -98,32 +73,20 @@ export default class Base {
 					${ data.fn.renderStyle( '../css/A11y.css', data ) }
 					${ data.fn.renderStyle( '../css/Utopia.css', data ) }
 					${ data.fn.renderStyle( '../css/Lists.css', data ) }
-					${ data.fn.renderStyle( '../css/Buttons.css', data ) }
 					${ data.fn.renderStyle( '../css/Containers.css', data ) }
-					${ data.fn.renderStyle( '../css/Hero.css', data ) }
-					${ data.fn.renderStyle( '../css/Sections.css', data ) }
 					${ await data.fn.renderStyles( data ) }
 					<style>${ this.getBundle( 'css' ) }</style>
 				</head>
 
 			<body class="Site">
-				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden Button Button--primary">Skip to main content</a>
+				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden">Skip to main content</a>
 
 					<!-- Header -->
 					${ data.partials.Header.render( data, this ) }
 
 					<main id="main" class="Site__main Container Container--none">
 
-						<!-- Content -->
 						${ data.content }
-
-						<!-- Services show on the homepage; the remaining sections show on every page. -->
-						${ '/' === data.page?.url ? data.partials.Services.render( data, this, data.sectionClasses.Services ) : `` }
-
-						${ data.partials.Testimonials.render( data, this, data.sectionClasses.Testimonials ) }
-						${ data.partials.Bios.render( data, this, data.sectionClasses.Bios ) }
-						${ data.partials.Contact.render( data, this, data.sectionClasses.Contact ) }
-						${ data.partials.ServiceAreas.render( data, this, data.sectionClasses.ServiceAreas ) }
 					</main>
 
 					<!-- Footer -->

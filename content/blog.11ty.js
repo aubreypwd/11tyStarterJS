@@ -16,7 +16,12 @@ export default class Blog {
 		return {
 			layout: 'layouts/Page.11ty.js',
 			permalink: '/blog/',
-			eleventyExcludeFromCollections: true,
+			title: 'Blog',
+			eleventyNavigation: {
+				key: 'Blog',
+				title: 'Blog',
+				order: 3,
+			},
 		};
 	}
 

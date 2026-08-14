@@ -420,6 +420,32 @@ export default {
 	},
 
 	/**
+	 * Gets the retained top-level page navigation entries.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @param {object} data Eleventy data cascade.
+	 * @return {array} Top-level navigation entries.
+	 */
+	navigationItems( data ) {
+		return ( data.collections?.all || [] )
+			.filter( function( page ) {
+				return page.data?.eleventyNavigation && ! page.data.eleventyNavigation.parent;
+			} )
+			.sort( function( first, second ) {
+				return ( first.data.eleventyNavigation.order || 0 ) - ( second.data.eleventyNavigation.order || 0 );
+			} )
+			.map( function( page ) {
+				const navigation = page.data.eleventyNavigation;
+
+				return {
+					title: navigation.title || navigation.key,
+					url: navigation.url || page.url,
+				};
+			} );
+	},
+
+	/**
 	 * Get a service category title.
 	 *
 	 * @since August 10, 2026

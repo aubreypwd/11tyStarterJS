@@ -6,7 +6,7 @@
 	justify-content: space-between;
 	align-items: center;
 
-	@media(max-width: 800px) {
+	@media ( max-width: 800px ) {
 		flex-wrap: wrap;
 		gap: var(--space-s);
 	}
@@ -19,7 +19,7 @@
 
 		order: 2;
 
-		@media(max-width: 800px) {
+		@media ( max-width: 800px ) {
 
 			order: 3;
 
@@ -71,25 +71,10 @@
 			border-bottom: 3px solid var(--color-gold);
 			color: var(--color-black);
 
-			@media(max-width: 800px) {
+				@media ( max-width: 800px ) {
 				color: var(--color-ivory);
 			}
 		}
 	}
 
-	.SiteHeader__actions {
-
-		order: 3;
-
-		@media(max-width: 800px) {
-			order: 2;
-		}
-
-		flex-direction: row;
-		gap: var(--space-s);
-
-		justify-content: center;
-		align-items: center;
-
-	}
 }

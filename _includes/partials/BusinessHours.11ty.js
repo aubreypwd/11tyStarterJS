@@ -5,6 +5,17 @@
  */
 export default class BusinessHours {
 
+	/**
+	 * CSS file paths keyed by numeric load priority.
+	 *
+	 * @since August 13, 2026
+	 *
+	 * @type {object}
+	 */
+	static styles = {
+		10: 'css/partials/BusinessHours.css',
+	};
+
 	// Content
 	/**
 	 * Renders the business-hours list.
