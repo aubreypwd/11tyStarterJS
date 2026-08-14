@@ -45,16 +45,23 @@ export default class Base {
 					<meta property="og:type" content="${ data.page?.inputPath?.includes( '/blog' ) ? 'article' : 'website' }">
 					<meta property="og:site_name" content="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
 					<meta property="og:url" content="${ data.fn.escHtml( new URL( data.page.url, data.metadata.url ).href ) }">
+					<meta property="og:image" content="/img/social.webp"> <!-- @TODO: Add the social sharing image. -->
+					<meta property="og:image:alt" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
 
 					<!-- Twitter -->
 					<meta name="twitter:card" content="summary_large_image">
-					<meta property="og:image" content=""> <!-- @TODO: Add the social sharing image. -->
-					<meta name="twitter:image" content=""> <!-- @TODO: Add the social sharing image. -->
+					<meta name="twitter:title" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
+					<meta name="twitter:description" content="${ data.fn.escHtml( data.description || data.schema.localBusiness.description ) }">
+					<meta name="twitter:image" content="/img/social.webp"> <!-- @TODO: Add the social sharing image. -->
 
 					<!-- Icons -->
-					<link rel="icon" type="image/png" sizes="48x48" href=""> <!-- @TODO: Add the 48x48 favicon. -->
-					<link rel="icon" type="image/png" sizes="32x32" href=""> <!-- @TODO: Add the 32x32 favicon. -->
-					<link rel="apple-touch-icon" href=""> <!-- @TODO: Add the Apple touch icon. -->
+					<!-- @TODO: Use https://realfavicongenerator.net to generate these icons and place them directly in public/. -->
+					<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+					<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+					<link rel="shortcut icon" href="/favicon.ico">
+					<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+					<meta name="apple-mobile-web-app-title" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
+					<link rel="manifest" href="/site.webmanifest">
 
 					<!-- RSS -->
 					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
