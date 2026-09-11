@@ -9,6 +9,7 @@ export default class Partials {
 	 * Provides partials-page data.
 	 *
 	 * @since August 13, 2026
+	 * @since September 11, 2026 Adds link and button partial examples.
 	 *
 	 * @return {object} Partials-page data.
 	 */
@@ -17,7 +18,7 @@ export default class Partials {
 			layout: 'layouts/Page.11ty.js',
 			permalink: '/partials/',
 			title: 'Partials',
-			description: 'Reusable address and business-hours partials for the starter site.',
+			description: 'Reusable address, business-hours, link, and button partials for the starter site.',
 			eleventyNavigation: {
 				key: 'Partials',
 				title: 'Partials',
@@ -30,6 +31,7 @@ export default class Partials {
 	 * Renders the retained partials.
 	 *
 	 * @since August 13, 2026
+	 * @since September 11, 2026 Renders link and button partial examples.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {string} Partials-page HTML.
@@ -44,6 +46,16 @@ export default class Partials {
 
 				<h2>Business hours</h2>
 				${ data.partials.BusinessHours.render( data, this ) }
+
+				<h2>Link</h2>
+				<p>${ data.partials.Link.render( data, this, 'About this starter', {
+					href: '/about/',
+				} ) }</p>
+
+				<h2>Button</h2>
+				<p>${ data.partials.Button.render( data, this, 'Example button', {
+					type: 'button',
+				} ) }</p>
 			</section>
 		`;
 	}
