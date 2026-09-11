@@ -1,0 +1,54 @@
+.Toast {
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 10;
+
+	display: flex;
+	flex-direction: row;
+	gap: var( --space-s );
+	align-items: center;
+
+	margin: var( --space-l );
+
+	background-color: var( --color-white );
+	color: var( --color-black );
+
+	border: 1px solid var( --color-gold );
+	border-bottom-width: 3px;
+	border-radius: 4px;
+	padding: var( --space-m ) var( --space-l );
+
+	box-shadow: var( --box-shadow );
+
+	&.Toast--hidden {
+		display: none;
+	}
+
+	&.Toast--error {
+		border-color: #fb9595;
+	}
+
+	.Toast__close {
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+
+		background: transparent;
+		color: var( --color-gold );
+
+		border: 0;
+		padding: 0;
+
+		cursor: pointer;
+		font-size: var( --type-3 );
+		line-height: var( --type-0 );
+
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 2px;
+		}
+	}
+}
