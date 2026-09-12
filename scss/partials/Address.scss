@@ -2,28 +2,28 @@
 
 .Address {
 	font-style: normal;
-}
 
-.Address__name {
-	color: $color--gold;
-	font-family: $font-family--system;
-	font-weight: 600;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-}
-
-.Address__link {
-		color: $color--cloth;
-	text-decoration: none;
-
-	&:hover {
-		color: $color--shine;
+	.Address__name {
+		color: $color--gold;
+		font-family: $font-family--system;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
 	}
-}
 
-.Address__contact {
-	font-size: $type--negative-1;
-	letter-spacing: 1px;
-	line-height: $type--0;
-	margin: 0;
+	.Address__link {
+		color: $color--cloth;
+		text-decoration: none;
+
+		&:hover {
+			color: $color--shine;
+		}
+	}
+
+	.Address__contact {
+		font-size: $type--negative-1;
+		letter-spacing: 1px;
+		line-height: $type--0;
+		margin: 0;
+	}
 }
