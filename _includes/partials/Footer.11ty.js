@@ -13,7 +13,7 @@ export default class Footer {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/partials/Footer.css',
+		10: 'scss/partials/Footer.scss',
 	};
 
 	/**

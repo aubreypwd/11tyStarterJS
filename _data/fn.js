@@ -309,18 +309,19 @@ export default {
 	 * Read a file as text.
 	 *
 	 * @since Unknown
+	 * @since September 11, 2026 Uses project-root-relative file paths.
 	 *
-	 * @param {string} path Relative file path.
+	 * @param {string} path Project-root-relative file path.
 	 * @param {object} data Template data object.
 	 * @param {boolean} [once=false] Only print this file one time per render.
 	 * @return {string} File contents.
 	 */
 	printFile( path, data, once = false ) {
 
-		// There is no reason to output CSS more than once.
-		once = path.includes( '.css' ) ? true : once;
+		// There is no reason to output styles more than once.
+		once = path.endsWith( '.css' ) || path.endsWith( '.scss' ) ? true : once;
 
-		const fileUrl = new URL( path, import.meta.url );
+		const fileUrl = new URL( path, new URL( '../', import.meta.url ) );
 
 		data.printedFiles = data.printedFiles || [];
 
@@ -338,21 +339,41 @@ export default {
 	},
 
 	/**
-	 * Renders a CSS file in a style tag.
+	 * Renders a CSS or Sass file in a style tag.
 	 *
 	 * @since August 13, 2026
+	 * @since September 11, 2026 Renders Sass through Eleventy.
 	 *
-	 * @param {string} path Relative CSS file path.
+	 * @param {string} path Project-root-relative CSS or Sass file path.
 	 * @param {object} data Template data object.
-	 * @return {string} Style tag containing the CSS file.
+	 * @param {object} context Eleventy render context.
+	 * @return {Promise} Style tag containing the compiled style file.
 	 */
-	renderStyle( path, data ) {
+	async renderStyle( path, data, context ) {
 
-		if ( 'string' !== typeof path || false === path.endsWith( '.css' ) ) {
+		if ( 'string' !== typeof path || ( false === path.endsWith( '.css' ) && false === path.endsWith( '.scss' ) ) ) {
 			return '';
 		}
 
-		const css = this.printFile( path, data );
+		let css;
+
+		if ( path.endsWith( '.scss' ) ) {
+
+			if ( null === context || 'object' !== typeof context || 'function' !== typeof context.renderFile ) {
+				return '';
+			}
+
+			data.printedFiles = data.printedFiles || [];
+
+			if ( data.printedFiles.includes( path ) ) {
+				return '';
+			}
+
+			data.printedFiles.push( path );
+			css = await context.renderFile( path );
+		} else {
+			css = this.printFile( path, data );
+		}
 
 		if ( '' === css ) {
 			return '';
@@ -365,17 +386,19 @@ export default {
 	 * Renders all CSS declared by template classes.
 	 *
 	 * @since August 13, 2026
+	 * @since September 11, 2026 Renders project-root-relative Sass paths asynchronously.
 	 *
 	 * @param {object} data Eleventy template data.
+	 * @param {object} context Eleventy render context.
 	 * @return {Promise} Style tags for the template CSS registry.
 	 */
-	async renderStyles( data ) {
+	async renderStyles( data, context ) {
 
 		const registry = await this.getTemplateRegistry( data );
 
-		return registry.styles.map( function ( style ) {
-			return this.renderStyle( `../${ style.path }`, data );
-		}, this ).join( '' );
+		return ( await Promise.all( registry.styles.map( function ( style ) {
+			return this.renderStyle( style.path, data, context );
+		}, this ) ) ).join( '' );
 	},
 
 	/**
@@ -383,7 +406,7 @@ export default {
 	 *
 	 * @since August 13, 2026
 	 *
-	 * @param {string} path Relative JavaScript file path.
+	 * @param {string} path Project-root-relative JavaScript file path.
 	 * @param {object} data Template data object.
 	 * @return {string} Script tag containing the JavaScript file.
 	 */
@@ -406,6 +429,7 @@ export default {
 	 * Renders all JavaScript declared by template classes.
 	 *
 	 * @since August 13, 2026
+	 * @since September 11, 2026 Uses project-root-relative script paths.
 	 *
 	 * @param {object} data Eleventy template data.
 	 * @return {Promise} Script tags for the template JavaScript registry.
@@ -415,7 +439,7 @@ export default {
 		const registry = await this.getTemplateRegistry( data );
 
 		return registry.scripts.map( function ( script ) {
-			return this.renderScript( `../${ script.path }`, data );
+			return this.renderScript( script.path, data );
 		}, this ).join( '' );
 	},
 

@@ -13,7 +13,7 @@ export default class Header {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/partials/Header.css',
+		10: 'scss/partials/Header.scss',
 	};
 
 	/**

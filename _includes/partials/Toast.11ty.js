@@ -13,7 +13,7 @@ export default class Toast {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/Toast.css',
+		10: 'scss/Toast.scss',
 	};
 
 	/**

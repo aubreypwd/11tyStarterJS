@@ -4,7 +4,15 @@
  * @since Unknown
  */
 
-import { HtmlBasePlugin, IdAttributePlugin, InputPathToUrlTransformPlugin } from '@11ty/eleventy';
+import { parse } from 'node:path';
+
+import * as sass from 'sass';
+import {
+	HtmlBasePlugin,
+	IdAttributePlugin,
+	InputPathToUrlTransformPlugin,
+	RenderPlugin,
+} from '@11ty/eleventy';
 import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import pluginNavigation from '@11ty/eleventy-navigation';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
@@ -16,11 +24,43 @@ import schema from './_data/schema.js';
  * Registers the site's Eleventy configuration.
  *
  * @since Unknown
+ * @since September 11, 2026 Adds native Sass template support and file rendering.
  *
  * @param {object} eleventyConfig Eleventy configuration object.
  */
 export default function( eleventyConfig ) {
 	const business = schema.localBusiness;
+
+	eleventyConfig.addTemplateFormats( 'scss' );
+	eleventyConfig.addExtension( 'scss', {
+		outputFileExtension: 'css',
+		useLayouts: false,
+		compileOptions: {
+			cache: true,
+			permalink: false,
+		},
+		compile: function ( inputContent, inputPath ) {
+
+			const parsedPath = parse( inputPath );
+
+			if ( parsedPath.name.startsWith( '_' ) ) {
+				return;
+			}
+
+			const result = sass.compileString( inputContent, {
+				loadPaths: [
+					parsedPath.dir || '.',
+					this.config.dir.includes,
+				],
+			} );
+
+			this.addDependencies( inputPath, result.loadedUrls );
+
+			return async function () {
+				return result.css;
+			};
+		},
+	} );
 
 	// See _data/eleventyDataSchema.js.
 	eleventyConfig.addPreprocessor( 'drafts', '*', ( data ) => {
@@ -42,7 +82,7 @@ export default function( eleventyConfig ) {
 	 * https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 	 */
 	eleventyConfig.addWatchTarget( 'content/' );
-	eleventyConfig.addWatchTarget( 'css/' );
+	eleventyConfig.addWatchTarget( 'scss/' );
 	eleventyConfig.addWatchTarget( 'js/' );
 
 	/**
@@ -77,6 +117,7 @@ export default function( eleventyConfig ) {
 	eleventyConfig.addPlugin( pluginNavigation );
 	eleventyConfig.addPlugin( HtmlBasePlugin );
 	eleventyConfig.addPlugin( InputPathToUrlTransformPlugin );
+	eleventyConfig.addPlugin( RenderPlugin );
 
 	eleventyConfig.addPlugin( feedPlugin, {
 		type: 'atom',

@@ -20,6 +20,7 @@ export default class Base {
 	 * Renders the complete HTML document.
 	 *
 	 * @since Unknown
+	 * @since September 11, 2026 Loads Sass styles through the Eleventy render context.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {Promise} Rendered HTML document.
@@ -72,16 +73,16 @@ export default class Base {
 					<!-- @TODO: Add Analytics -->
 
 					<!-- Styles -->
-					${ data.fn.renderStyle( '../css/GoogleFonts.css', data ) }
-					${ data.fn.renderStyle( '../css/Base.css', data ) }
-					${ data.fn.renderStyle( '../css/SmoothScrolling.css', data ) }
-					${ data.fn.renderStyle( '../css/Colors.css', data ) }
-					${ data.fn.renderStyle( '../css/Posts.css', data ) }
-					${ data.fn.renderStyle( '../css/A11y.css', data ) }
-					${ data.fn.renderStyle( '../css/Utopia.css', data ) }
-					${ data.fn.renderStyle( '../css/Lists.css', data ) }
-					${ data.fn.renderStyle( '../css/Containers.css', data ) }
-					${ await data.fn.renderStyles( data ) }
+					${ await data.fn.renderStyle( 'scss/GoogleFonts.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Base.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/SmoothScrolling.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Colors.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Posts.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/A11y.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Utopia.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Lists.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Containers.scss', data, this ) }
+					${ await data.fn.renderStyles( data, this ) }
 					<style>${ this.getBundle( 'css' ) }</style>
 				</head>
 

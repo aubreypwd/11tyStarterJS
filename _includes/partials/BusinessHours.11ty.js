@@ -13,7 +13,7 @@ export default class BusinessHours {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/partials/BusinessHours.css',
+		10: 'scss/partials/BusinessHours.scss',
 	};
 
 	// Content

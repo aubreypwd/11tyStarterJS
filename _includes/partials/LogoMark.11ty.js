@@ -13,7 +13,7 @@ export default class LogoMark {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/partials/LogoMark.css',
+		10: 'scss/partials/LogoMark.scss',
 	};
 
 	/**

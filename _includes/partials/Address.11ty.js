@@ -13,7 +13,7 @@ export default class Address {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'css/partials/Address.css',
+		10: 'scss/partials/Address.scss',
 	};
 
 	/**
