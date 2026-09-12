@@ -1,14 +1,18 @@
+@use '../Globals' as *;
+
+$breakpoint--medium: 800px;
+
 .SiteHeader {
 
 	flex-direction: row;
-	gap: var(--space-2xl);
+	gap: $space--2xl;
 
 	justify-content: space-between;
 	align-items: center;
 
-	@media ( max-width: 800px ) {
+	@media ( max-width: $breakpoint--medium ) {
 		flex-wrap: wrap;
-		gap: var(--space-s);
+		gap: $space--s;
 	}
 
 	.LogoMark {
@@ -19,15 +23,15 @@
 
 		order: 2;
 
-		@media ( max-width: 800px ) {
+		@media ( max-width: $breakpoint--medium ) {
 
 			order: 3;
 
 			align-self: flex-end;
 			flex: 0 0 100%;
 
-			background: var(--color-gold);
-			padding: var(--space-s);
+			background: $color--gold;
+			padding: $space--s;
 			align-items: center;
 			justify-content: center;
 
@@ -38,7 +42,7 @@
 
 				width: 100%;
 				justify-content: center;
-				gap: var(--space-s);
+				gap: $space--s;
 			}
 
 			.SiteHeader__item {
@@ -46,7 +50,7 @@
 			}
 
 			.SiteHeader__link {
-				color: var(--color-ivory);
+				color: $color--ivory;
 			}
 		}
 	}
@@ -54,25 +58,25 @@
 	.SiteHeader__nav {
 
 		flex-direction: row;
-		gap: var(--space-xl);
+		gap: $space--xl;
 	}
 
 	.SiteHeader__link {
 
 		text-decoration: none;
-		font-size: calc( var(--type-0) * 1.02 );
-		color: var(--color-clay);
+		font-size: calc( $type--0 * 1.02 );
+		color: $color--clay;
 		font-weight: 600;
 
 		margin-top: 5px;
 		padding-bottom: 5px;
 
 		&:hover {
-			border-bottom: 3px solid var(--color-gold);
-			color: var(--color-black);
+			border-bottom: 3px solid $color--gold;
+			color: $color--black;
 
-				@media ( max-width: 800px ) {
-				color: var(--color-ivory);
+			@media ( max-width: $breakpoint--medium ) {
+				color: $color--ivory;
 			}
 		}
 	}

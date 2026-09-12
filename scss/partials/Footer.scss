@@ -1,10 +1,12 @@
+@use '../Globals' as *;
+
 .SiteFooter {
 
 	width: 100%;
-	padding: var(--space-l);
-	background-color: var(--color-slate);
-	color: var(--color-ivory);
-	font-size: var(--type--1);
+	padding: $space--l;
+	background-color: $color--slate;
+	color: $color--ivory;
+	font-size: $type--negative-1;
 	text-align: center;
 
 	.SiteFooter__copyright {

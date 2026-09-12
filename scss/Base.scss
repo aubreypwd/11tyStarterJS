@@ -1,8 +1,6 @@
-:root {
+@use 'Globals' as *;
 
-	/* Base Fonts */
-	--font-family-system: -apple-system, system-ui, sans-serif;
-	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+:root {
 
 	--box-shadow: 0 2px 4px rgba(64, 58, 56, 0.03),
 		0 10px 28px rgba(64, 58, 56, 0.08);
@@ -28,8 +26,8 @@ p {
 
 	min-height: 100vh;
 
-	font-size: var(--type-0);
-	font-family: var(--font-family-system);
+	font-size: $type--0;
+	font-family: $font-family--system;
 
 	overflow: hidden;
 
@@ -60,12 +58,12 @@ body {
 
 html,
 body {
-	background-color: var(--color-cloth);
-	color: var(--color-black);
+	background-color: $color--cloth;
+	color: $color--black;
 }
 
 a {
-	color: var(--color-slate);
+	color: $color--slate;
 }
 
 /* Starter */
@@ -102,7 +100,7 @@ iframe {
 /* Code */
 pre,
 code {
-	font-family: var(--font-family-monospace);
+	font-family: $font-family--monospace;
 }
 pre:not([class*="language-"]) {
 	margin: .5em 0;

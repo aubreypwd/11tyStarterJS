@@ -1,3 +1,5 @@
+@use 'Globals' as *;
+
 /* Theme colors */
 :root {
 	--color-gray-20: #e0e0e0;
@@ -33,7 +35,7 @@ html,
 body {
 	padding: 0;
 	margin: 0 auto;
-	font-family: var(--font-family-system);
+	font-family: $font-family--system;
 	color: var(--text-color);
 	background-color: var(--background-color);
 }

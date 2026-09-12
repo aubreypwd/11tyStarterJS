@@ -1,3 +1,5 @@
+@use '../Globals' as *;
+
 .LogoMark {
 
 	text-decoration: none;
@@ -10,20 +12,20 @@
 
 	.LogoMark__wordmark {
 
-		color: var(--color-slate);
-		font-size: var(--type-5);
+		color: $color--slate;
+		font-size: $type--5;
 		font-weight: 100;
-		font-family: var(--font-family-system);
+		font-family: $font-family--system;
 
 		letter-spacing: 0;
 	}
 
 	.LogoMark__descriptor {
-		color: var(--color-gold);
+		color: $color--gold;
 
 		font-weight: 700;
 		font-size: var(--type--3);
-		font-family: var(--font-family-system);
+		font-family: $font-family--system;
 		text-transform: uppercase;
 	}
 }

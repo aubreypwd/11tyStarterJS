@@ -1,27 +1,29 @@
+@use '../Globals' as *;
+
 .Address {
 	font-style: normal;
 }
 
 .Address__name {
-	color: var(--color-gold);
-	font-family: var(--font-family-system);
+	color: $color--gold;
+	font-family: $font-family--system;
 	font-weight: 600;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
 
 .Address__link {
-	color: var(--color-cloth);
+		color: $color--cloth;
 	text-decoration: none;
 
 	&:hover {
-		color: var(--color-shine);
+		color: $color--shine;
 	}
 }
 
 .Address__contact {
-	font-size: var(--type--1);
+	font-size: $type--negative-1;
 	letter-spacing: 1px;
-	line-height: var(--type-0);
+	line-height: $type--0;
 	margin: 0;
 }

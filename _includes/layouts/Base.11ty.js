@@ -92,7 +92,7 @@ export default class Base {
 					<!-- Header -->
 					${ data.partials.Header.render( data, this ) }
 
-					<main id="main" class="Site__main Container Container--none">
+					<main id="main" class="Site__main Container">
 
 						${ data.content }
 					</main>

@@ -1,15 +1,17 @@
+@use '../Globals' as *;
+
 .BusinessHours {
 
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-3xs);
+	gap: $space--3xs;
 	margin: 0;
 
 	.BusinessHours__row {
 
 		display: flex;
 		flex-direction: row;
-		gap: var(--space-xs);
+		gap: $space--xs;
 
 		@media ( max-width: 924px ) and ( min-width: 789px ) {
 			flex-direction: column;
@@ -18,7 +20,7 @@
 	}
 
 	.BusinessHours__day {
-		color: var(--color-gold);
+		color: $color--gold;
 		font-weight: 700;
 		min-width: 78px;
 	}
