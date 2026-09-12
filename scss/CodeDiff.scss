@@ -1,0 +1,20 @@
+%Code--diff-prefix {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	padding-top: 2px;
+	padding-bottom: 2px;
+
+	user-select: none;
+}
+
+%Code--diff-full-width {
+	display: block;
+
+	margin-left: calc( -1 * var( --eleventy-code-padding ) );
+	margin-right: calc( -1 * var( --eleventy-code-padding ) );
+
+	color: inherit;
+	text-decoration: none;
+}

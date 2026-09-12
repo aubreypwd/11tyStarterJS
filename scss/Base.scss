@@ -1,4 +1,5 @@
 @use 'Globals' as *;
+@use 'CodeDiff' as *;
 
 :root {
 
@@ -141,13 +142,9 @@ pre[class*="language-diff-"] {
 .token.prefix.unchanged,
 .token.prefix.inserted,
 .token.prefix.deleted {
+	@extend %Code--diff-prefix;
+
 	-webkit-user-select: none;
-	user-select: none;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding-top: 2px;
-	padding-bottom: 2px;
 }
 .token.prefix.inserted,
 .token.prefix.deleted {
@@ -158,11 +155,7 @@ pre[class*="language-diff-"] {
 /* Optional: full-width background color */
 .token.inserted:not(.prefix),
 .token.deleted:not(.prefix) {
-	display: block;
-	margin-left: calc(-1 * var(--eleventy-code-padding));
-	margin-right: calc(-1 * var(--eleventy-code-padding));
-	text-decoration: none; /* override del, ins, mark defaults */
-	color: inherit; /* override del, ins, mark defaults */
+	@extend %Code--diff-full-width;
 }
 
 .Visibility--hidden {
