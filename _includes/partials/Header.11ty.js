@@ -2,6 +2,8 @@
  * Renders the site header.
  *
  * @since August 13, 2026
+ * @since September 14, 2026 Keeps Flex layout modifiers in Header.scss so the markup remains component-oriented.
+ * @since September 15, 2026 Consolidates the navigation list classes into NavigationList.
  */
 export default class Header {
 
@@ -51,7 +53,7 @@ export default class Header {
 	 */
 	renderNavigation( data ) {
 		return /* html */ `
-			<ul class="List List--unlisted SiteHeader__nav">
+			<ul class="NavigationList">
 				${ data.fn.navigationItems( data ).map( function( navigation ) {
 					return /* html */ `
 						<li class="SiteHeader__item">

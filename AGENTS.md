@@ -11,6 +11,47 @@
 - You may run `npm run build` only to test code changes, and only after the user confirms in writing whether or not you can run it for that task.
 - Do not run Node checks unless explicitly asked.
 
+## Custom Flex system
+
+- Read [`docs/Flex.md`](docs/Flex.md) before creating or modifying flexbox layouts.
+- Use [`scss/Flex.scss`](scss/Flex.scss) as the source of truth for the custom breakpoint-oriented Flex system.
+- Use only the documented BEM-style classes and the breakpoints `0`, `768`, `992`, and `1200`.
+- Use `.Flex` and breakpoint-oriented `.Flex--...` classes for flex-container behavior.
+- Use `.Flex__item--...` classes for item spans, growth, shrinking, ordering, and individual alignment.
+- Keep component gaps, margins, padding, and visual styling in the component stylesheet.
+- When converting a component, remove its raw flexbox declarations and use Sass `@extend` in that component's stylesheet so the HTML keeps only semantic/component classes.
+- Do not add FrowCSS, Foundation XY, shortcut classes, fraction span names, `col-*` span names, Sass loops, Sass maps, Sass mixins, or new undocumented Flex classes.
+- If existing tag-based flex inheritance interferes with a conversion, remove that inheritance for the converted area and explicitly extend the required classes.
+- Update `docs/Flex.md` whenever the public Flex class vocabulary changes.
+
+### Component conversion pattern
+
+- Use `scss/partials/Header.scss` as the reference implementation for converting existing flex layouts.
+- Keep the HTML semantic and component-oriented. Do not add generic Flex or list utility classes to the markup when Sass can apply them with `@extend`.
+- Give an element one meaningful component class when it needs several existing behaviors. For example, use `<ul class="NavigationList">` instead of combining `List`, `List--unlisted`, and `SiteHeader__nav`.
+- Apply the existing behaviors to that component class in its Sass file. `NavigationList` extends `.List--unlisted`, `.Flex`, its breakpoint-specific container classes, and its item span.
+- Load Flex through `@use '../Globals' as *;`. `Globals.scss` loads `Flex.scss`; do not add a separate `@use '../Flex' as *;` to individual components.
+- When a component extends a class from another Sass module, load that module explicitly. `Header.scss` uses `@use '../Lists' as *;` so `NavigationList` can extend `.List--unlisted`.
+- Group Flex extensions in this order: `.Flex`, all container behavior from `0` upward, then all item behavior from `0` upward. Keep the `0` and `768` declarations in the same group without a blank line between those breakpoints.
+- Use this structure for a Flex container with item behavior:
+
+  ```scss
+  @extend .Flex;
+
+  @extend .Flex--0-...;
+  @extend .Flex--768-...;
+
+  @extend .Flex__item--0-...;
+
+  @extend .Flex__item--768-...;
+  ```
+
+- Do not wrap breakpoint-oriented `@extend` calls in component media queries. The breakpoint classes in `Flex.scss` provide their own media-query scope.
+- Keep media queries in component Sass only for component-owned properties such as `gap`, colors, padding, borders, widths, and text alignment.
+- Remove raw flexbox declarations from the converted component stylesheet. Do not replace them with new raw flex declarations.
+- Do not style an HTML tag directly when a semantic component class can carry the same behavior. The existing `.List` class has no declarations, so do not extend or retain it merely because it appeared in older markup; extend `.List--unlisted` when the unlisted reset is needed.
+- Convert one component at a time and leave unrelated components unchanged until their own conversion begins.
+
 ## Template Style
 
 - Prefer `*.11ty.js` files for new or modified Eleventy templates, layouts, and includes.

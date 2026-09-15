@@ -680,6 +680,53 @@ The source is deliberately written as explicit CSS rather than generated with Sa
 
 Every public selector in `Flex.scss` has a nearby block comment describing its effect and linking to the relevant native CSS property documentation.
 
+## Applying Flex behavior in component Sass
+
+The preferred component pattern is to keep Flex classes out of the HTML when the component stylesheet already owns the component class. The component stylesheet can import the Flex system and extend the documented classes:
+
+```scss
+@use '../Flex' as *;
+
+.Component {
+	@extend .Flex;
+	@extend .Flex--0-row;
+	@extend .Flex--0-row-items-center;
+	@extend .Flex--768-column;
+}
+```
+
+The resulting HTML can remain semantic and component-oriented:
+
+```html
+<section class="Component">
+	Content
+</section>
+```
+
+When a component changes layout at a breakpoint, extend the matching breakpoint class directly. The breakpoint class already carries its own media-query scope in `Flex.scss`:
+
+```scss
+.Component {
+	@extend .Flex--768-column;
+}
+```
+
+Only put component-owned declarations such as gaps, colors, padding, or width resets inside the component's media query:
+
+```scss
+.Component {
+	gap: 1rem;
+
+	@media ( min-width: 768px ) {
+		gap: 2rem;
+	}
+}
+```
+
+Use only classes that already exist in `Flex.scss`. Do not recreate their declarations in the component stylesheet.
+
+The current Eleventy setup compiles component Sass files independently. Importing `Flex.scss` to make its selectors available to `@extend` can therefore include the Flex module's CSS in that component's compiled style as well as in the global Flex style. This is the intentional cost of the Sass-side `@extend` pattern currently used for the header. If many components begin extending the system and the output becomes too large, the compilation architecture should be revisited rather than adding aliases, loops, or a second Flex vocabulary.
+
 ## Maintenance rules
 
 When changing this system:

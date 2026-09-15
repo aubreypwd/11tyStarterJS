@@ -31,25 +31,6 @@ p {
 	font-family: $font-family--system;
 
 	overflow: hidden;
-
-	div,
-	main,
-	header,
-	footer,
-	nav,
-	section,
-	article,
-	aside,
-	form,
-	fieldset,
-	figure,
-	figcaption,
-	details,
-	dialog,
-	ul {
-		display: flex;
-		flex-direction: column;
-	}
 }
 
 /* Customizations */

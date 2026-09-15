@@ -4,11 +4,10 @@
 
 	text-decoration: none;
 
-	display: flex;
-	flex-direction: column;
+	@extend .Flex;
 
-	justify-content: center;
-	align-items: flex-start;
+	@extend .Flex--0-column-vertical-center;
+	@extend .Flex--0-column-items-start;
 
 	.LogoMark__wordmark {
 

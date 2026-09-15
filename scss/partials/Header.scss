@@ -1,71 +1,95 @@
 @use '../Globals' as *;
+@use '../Lists' as *;
 
-$breakpoint--medium: 800px;
+$breakpoint--medium: 768px;
 
 .SiteHeader {
 
-	flex-direction: row;
-	gap: $space--2xl;
+	@extend .Flex;
 
-	justify-content: space-between;
-	align-items: center;
+	@extend .Flex--0-column;
+	@extend .Flex--768-row;
+	@extend .Flex--768-row-horizontal-between;
+	@extend .Flex--768-row-items-center;
 
-	@media ( max-width: $breakpoint--medium ) {
-		flex-wrap: wrap;
-		gap: $space--s;
+	gap: $space--s;
+
+	@media ( min-width: $breakpoint--medium ) {
+
+		gap: $space--2xl;
 	}
 
 	.LogoMark {
-		order: 1;
+		@extend .Flex__item--0-order-1;
 	}
 
 	.SiteHeader__menu {
 
-		order: 2;
+		@extend .Flex;
 
-		@media ( max-width: $breakpoint--medium ) {
+		@extend .Flex--0-column;
+		@extend .Flex--0-column-items-center;
+		@extend .Flex--0-column-vertical-center;
+		@extend .Flex--768-column-items-stretch;
+		@extend .Flex--768-column-vertical-start;
 
-			order: 3;
+		@extend .Flex__item--0-12;
+		@extend .Flex__item--0-order-3;
+		@extend .Flex__item--0-self-end;
 
-			align-self: flex-end;
-			flex: 0 0 100%;
+		@extend .Flex__item--768-order-2;
+		@extend .Flex__item--768-self-auto;
 
-			background: $color--gold;
-			padding: $space--s;
-			align-items: center;
-			justify-content: center;
+		background: $color--gold;
+		padding: $space--s;
 
-			border-bottom: 2px solid #aa8951;
-			border-radius: 3px;
+		border-bottom: 2px solid #aa8951;
+		border-radius: 3px;
 
-			.SiteHeader__nav {
+		@media ( min-width: $breakpoint--medium ) {
 
-				width: 100%;
-				justify-content: center;
-				gap: $space--s;
-			}
+			background: transparent;
+			padding: 0;
 
-			.SiteHeader__item {
-				text-align: center;
-			}
-
-			.SiteHeader__link {
-				color: $color--ivory;
-			}
+			border: 0;
+			border-radius: 0;
+			width: auto;
 		}
 	}
 
-	.SiteHeader__nav {
+	.NavigationList {
 
-		flex-direction: row;
-		gap: $space--xl;
+		@extend .List--unlisted;
+
+		@extend .Flex;
+
+		@extend .Flex--0-row-horizontal-center;
+		@extend .Flex--768-row-horizontal-end;
+
+		@extend .Flex__item--0-12;
+
+		gap: $space--s;
+
+		@media ( min-width: $breakpoint--medium ) {
+
+			gap: $space--xl;
+			width: auto;
+		}
+	}
+
+	.SiteHeader__item {
+		text-align: center;
+
+		@media ( min-width: $breakpoint--medium ) {
+			text-align: left;
+		}
 	}
 
 	.SiteHeader__link {
 
 		text-decoration: none;
 		font-size: calc( $type--0 * 1.02 );
-		color: $color--clay;
+		color: $color--ivory;
 		font-weight: 600;
 
 		margin-top: 5px;
@@ -73,12 +97,16 @@ $breakpoint--medium: 800px;
 
 		&:hover {
 			border-bottom: 3px solid $color--gold;
-			color: $color--black;
+			color: $color--ivory;
+		}
 
-			@media ( max-width: $breakpoint--medium ) {
-				color: $color--ivory;
+		@media ( min-width: $breakpoint--medium ) {
+
+			color: $color--clay;
+
+			&:hover {
+				color: $color--black;
 			}
 		}
 	}
-
 }
