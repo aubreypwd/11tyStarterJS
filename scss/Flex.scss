@@ -1,0 +1,3306 @@
+/*
+ * Provides the project's custom, breakpoint-oriented flexbox system.
+ *
+ * The `0` breakpoint applies from 0px upward. The 768px, 992px, and 1200px
+ * breakpoints apply from their named width upward and override earlier rules.
+ * `.Flex` enables flex layout and keeps items on one line by default. Direction
+ * and alignment decisions are made explicitly with the breakpoint classes.
+ * Gaps remain component decisions and are intentionally not included here.
+ * Item spans represent the number of columns occupied in a twelve-column row.
+ * Span items are allowed to shrink so component gaps do not normally force them
+ * to wrap. Visibility classes are the only classes implemented as bounded
+ * breakpoint ranges because hidden content should become normal outside its
+ * named range.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+
+/*
+ * Creates a block-level flex container and keeps its items on one line by
+ * default. It does not choose a direction, alignment, gap, margin, or padding.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+ */
+.Flex {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+/*
+ * Changes a `.Flex` container from block-level flex to inline-level flex.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+.Flex--inline {
+	display: inline-flex;
+}
+
+/*
+ * Gives a generic flex item a shrink-safe box model and allows its minimum
+ * width to participate in flex shrinking.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/box-sizing
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/min-width
+ */
+.Flex__item {
+	box-sizing: border-box;
+	min-width: 0;
+}
+
+/* 0px and wider: direction. */
+
+/*
+ * Places the flex items in a horizontal row from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+ */
+.Flex--0-row {
+	flex-direction: row;
+}
+
+/*
+ * Places the flex items in a reversed horizontal row from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+ */
+.Flex--0-row-reverse {
+	flex-direction: row-reverse;
+}
+
+/*
+ * Places the flex items in a vertical column from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+ */
+.Flex--0-column {
+	flex-direction: column;
+}
+
+/*
+ * Places the flex items in a reversed vertical column from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+ */
+.Flex--0-column-reverse {
+	flex-direction: column-reverse;
+}
+
+/* 0px and wider: wrapping. */
+
+/*
+ * Allows flex items to form multiple lines from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+ */
+.Flex--0-wrap {
+	flex-wrap: wrap;
+}
+
+/*
+ * Keeps flex items on one line from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+ */
+.Flex--0-nowrap {
+	flex-wrap: nowrap;
+}
+
+/*
+ * Allows flex items to form multiple reversed lines from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+ */
+.Flex--0-wrap-reverse {
+	flex-wrap: wrap-reverse;
+}
+
+/* 0px and wider: row horizontal alignment. */
+
+/*
+ * Uses a row and places its contents at the row's start edge from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-start {
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+/*
+ * Uses a row and centers its contents horizontally from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-center {
+	flex-direction: row;
+	justify-content: center;
+}
+
+/*
+ * Uses a row and places its contents at the row's end edge from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-end {
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+/*
+ * Uses a row and distributes equal free space between its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-between {
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+/*
+ * Uses a row and distributes free space around its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-around {
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+/*
+ * Uses a row and distributes equal free space around and between its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-row-horizontal-evenly {
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+/* 0px and wider: row vertical line alignment. */
+
+/*
+ * Uses a row and places wrapped flex lines at the vertical start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-start {
+	flex-direction: row;
+	align-content: flex-start;
+}
+
+/*
+ * Uses a row and centers wrapped flex lines vertically from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-center {
+	flex-direction: row;
+	align-content: center;
+}
+
+/*
+ * Uses a row and places wrapped flex lines at the vertical end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-end {
+	flex-direction: row;
+	align-content: flex-end;
+}
+
+/*
+ * Uses a row and distributes wrapped flex lines with space between them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-between {
+	flex-direction: row;
+	align-content: space-between;
+}
+
+/*
+ * Uses a row and distributes wrapped flex lines with space around them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-around {
+	flex-direction: row;
+	align-content: space-around;
+}
+
+/*
+ * Uses a row and distributes wrapped flex lines with equal space between them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-evenly {
+	flex-direction: row;
+	align-content: space-evenly;
+}
+
+/*
+ * Uses a row and stretches wrapped flex lines across the available vertical space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-row-vertical-stretch {
+	flex-direction: row;
+	align-content: stretch;
+}
+
+/* 0px and wider: row item alignment. */
+
+/*
+ * Uses a row and aligns individual items at the row's vertical start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-row-items-start {
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+/*
+ * Uses a row and centers individual items vertically from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-row-items-center {
+	flex-direction: row;
+	align-items: center;
+}
+
+/*
+ * Uses a row and aligns individual items at the row's vertical end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-row-items-end {
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+/*
+ * Uses a row and stretches individual items vertically from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-row-items-stretch {
+	flex-direction: row;
+	align-items: stretch;
+}
+
+/*
+ * Uses a row and aligns individual items by their text baselines from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-row-items-baseline {
+	flex-direction: row;
+	align-items: baseline;
+}
+
+/* 0px and wider: column vertical alignment. */
+
+/*
+ * Uses a column and places its contents at the vertical start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-start {
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+/*
+ * Uses a column and centers its contents vertically from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-center {
+	flex-direction: column;
+	justify-content: center;
+}
+
+/*
+ * Uses a column and places its contents at the vertical end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-end {
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+/*
+ * Uses a column and distributes equal free space between its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-between {
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+/*
+ * Uses a column and distributes free space around its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-around {
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+/*
+ * Uses a column and distributes equal free space around and between its contents from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+ */
+.Flex--0-column-vertical-evenly {
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+/* 0px and wider: column horizontal line alignment. */
+
+/*
+ * Uses a column and places wrapped flex lines at the horizontal start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-start {
+	flex-direction: column;
+	align-content: flex-start;
+}
+
+/*
+ * Uses a column and centers wrapped flex lines horizontally from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-center {
+	flex-direction: column;
+	align-content: center;
+}
+
+/*
+ * Uses a column and places wrapped flex lines at the horizontal end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-end {
+	flex-direction: column;
+	align-content: flex-end;
+}
+
+/*
+ * Uses a column and distributes wrapped flex lines with space between them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-between {
+	flex-direction: column;
+	align-content: space-between;
+}
+
+/*
+ * Uses a column and distributes wrapped flex lines with space around them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-around {
+	flex-direction: column;
+	align-content: space-around;
+}
+
+/*
+ * Uses a column and distributes wrapped flex lines with equal space between them from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-evenly {
+	flex-direction: column;
+	align-content: space-evenly;
+}
+
+/*
+ * Uses a column and stretches wrapped flex lines across the available horizontal space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+ */
+.Flex--0-column-horizontal-stretch {
+	flex-direction: column;
+	align-content: stretch;
+}
+
+/* 0px and wider: column item alignment. */
+
+/*
+ * Uses a column and aligns individual items at the column's horizontal start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-column-items-start {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+/*
+ * Uses a column and centers individual items horizontally from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-column-items-center {
+	flex-direction: column;
+	align-items: center;
+}
+
+/*
+ * Uses a column and aligns individual items at the column's horizontal end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-column-items-end {
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+/*
+ * Uses a column and stretches individual items horizontally from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-column-items-stretch {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+/*
+ * Uses a column and aligns individual items by their text baselines from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+ */
+.Flex--0-column-items-baseline {
+	flex-direction: column;
+	align-items: baseline;
+}
+
+/* 0px and wider: item spans. */
+
+/*
+ * Gives the item a preferred width of one of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-1 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 8.333333%;
+}
+
+/*
+ * Gives the item a preferred width of two of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-2 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 16.666667%;
+}
+
+/*
+ * Gives the item a preferred width of three of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-3 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 25%;
+}
+
+/*
+ * Gives the item a preferred width of four of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-4 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 33.333333%;
+}
+
+/*
+ * Gives the item a preferred width of five of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-5 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 41.666667%;
+}
+
+/*
+ * Gives the item a preferred width of six of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-6 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 50%;
+}
+
+/*
+ * Gives the item a preferred width of seven of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-7 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 58.333333%;
+}
+
+/*
+ * Gives the item a preferred width of eight of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-8 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 66.666667%;
+}
+
+/*
+ * Gives the item a preferred width of nine of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-9 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 75%;
+}
+
+/*
+ * Gives the item a preferred width of ten of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-10 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 83.333333%;
+}
+
+/*
+ * Gives the item a preferred width of eleven of twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-11 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 91.666667%;
+}
+
+/*
+ * Gives the item a preferred width of all twelve columns and allows it to shrink around a component gap.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+ */
+.Flex__item--0-12 {
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	min-width: 0;
+	width: 100%;
+}
+
+/* 0px and wider: item growth and shrink behavior. */
+
+/*
+ * Allows the item to consume positive free space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+ */
+.Flex__item--0-grow-allow {
+	flex-grow: 1;
+}
+
+/*
+ * Prevents the item from consuming positive free space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+ */
+.Flex__item--0-grow-prevent {
+	flex-grow: 0;
+}
+
+/*
+ * Allows the item to shrink when the flex container has insufficient space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+ */
+.Flex__item--0-shrink-allow {
+	flex-shrink: 1;
+}
+
+/*
+ * Prevents the item from shrinking when the flex container has insufficient space from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+ */
+.Flex__item--0-shrink-prevent {
+	flex-shrink: 0;
+}
+
+/* 0px and wider: item order. */
+
+/*
+ * Places the item at order zero from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-0 {
+	order: 0;
+}
+
+/*
+ * Places the item at order one from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-1 {
+	order: 1;
+}
+
+/*
+ * Places the item at order two from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-2 {
+	order: 2;
+}
+
+/*
+ * Places the item at order three from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-3 {
+	order: 3;
+}
+
+/*
+ * Places the item at order four from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-4 {
+	order: 4;
+}
+
+/*
+ * Places the item at order five from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-5 {
+	order: 5;
+}
+
+/*
+ * Places the item at order six from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-6 {
+	order: 6;
+}
+
+/*
+ * Places the item at order seven from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-7 {
+	order: 7;
+}
+
+/*
+ * Places the item at order eight from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-8 {
+	order: 8;
+}
+
+/*
+ * Places the item at order nine from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-9 {
+	order: 9;
+}
+
+/*
+ * Places the item at order ten from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-10 {
+	order: 10;
+}
+
+/*
+ * Places the item at order eleven from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-11 {
+	order: 11;
+}
+
+/*
+ * Places the item at order twelve from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+ */
+.Flex__item--0-order-12 {
+	order: 12;
+}
+
+/* 0px and wider: individual item alignment. */
+
+/*
+ * Restores the item's alignment to the container's `align-items` value from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-auto {
+	align-self: auto;
+}
+
+/*
+ * Aligns the individual item at the container's start from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-start {
+	align-self: flex-start;
+}
+
+/*
+ * Centers the individual item on the container's cross axis from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-center {
+	align-self: center;
+}
+
+/*
+ * Aligns the individual item at the container's end from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-end {
+	align-self: flex-end;
+}
+
+/*
+ * Stretches the individual item across the container's cross axis from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-stretch {
+	align-self: stretch;
+}
+
+/*
+ * Aligns the individual item to the shared text baseline from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+ */
+.Flex__item--0-self-baseline {
+	align-self: baseline;
+}
+
+/* 768px and wider. */
+
+@media ( min-width: 768px ) {
+
+	/* Direction. */
+
+	/*
+	 * Places the flex items in a horizontal row from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--768-row {
+		flex-direction: row;
+	}
+
+	/*
+	 * Places the flex items in a reversed horizontal row from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--768-row-reverse {
+		flex-direction: row-reverse;
+	}
+
+	/*
+	 * Places the flex items in a vertical column from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--768-column {
+		flex-direction: column;
+	}
+
+	/*
+	 * Places the flex items in a reversed vertical column from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--768-column-reverse {
+		flex-direction: column-reverse;
+	}
+
+	/* Wrapping. */
+
+	/*
+	 * Allows flex items to form multiple lines from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--768-wrap {
+		flex-wrap: wrap;
+	}
+
+	/*
+	 * Keeps flex items on one line from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--768-nowrap {
+		flex-wrap: nowrap;
+	}
+
+	/*
+	 * Allows flex items to form multiple reversed lines from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--768-wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+
+	/* Row horizontal alignment. */
+
+	/*
+	 * Uses a row and places its contents at the row's start edge from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-start {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers its contents horizontally from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-center {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a row and places its contents at the row's end edge from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-end {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space between its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-between {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes free space around its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-around {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space around and between its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-row-horizontal-evenly {
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+
+	/* Row vertical line alignment. */
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-start {
+		flex-direction: row;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers wrapped flex lines vertically from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-center {
+		flex-direction: row;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-end {
+		flex-direction: row;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space between them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-between {
+		flex-direction: row;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space around them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-around {
+		flex-direction: row;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with equal space between them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-evenly {
+		flex-direction: row;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a row and stretches wrapped flex lines across the available vertical space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-row-vertical-stretch {
+		flex-direction: row;
+		align-content: stretch;
+	}
+
+	/* Row item alignment. */
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-row-items-start {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers individual items vertically from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-row-items-center {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-row-items-end {
+		flex-direction: row;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a row and stretches individual items vertically from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-row-items-stretch {
+		flex-direction: row;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a row and aligns individual items by their text baselines from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-row-items-baseline {
+		flex-direction: row;
+		align-items: baseline;
+	}
+
+	/* Column vertical alignment. */
+
+	/*
+	 * Uses a column and places its contents at the vertical start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-start {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers its contents vertically from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-center {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a column and places its contents at the vertical end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-end {
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space between its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-between {
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes free space around its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-around {
+		flex-direction: column;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space around and between its contents from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--768-column-vertical-evenly {
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	/* Column horizontal line alignment. */
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-start {
+		flex-direction: column;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers wrapped flex lines horizontally from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-center {
+		flex-direction: column;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-end {
+		flex-direction: column;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space between them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-between {
+		flex-direction: column;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space around them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-around {
+		flex-direction: column;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with equal space between them from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-evenly {
+		flex-direction: column;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a column and stretches wrapped flex lines across the available horizontal space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--768-column-horizontal-stretch {
+		flex-direction: column;
+		align-content: stretch;
+	}
+
+	/* Column item alignment. */
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-column-items-start {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers individual items horizontally from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-column-items-center {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-column-items-end {
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a column and stretches individual items horizontally from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-column-items-stretch {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a column and aligns individual items by their text baselines from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--768-column-items-baseline {
+		flex-direction: column;
+		align-items: baseline;
+	}
+
+	/* Item spans. */
+
+	/*
+	 * Gives the item a preferred width of one of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-1 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 8.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of two of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-2 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 16.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of three of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-3 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 25%;
+	}
+
+	/*
+	 * Gives the item a preferred width of four of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-4 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 33.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of five of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-5 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 41.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of six of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-6 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 50%;
+	}
+
+	/*
+	 * Gives the item a preferred width of seven of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-7 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 58.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eight of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-8 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 66.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of nine of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-9 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 75%;
+	}
+
+	/*
+	 * Gives the item a preferred width of ten of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-10 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 83.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eleven of twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-11 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 91.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of all twelve columns and allows it to shrink around a component gap from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--768-12 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 100%;
+	}
+
+	/* Growth and shrink behavior. */
+
+	/*
+	 * Allows the item to consume positive free space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--768-grow-allow {
+		flex-grow: 1;
+	}
+
+	/*
+	 * Prevents the item from consuming positive free space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--768-grow-prevent {
+		flex-grow: 0;
+	}
+
+	/*
+	 * Allows the item to shrink when the flex container has insufficient space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--768-shrink-allow {
+		flex-shrink: 1;
+	}
+
+	/*
+	 * Prevents the item from shrinking when the flex container has insufficient space from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--768-shrink-prevent {
+		flex-shrink: 0;
+	}
+
+	/* Item order. */
+
+	/*
+	 * Places the item at order zero from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-0 {
+		order: 0;
+	}
+
+	/*
+	 * Places the item at order one from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-1 {
+		order: 1;
+	}
+
+	/*
+	 * Places the item at order two from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-2 {
+		order: 2;
+	}
+
+	/*
+	 * Places the item at order three from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-3 {
+		order: 3;
+	}
+
+	/*
+	 * Places the item at order four from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-4 {
+		order: 4;
+	}
+
+	/*
+	 * Places the item at order five from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-5 {
+		order: 5;
+	}
+
+	/*
+	 * Places the item at order six from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-6 {
+		order: 6;
+	}
+
+	/*
+	 * Places the item at order seven from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-7 {
+		order: 7;
+	}
+
+	/*
+	 * Places the item at order eight from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-8 {
+		order: 8;
+	}
+
+	/*
+	 * Places the item at order nine from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-9 {
+		order: 9;
+	}
+
+	/*
+	 * Places the item at order ten from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-10 {
+		order: 10;
+	}
+
+	/*
+	 * Places the item at order eleven from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-11 {
+		order: 11;
+	}
+
+	/*
+	 * Places the item at order twelve from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--768-order-12 {
+		order: 12;
+	}
+
+	/* Individual item alignment. */
+
+	/*
+	 * Restores the item's alignment to the container's `align-items` value from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-auto {
+		align-self: auto;
+	}
+
+	/*
+	 * Aligns the individual item at the container's start from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-start {
+		align-self: flex-start;
+	}
+
+	/*
+	 * Centers the individual item on the container's cross axis from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-center {
+		align-self: center;
+	}
+
+	/*
+	 * Aligns the individual item at the container's end from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-end {
+		align-self: flex-end;
+	}
+
+	/*
+	 * Stretches the individual item across the container's cross axis from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-stretch {
+		align-self: stretch;
+	}
+
+	/*
+	 * Aligns the individual item to the shared text baseline from the 768px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--768-self-baseline {
+		align-self: baseline;
+	}
+}
+
+/* 992px and wider. */
+
+@media ( min-width: 992px ) {
+
+	/* Direction. */
+
+	/*
+	 * Places the flex items in a horizontal row from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--992-row {
+		flex-direction: row;
+	}
+
+	/*
+	 * Places the flex items in a reversed horizontal row from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--992-row-reverse {
+		flex-direction: row-reverse;
+	}
+
+	/*
+	 * Places the flex items in a vertical column from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--992-column {
+		flex-direction: column;
+	}
+
+	/*
+	 * Places the flex items in a reversed vertical column from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--992-column-reverse {
+		flex-direction: column-reverse;
+	}
+
+	/* Wrapping. */
+
+	/*
+	 * Allows flex items to form multiple lines from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--992-wrap {
+		flex-wrap: wrap;
+	}
+
+	/*
+	 * Keeps flex items on one line from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--992-nowrap {
+		flex-wrap: nowrap;
+	}
+
+	/*
+	 * Allows flex items to form multiple reversed lines from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--992-wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+
+	/* Row horizontal alignment. */
+
+	/*
+	 * Uses a row and places its contents at the row's start edge from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-start {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers its contents horizontally from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-center {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a row and places its contents at the row's end edge from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-end {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space between its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-between {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes free space around its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-around {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space around and between its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-row-horizontal-evenly {
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+
+	/* Row vertical line alignment. */
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-start {
+		flex-direction: row;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers wrapped flex lines vertically from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-center {
+		flex-direction: row;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-end {
+		flex-direction: row;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space between them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-between {
+		flex-direction: row;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space around them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-around {
+		flex-direction: row;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with equal space between them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-evenly {
+		flex-direction: row;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a row and stretches wrapped flex lines across the available vertical space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-row-vertical-stretch {
+		flex-direction: row;
+		align-content: stretch;
+	}
+
+	/* Row item alignment. */
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-row-items-start {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers individual items vertically from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-row-items-center {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-row-items-end {
+		flex-direction: row;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a row and stretches individual items vertically from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-row-items-stretch {
+		flex-direction: row;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a row and aligns individual items by their text baselines from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-row-items-baseline {
+		flex-direction: row;
+		align-items: baseline;
+	}
+
+	/* Column vertical alignment. */
+
+	/*
+	 * Uses a column and places its contents at the vertical start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-start {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers its contents vertically from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-center {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a column and places its contents at the vertical end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-end {
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space between its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-between {
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes free space around its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-around {
+		flex-direction: column;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space around and between its contents from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--992-column-vertical-evenly {
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	/* Column horizontal line alignment. */
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-start {
+		flex-direction: column;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers wrapped flex lines horizontally from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-center {
+		flex-direction: column;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-end {
+		flex-direction: column;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space between them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-between {
+		flex-direction: column;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space around them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-around {
+		flex-direction: column;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with equal space between them from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-evenly {
+		flex-direction: column;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a column and stretches wrapped flex lines across the available horizontal space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--992-column-horizontal-stretch {
+		flex-direction: column;
+		align-content: stretch;
+	}
+
+	/* Column item alignment. */
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-column-items-start {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers individual items horizontally from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-column-items-center {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-column-items-end {
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a column and stretches individual items horizontally from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-column-items-stretch {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a column and aligns individual items by their text baselines from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--992-column-items-baseline {
+		flex-direction: column;
+		align-items: baseline;
+	}
+
+	/* Item spans. */
+
+	/*
+	 * Gives the item a preferred width of one of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-1 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 8.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of two of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-2 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 16.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of three of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-3 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 25%;
+	}
+
+	/*
+	 * Gives the item a preferred width of four of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-4 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 33.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of five of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-5 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 41.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of six of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-6 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 50%;
+	}
+
+	/*
+	 * Gives the item a preferred width of seven of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-7 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 58.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eight of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-8 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 66.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of nine of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-9 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 75%;
+	}
+
+	/*
+	 * Gives the item a preferred width of ten of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-10 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 83.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eleven of twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-11 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 91.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of all twelve columns and allows it to shrink around a component gap from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--992-12 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 100%;
+	}
+
+	/* Growth and shrink behavior. */
+
+	/*
+	 * Allows the item to consume positive free space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--992-grow-allow {
+		flex-grow: 1;
+	}
+
+	/*
+	 * Prevents the item from consuming positive free space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--992-grow-prevent {
+		flex-grow: 0;
+	}
+
+	/*
+	 * Allows the item to shrink when the flex container has insufficient space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--992-shrink-allow {
+		flex-shrink: 1;
+	}
+
+	/*
+	 * Prevents the item from shrinking when the flex container has insufficient space from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--992-shrink-prevent {
+		flex-shrink: 0;
+	}
+
+	/* Item order. */
+
+	/*
+	 * Places the item at order zero from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-0 {
+		order: 0;
+	}
+
+	/*
+	 * Places the item at order one from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-1 {
+		order: 1;
+	}
+
+	/*
+	 * Places the item at order two from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-2 {
+		order: 2;
+	}
+
+	/*
+	 * Places the item at order three from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-3 {
+		order: 3;
+	}
+
+	/*
+	 * Places the item at order four from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-4 {
+		order: 4;
+	}
+
+	/*
+	 * Places the item at order five from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-5 {
+		order: 5;
+	}
+
+	/*
+	 * Places the item at order six from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-6 {
+		order: 6;
+	}
+
+	/*
+	 * Places the item at order seven from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-7 {
+		order: 7;
+	}
+
+	/*
+	 * Places the item at order eight from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-8 {
+		order: 8;
+	}
+
+	/*
+	 * Places the item at order nine from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-9 {
+		order: 9;
+	}
+
+	/*
+	 * Places the item at order ten from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-10 {
+		order: 10;
+	}
+
+	/*
+	 * Places the item at order eleven from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-11 {
+		order: 11;
+	}
+
+	/*
+	 * Places the item at order twelve from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--992-order-12 {
+		order: 12;
+	}
+
+	/* Individual item alignment. */
+
+	/*
+	 * Restores the item's alignment to the container's `align-items` value from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-auto {
+		align-self: auto;
+	}
+
+	/*
+	 * Aligns the individual item at the container's start from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-start {
+		align-self: flex-start;
+	}
+
+	/*
+	 * Centers the individual item on the container's cross axis from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-center {
+		align-self: center;
+	}
+
+	/*
+	 * Aligns the individual item at the container's end from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-end {
+		align-self: flex-end;
+	}
+
+	/*
+	 * Stretches the individual item across the container's cross axis from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-stretch {
+		align-self: stretch;
+	}
+
+	/*
+	 * Aligns the individual item to the shared text baseline from the 992px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--992-self-baseline {
+		align-self: baseline;
+	}
+}
+
+/* 1200px and wider. */
+
+@media ( min-width: 1200px ) {
+
+	/* Direction. */
+
+	/*
+	 * Places the flex items in a horizontal row from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--1200-row {
+		flex-direction: row;
+	}
+
+	/*
+	 * Places the flex items in a reversed horizontal row from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--1200-row-reverse {
+		flex-direction: row-reverse;
+	}
+
+	/*
+	 * Places the flex items in a vertical column from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--1200-column {
+		flex-direction: column;
+	}
+
+	/*
+	 * Places the flex items in a reversed vertical column from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
+	 */
+	.Flex--1200-column-reverse {
+		flex-direction: column-reverse;
+	}
+
+	/* Wrapping. */
+
+	/*
+	 * Allows flex items to form multiple lines from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--1200-wrap {
+		flex-wrap: wrap;
+	}
+
+	/*
+	 * Keeps flex items on one line from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--1200-nowrap {
+		flex-wrap: nowrap;
+	}
+
+	/*
+	 * Allows flex items to form multiple reversed lines from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-wrap
+	 */
+	.Flex--1200-wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+
+	/* Row horizontal alignment. */
+
+	/*
+	 * Uses a row and places its contents at the row's start edge from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-start {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers its contents horizontally from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-center {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a row and places its contents at the row's end edge from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-end {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space between its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-between {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes free space around its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-around {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes equal free space around and between its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-row-horizontal-evenly {
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+
+	/* Row vertical line alignment. */
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-start {
+		flex-direction: row;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers wrapped flex lines vertically from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-center {
+		flex-direction: row;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a row and places wrapped flex lines at the vertical end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-end {
+		flex-direction: row;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space between them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-between {
+		flex-direction: row;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with space around them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-around {
+		flex-direction: row;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a row and distributes wrapped flex lines with equal space between them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-evenly {
+		flex-direction: row;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a row and stretches wrapped flex lines across the available vertical space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-row-vertical-stretch {
+		flex-direction: row;
+		align-content: stretch;
+	}
+
+	/* Row item alignment. */
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-row-items-start {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a row and centers individual items vertically from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-row-items-center {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a row and aligns individual items at the row's vertical end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-row-items-end {
+		flex-direction: row;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a row and stretches individual items vertically from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-row-items-stretch {
+		flex-direction: row;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a row and aligns individual items by their text baselines from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-row-items-baseline {
+		flex-direction: row;
+		align-items: baseline;
+	}
+
+	/* Column vertical alignment. */
+
+	/*
+	 * Uses a column and places its contents at the vertical start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-start {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers its contents vertically from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-center {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/*
+	 * Uses a column and places its contents at the vertical end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-end {
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space between its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-between {
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes free space around its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-around {
+		flex-direction: column;
+		justify-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes equal free space around and between its contents from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content
+	 */
+	.Flex--1200-column-vertical-evenly {
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	/* Column horizontal line alignment. */
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-start {
+		flex-direction: column;
+		align-content: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers wrapped flex lines horizontally from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-center {
+		flex-direction: column;
+		align-content: center;
+	}
+
+	/*
+	 * Uses a column and places wrapped flex lines at the horizontal end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-end {
+		flex-direction: column;
+		align-content: flex-end;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space between them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-between {
+		flex-direction: column;
+		align-content: space-between;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with space around them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-around {
+		flex-direction: column;
+		align-content: space-around;
+	}
+
+	/*
+	 * Uses a column and distributes wrapped flex lines with equal space between them from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-evenly {
+		flex-direction: column;
+		align-content: space-evenly;
+	}
+
+	/*
+	 * Uses a column and stretches wrapped flex lines across the available horizontal space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-content
+	 */
+	.Flex--1200-column-horizontal-stretch {
+		flex-direction: column;
+		align-content: stretch;
+	}
+
+	/* Column item alignment. */
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-column-items-start {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/*
+	 * Uses a column and centers individual items horizontally from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-column-items-center {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/*
+	 * Uses a column and aligns individual items at the column's horizontal end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-column-items-end {
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	/*
+	 * Uses a column and stretches individual items horizontally from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-column-items-stretch {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	/*
+	 * Uses a column and aligns individual items by their text baselines from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items
+	 */
+	.Flex--1200-column-items-baseline {
+		flex-direction: column;
+		align-items: baseline;
+	}
+
+	/* Item spans. */
+
+	/*
+	 * Gives the item a preferred width of one of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-1 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 8.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of two of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-2 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 16.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of three of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-3 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 25%;
+	}
+
+	/*
+	 * Gives the item a preferred width of four of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-4 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 33.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of five of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-5 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 41.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of six of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-6 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 50%;
+	}
+
+	/*
+	 * Gives the item a preferred width of seven of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-7 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 58.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eight of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-8 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 66.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of nine of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-9 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 75%;
+	}
+
+	/*
+	 * Gives the item a preferred width of ten of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-10 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 83.333333%;
+	}
+
+	/*
+	 * Gives the item a preferred width of eleven of twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-11 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 91.666667%;
+	}
+
+	/*
+	 * Gives the item a preferred width of all twelve columns and allows it to shrink around a component gap from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex
+	 */
+	.Flex__item--1200-12 {
+		box-sizing: border-box;
+		flex: 0 1 auto;
+		min-width: 0;
+		width: 100%;
+	}
+
+	/* Growth and shrink behavior. */
+
+	/*
+	 * Allows the item to consume positive free space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--1200-grow-allow {
+		flex-grow: 1;
+	}
+
+	/*
+	 * Prevents the item from consuming positive free space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-grow
+	 */
+	.Flex__item--1200-grow-prevent {
+		flex-grow: 0;
+	}
+
+	/*
+	 * Allows the item to shrink when the flex container has insufficient space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--1200-shrink-allow {
+		flex-shrink: 1;
+	}
+
+	/*
+	 * Prevents the item from shrinking when the flex container has insufficient space from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-shrink
+	 */
+	.Flex__item--1200-shrink-prevent {
+		flex-shrink: 0;
+	}
+
+	/* Item order. */
+
+	/*
+	 * Places the item at order zero from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-0 {
+		order: 0;
+	}
+
+	/*
+	 * Places the item at order one from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-1 {
+		order: 1;
+	}
+
+	/*
+	 * Places the item at order two from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-2 {
+		order: 2;
+	}
+
+	/*
+	 * Places the item at order three from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-3 {
+		order: 3;
+	}
+
+	/*
+	 * Places the item at order four from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-4 {
+		order: 4;
+	}
+
+	/*
+	 * Places the item at order five from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-5 {
+		order: 5;
+	}
+
+	/*
+	 * Places the item at order six from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-6 {
+		order: 6;
+	}
+
+	/*
+	 * Places the item at order seven from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-7 {
+		order: 7;
+	}
+
+	/*
+	 * Places the item at order eight from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-8 {
+		order: 8;
+	}
+
+	/*
+	 * Places the item at order nine from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-9 {
+		order: 9;
+	}
+
+	/*
+	 * Places the item at order ten from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-10 {
+		order: 10;
+	}
+
+	/*
+	 * Places the item at order eleven from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-11 {
+		order: 11;
+	}
+
+	/*
+	 * Places the item at order twelve from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order
+	 */
+	.Flex__item--1200-order-12 {
+		order: 12;
+	}
+
+	/* Individual item alignment. */
+
+	/*
+	 * Restores the item's alignment to the container's `align-items` value from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-auto {
+		align-self: auto;
+	}
+
+	/*
+	 * Aligns the individual item at the container's start from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-start {
+		align-self: flex-start;
+	}
+
+	/*
+	 * Centers the individual item on the container's cross axis from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-center {
+		align-self: center;
+	}
+
+	/*
+	 * Aligns the individual item at the container's end from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-end {
+		align-self: flex-end;
+	}
+
+	/*
+	 * Stretches the individual item across the container's cross axis from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-stretch {
+		align-self: stretch;
+	}
+
+	/*
+	 * Aligns the individual item to the shared text baseline from the 1200px breakpoint upward.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-self
+	 */
+	.Flex__item--1200-self-baseline {
+		align-self: baseline;
+	}
+}
+
+/* Visibility uses bounded ranges so hidden content returns to its normal display outside the selected range. */
+
+/*
+ * Hides the element below the 768px breakpoint.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( max-width: 767px ) {
+	.Visibility--0-hidden {
+		display: none;
+	}
+}
+
+/*
+ * Hides the element from 768px through 991px.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 768px ) and ( max-width: 991px ) {
+	.Visibility--768-hidden {
+		display: none;
+	}
+}
+
+/*
+ * Hides the element from 992px through 1199px.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 992px ) and ( max-width: 1199px ) {
+	.Visibility--992-hidden {
+		display: none;
+	}
+}
+
+/*
+ * Hides the element from the 1200px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 1200px ) {
+	.Visibility--1200-hidden {
+		display: none;
+	}
+}

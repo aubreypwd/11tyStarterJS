@@ -75,6 +75,7 @@ export default class Base {
 					<!-- Styles -->
 					${ await data.fn.renderStyle( 'scss/GoogleFonts.scss', data, this ) }
 					${ await data.fn.renderStyle( 'scss/Base.scss', data, this ) }
+					${ await data.fn.renderStyle( 'scss/Flex.scss', data, this ) }
 					${ await data.fn.renderStyle( 'scss/SmoothScrolling.scss', data, this ) }
 					${ await data.fn.renderStyle( 'scss/Colors.scss', data, this ) }
 					${ await data.fn.renderStyle( 'scss/Posts.scss', data, this ) }
