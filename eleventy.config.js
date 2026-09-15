@@ -20,16 +20,27 @@ import pluginSyntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import metadata from './_data/metadata.js';
 import schema from './_data/schema.js';
 
+/*
+ * RenderFile bypasses Eleventy's normal template compile cache, so retain
+ * compiled Sass results while one build renders its pages.
+ */
+const sassCompileCache = new Map();
+
 /**
  * Registers the site's Eleventy configuration.
  *
  * @since Unknown
  * @since September 11, 2026 Adds native Sass template support and file rendering.
+ * @since September 15, 2026 Caches compiled Sass results across page renders.
  *
  * @param {object} eleventyConfig Eleventy configuration object.
  */
 export default function( eleventyConfig ) {
 	const business = schema.localBusiness;
+
+	eleventyConfig.on( 'eleventy.before', function () {
+		sassCompileCache.clear();
+	} );
 
 	eleventyConfig.addTemplateFormats( 'scss' );
 	eleventyConfig.addExtension( 'scss', {
@@ -47,6 +58,16 @@ export default function( eleventyConfig ) {
 				return;
 			}
 
+			const cached = sassCompileCache.get( inputPath );
+
+			if ( undefined !== cached && cached.inputContent === inputContent ) {
+				this.addDependencies( inputPath, cached.result.loadedUrls );
+
+				return async function () {
+					return cached.result.css;
+				};
+			}
+
 			const result = sass.compileString( inputContent, {
 				loadPaths: [
 					parsedPath.dir || '.',
@@ -55,6 +76,10 @@ export default function( eleventyConfig ) {
 			} );
 
 			this.addDependencies( inputPath, result.loadedUrls );
+			sassCompileCache.set( inputPath, {
+				inputContent,
+				result,
+			} );
 
 			return async function () {
 				return result.css;

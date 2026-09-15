@@ -11,6 +11,10 @@
 - You may run `npm run build` only to test code changes, and only after the user confirms in writing whether or not you can run it for that task.
 - Do not run Node checks unless explicitly asked.
 
+## Coding standards
+
+- Always use `$aubreypwd-coding-standards` for code generation, edits, reviews, refactors, formatting, and code examples. It is pre-approved for this project; do not ask for confirmation before using it.
+
 ## Custom Flex system
 
 - Read [`docs/Flex.md`](docs/Flex.md) before creating or modifying flexbox layouts.
