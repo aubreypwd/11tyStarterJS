@@ -68,6 +68,7 @@ Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the
 - Per-page inline CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
 	- Source styles live in the root `css/` directory.
 	- `renderStyle()` reads each CSS source file into a `<style>` tag, and Eleventy collects those tags into one final inline bundle.
+	- Standalone builds run PurgeCSS on that final bundle so each page keeps only the selectors it uses; source CSS remains complete.
 - Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (zero-JavaScript output).
 - Draft content: use `draft: true` to mark any template as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds. This is driven by the `addPreprocessor` configuration API in `eleventy.config.js`. Schema validator will show an error if non-boolean value is set in data cascade.
 - Blog Posts

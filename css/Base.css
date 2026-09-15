@@ -145,8 +145,9 @@ pre[class*="language-diff-"] {
 }
 
 .NoPointerEvents {
-	&,
-	* {
-		pointer-events: none;
-	}
+	pointer-events: none;
+}
+
+.NoPointerEvents * {
+	pointer-events: none;
 }

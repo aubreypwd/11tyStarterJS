@@ -13,6 +13,7 @@ import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import pluginNavigation from '@11ty/eleventy-navigation';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import pluginSyntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
+import { PurgeCSS } from 'purgecss';
 import metadata from './_data/metadata.js';
 import schema from './_data/schema.js';
 
@@ -77,6 +78,64 @@ export default function( eleventyConfig ) {
 		 * Supported selectors: https://www.npmjs.com/package/posthtml-match-helper
 		 */
 		bundleHtmlContentFromSelector: 'script',
+	} );
+
+	// Register after the bundle plugin so the final CSS is available to PurgeCSS.
+	/**
+	 * Remove unused selectors from each page's final inline CSS bundle.
+	 *
+	 * @since September 15, 2026
+	 */
+	eleventyConfig.addPlugin( ( config ) => {
+		config.addTransform( 'purge-inline-css', async function ( content ) {
+
+			if (
+				'build' !== process.env.ELEVENTY_RUN_MODE ||
+				'string' !== typeof this.page?.outputPath ||
+				false === this.page.outputPath.endsWith( '.html' ) ||
+				'string' !== typeof content
+			) {
+				return content;
+			}
+
+			const stylePattern = /<style>([\s\S]*?)<\/style>/;
+			const styleMatch = stylePattern.exec( content );
+
+			if ( null === styleMatch ) {
+				return content;
+			}
+
+			const purgeCSSResults = await new PurgeCSS().purge( {
+				content: [
+					{
+						extension: 'html',
+						raw: content.replace( /<style[\s\S]*?<\/style>/g, '' ),
+					},
+				],
+				css: [
+					{
+						raw: styleMatch[ 1 ],
+					},
+				],
+				variables: false,
+				safelist: {
+					// Keep pseudo-state rules written with native CSS nesting.
+					standard: [ /^:/ ],
+				},
+			} );
+
+			if (
+				0 === purgeCSSResults.length ||
+				'string' !== typeof purgeCSSResults[ 0 ].css
+			) {
+				return content;
+			}
+
+			return content.replace(
+				stylePattern,
+				`<style>${ purgeCSSResults[ 0 ].css }</style>`
+			);
+		} );
 	} );
 
 	// Official plugins.

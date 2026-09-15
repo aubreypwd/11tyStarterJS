@@ -46,6 +46,7 @@
 		"jsdom": "^30.0.1",
 		"luxon": "^3.7.2",
 		"prismjs": "^1.30.0",
+		"purgecss": "^8.0.0",
 		"unhead": "^3.1.0",
 		"zod": "^4.3.6",
 		"zod-validation-error": "^5.0.0"
