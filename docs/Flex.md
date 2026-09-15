@@ -534,7 +534,7 @@ There are no horizontal or vertical suffixes on these classes. The container’s
 
 ## Visibility classes
 
-Only hidden classes are provided:
+Visibility utilities are kept in [`css/Visibility.css`](../css/Visibility.css) and loaded immediately after `Flex.css`. Only hidden classes are provided:
 
 ```text
 .Visibility--0-hidden

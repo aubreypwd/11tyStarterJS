@@ -8,9 +8,7 @@
  * Gaps remain component decisions and are intentionally not included here.
  * Item spans represent the number of columns occupied in a twelve-column row.
  * Span items are allowed to shrink so component gaps do not normally force them
- * to wrap. Visibility classes follow the same min-width breakpoint convention
- * as the rest of the system: each class applies from its named breakpoint
- * upward.
+ * to wrap. Breakpoint classes apply from their named breakpoint upward.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
@@ -3256,49 +3254,5 @@
 	 */
 	.Flex__item--1200-self-baseline {
 		align-self: baseline;
-	}
-}
-
-/* Visibility follows the same min-width cascade as the rest of the system. */
-
-/*
- * Hides the element from the 0px breakpoint upward.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
- */
-.Visibility--0-hidden {
-	display: none;
-}
-
-/*
- * Hides the element from the 768px breakpoint upward.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
- */
-@media ( min-width: 768px ) {
-	.Visibility--768-hidden {
-		display: none;
-	}
-}
-
-/*
- * Hides the element from the 992px breakpoint upward.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
- */
-@media ( min-width: 992px ) {
-	.Visibility--992-hidden {
-		display: none;
-	}
-}
-
-/*
- * Hides the element from the 1200px breakpoint upward.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
- */
-@media ( min-width: 1200px ) {
-	.Visibility--1200-hidden {
-		display: none;
 	}
 }

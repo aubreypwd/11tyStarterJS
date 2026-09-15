@@ -78,6 +78,7 @@ export default class Base {
 					${ data.fn.renderStyle( 'css/Utopia.css', data ) }
 					${ data.fn.renderStyle( 'css/Fonts.css', data ) }
 					${ data.fn.renderStyle( 'css/Flex.css', data ) }
+					${ data.fn.renderStyle( 'css/Visibility.css', data ) }
 					${ data.fn.renderStyle( 'css/Base.css', data ) }
 					${ data.fn.renderStyle( 'css/SmoothScrolling.css', data ) }
 					${ data.fn.renderStyle( 'css/Posts.css', data ) }

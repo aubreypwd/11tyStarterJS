@@ -1,0 +1,43 @@
+/* Visibility follows the same min-width cascade as the Flex system. */
+
+/*
+ * Hides the element from the 0px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+.Visibility--0-hidden {
+	display: none;
+}
+
+/*
+ * Hides the element from the 768px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 768px ) {
+	.Visibility--768-hidden {
+		display: none;
+	}
+}
+
+/*
+ * Hides the element from the 992px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 992px ) {
+	.Visibility--992-hidden {
+		display: none;
+	}
+}
+
+/*
+ * Hides the element from the 1200px breakpoint upward.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
+ */
+@media ( min-width: 1200px ) {
+	.Visibility--1200-hidden {
+		display: none;
+	}
+}

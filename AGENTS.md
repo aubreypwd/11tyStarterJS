@@ -18,7 +18,7 @@
 ## Custom Flex system
 
 - Read [`docs/Flex.md`](docs/Flex.md) before creating or modifying flexbox layouts.
-- Use [`css/Flex.css`](css/Flex.css) as the source of truth for the custom breakpoint-oriented Flex system.
+- Use [`css/Flex.css`](css/Flex.css) as the source of truth for the custom breakpoint-oriented Flex system and [`css/Visibility.css`](css/Visibility.css) for visibility utilities.
 - Use only the documented BEM-style classes and the breakpoints `0`, `768`, `992`, and `1200`.
 - Use `.Flex` and breakpoint-oriented `.Flex--...` classes for flex-container behavior.
 - Use `.Flex__item--...` classes for item spans, growth, shrinking, ordering, and individual alignment.
