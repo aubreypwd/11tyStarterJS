@@ -13,7 +13,7 @@ export default class BusinessHours {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'scss/partials/BusinessHours.scss',
+		10: 'css/partials/BusinessHours.css',
 	};
 
 	// Content
@@ -21,6 +21,7 @@ export default class BusinessHours {
 	 * Renders the business-hours list.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {object} context Rendering context.
@@ -34,7 +35,7 @@ export default class BusinessHours {
 
 		return /* html */ `
 
-			<dl class="BusinessHours">
+			<dl class="BusinessHours Flex Flex--0-column">
 				${ this.renderBusinessHours( data ) }
 			</dl>
 		`;
@@ -45,6 +46,7 @@ export default class BusinessHours {
 	 *
 	 * @since July 21, 2026
 	 * @since July 21, 2026 Renders one row for each day of the week.
+	 * @since September 15, 2026 Adds explicit Flex classes to each row.
 	 *
 	 * @param {object} data Template data containing LocalBusiness schema.
 	 * @return {string} Business hours HTML.
@@ -63,7 +65,7 @@ export default class BusinessHours {
 			.map( ( day ) => {
 
 				return /* html */ `
-					<div class="BusinessHours__row">
+					<div class="BusinessHours__row Flex Flex--0-row">
 						<dt class="BusinessHours__day">${ data.fn.escHtml( day ) }</dt>
 						${ this.renderBusinessHour( data, day ) }
 					</div>

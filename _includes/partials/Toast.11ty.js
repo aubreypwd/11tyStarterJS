@@ -13,7 +13,7 @@ export default class Toast {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'scss/Toast.scss',
+		10: 'css/Toast.css',
 	};
 
 	/**
@@ -31,6 +31,7 @@ export default class Toast {
 	 * Renders a hidden Toast notification.
 	 *
 	 * @since September 11, 2026
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {object} context Rendering context.
@@ -73,13 +74,13 @@ export default class Toast {
 			<div
 				aria-atomic="true"
 				aria-live="${ 'error' === cl ? 'assertive' : 'polite' }"
-				class="Toast Toast--${ data.fn.escHtml( id ) } Toast--${ data.fn.escHtml( cl ) } Toast--hidden"
+				class="Toast Toast--${ data.fn.escHtml( id ) } Toast--${ data.fn.escHtml( cl ) } Toast--hidden Flex Flex--0-row-items-center"
 				id="Toast--${ data.fn.escHtml( id ) }"
 				role="${ 'error' === cl ? 'alert' : 'status' }">
 
 				<button
 					aria-label="Close notification"
-					class="Toast__close"
+					class="Toast__close Flex Flex--inline Flex--0-row-horizontal-center Flex--0-row-items-center"
 					data-close-id="${ data.fn.escHtml( id ) }"
 					type="button">${ data.fn.escHtml( close ) }</button>
 

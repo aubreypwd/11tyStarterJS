@@ -13,7 +13,7 @@ export default class Footer {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'scss/partials/Footer.scss',
+		10: 'css/partials/Footer.css',
 	};
 
 	/**
@@ -21,6 +21,7 @@ export default class Footer {
 	 *
 	 * @since August 13, 2026
 	 * @since August 13, 2026 Renders only the copyright notice.
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {object} context Rendering context.
@@ -29,7 +30,7 @@ export default class Footer {
 	render( data, context = this ) {
 
 		return /* html */ `
-			<footer class="SiteFooter">
+			<footer class="SiteFooter Flex Flex--0-column">
 				<p class="SiteFooter__copyright">&copy; ${ data.fn.dateToFormat( new Date(), 'yyyy' ) } ${ data.fn.escHtml( data.schema.localBusiness.name ) }. All rights reserved.</p>
 			</footer>
 		`;

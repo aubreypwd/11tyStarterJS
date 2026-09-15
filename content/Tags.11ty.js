@@ -48,16 +48,13 @@ export default class Tags {
 	 * Turn one tag into a link to its tag archive page.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {string} tag Tag name.
 	 * @return {string} Tag link HTML.
 	 */
 	renderTagListItem( data, tag ) {
-		return /* html */ `
-			<li>
-			<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a>
-			</li>
-		`;
+		return /* html */ `<li><a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag Flex Flex--inline Flex--0-row-horizontal-center Flex--0-row-items-center">${ data.fn.escHtml( tag ) }</a></li>`;
 	}
 }

@@ -65,7 +65,9 @@ Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the
 	- Includes `loading="lazy"` for native lazy loading without JavaScript.
 	- Includes [`decoding="async"`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding)
 	- Images can be co-located with blog post files.
-- Per page CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
+- Per-page inline CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
+	- Source styles live in the root `css/` directory.
+	- `renderStyle()` reads each CSS source file into a `<style>` tag, and Eleventy collects those tags into one final inline bundle.
 - Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (zero-JavaScript output).
 - Draft content: use `draft: true` to mark any template as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds. This is driven by the `addPreprocessor` configuration API in `eleventy.config.js`. Schema validator will show an error if non-boolean value is set in data cascade.
 - Blog Posts
@@ -101,7 +103,8 @@ Deploy this Eleventy site in just a few clicks on these services:
 - `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
 - Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top-level site navigation. This is in use on the Home, About, and Blog pages.
 - Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
-- The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
+- Root `css/` files are source files read by `renderStyle()` and collected into the inline CSS bundle; they are not copied to the output directory.
+- The `public` folder in your input directory is copied to the output folder via `addPassthroughCopy` in `eleventy.config.js`. Styles placed under `public/` are standalone passthrough assets and are not part of the root `css/` rendering pipeline.
 - This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
 	- `_includes/layouts/Base.11ty.js`: the top-level HTML structure and shared local-business schema
 	- `_includes/layouts/Page.11ty.js`: general content pages

@@ -1,21 +1,11 @@
-@use '../Globals' as *;
-
 .BusinessHours {
 
-	@extend .Flex;
-
-	@extend .Flex--0-column;
-
-	gap: $space--3xs;
+	gap: var( --space-3xs );
 	margin: 0;
 
 	.BusinessHours__row {
 
-		@extend .Flex;
-
-		@extend .Flex--0-row;
-
-		gap: $space--xs;
+		gap: var( --space-xs );
 
 		/* Preserve the existing bounded layout for this narrow range. */
 		@media ( max-width: 924px ) and ( min-width: 789px ) {
@@ -25,7 +15,7 @@
 	}
 
 	.BusinessHours__day {
-		color: $color--gold;
+		color: var( --color-gold );
 		font-weight: 700;
 		min-width: 78px;
 	}

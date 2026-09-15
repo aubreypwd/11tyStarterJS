@@ -13,7 +13,7 @@ export default class Partials {
 	 * @type {object}
 	 */
 	static styles = {
-		10: 'scss/Partials.scss',
+		10: 'css/Partials.css',
 	};
 
 	/**
@@ -43,6 +43,7 @@ export default class Partials {
 	 *
 	 * @since August 13, 2026
 	 * @since September 11, 2026 Renders link and button partial examples.
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {string} Partials-page HTML.
@@ -51,7 +52,7 @@ export default class Partials {
 		return /* html */ `
 			<h1>Partials</h1>
 
-			<section class="Partials">
+			<section class="Partials Flex Flex--0-column">
 				<h2>Address</h2>
 				${ data.partials.Address.render( data, this ) }
 

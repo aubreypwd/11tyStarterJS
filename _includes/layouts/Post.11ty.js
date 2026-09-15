@@ -62,6 +62,7 @@ export default class Post {
 	 * Renders a blog post.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {string} Rendered post content.
@@ -72,7 +73,7 @@ export default class Post {
 		return /* html */ `
 			<h1>${ data.fn.escHtml( data.title ) }</h1>
 
-			<ul class="PostMetadata">
+			<ul class="PostMetadata Flex Flex--inline Flex--0-wrap">
 				<li>
 					<time datetime="${ data.fn.escHtml( data.fn.dateToFormat( data.date ?? data.page?.date, 'yyyy-LL-dd' ) ) }">
 						${ data.fn.escHtml( data.fn.dateToFormat( data.date ?? data.page?.date, 'LLLL dd, yyyy' ) ) }
@@ -92,13 +93,14 @@ export default class Post {
 	 * Turn one tag into a link to its archive page.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {string} tag Tag name.
 	 * @return {string} Tag link HTML.
 	 */
 	renderTagItem( data, tag ) {
-		return /* html */ `<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a>`;
+		return /* html */ `<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag Flex Flex--inline Flex--0-row-horizontal-center Flex--0-row-items-center">${ data.fn.escHtml( tag ) }</a>`;
 	}
 
 	/**
@@ -123,6 +125,7 @@ export default class Post {
 	 * Link to the neighboring posts in the archive.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {array} posts Post records.
@@ -145,9 +148,9 @@ export default class Post {
 		}
 
 		return /* html */ `
-			<ul class="PostNavigation">
-				${ previousPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--previous">← Previous<br> <a href="${ data.fn.escHtml( previousPost.url ) }">${ data.fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>` : `` }
-				${ nextPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--next">Next →<br><a href="${ data.fn.escHtml( nextPost.url ) }">${ data.fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>` : `` }
+			<ul class="PostNavigation Flex Flex--0-row-horizontal-between">
+				${ previousPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--previous Flex__item--0-grow-allow">← Previous<br> <a href="${ data.fn.escHtml( previousPost.url ) }">${ data.fn.escHtml( previousPost.data?.title || previousPost.url ) }</a></li>` : `` }
+				${ nextPost ? /* html */ `<li class="PostNavigation__item PostNavigation__item--next Flex__item--0-grow-allow">Next →<br><a href="${ data.fn.escHtml( nextPost.url ) }">${ data.fn.escHtml( nextPost.data?.title || nextPost.url ) }</a></li>` : `` }
 			</ul>
 		`;
 	}

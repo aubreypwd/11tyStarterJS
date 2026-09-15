@@ -319,7 +319,7 @@ export default {
 	printFile( path, data, once = false ) {
 
 		// There is no reason to output styles more than once.
-		once = path.endsWith( '.css' ) || path.endsWith( '.scss' ) ? true : once;
+		once = path.endsWith( '.css' ) ? true : once;
 
 		const fileUrl = new URL( path, new URL( '../', import.meta.url ) );
 
@@ -339,41 +339,23 @@ export default {
 	},
 
 	/**
-	 * Renders a CSS or Sass file in a style tag.
+	 * Renders a CSS file in a style tag.
 	 *
 	 * @since August 13, 2026
 	 * @since September 11, 2026 Renders Sass through Eleventy.
+	 * @since September 15, 2026 Restores synchronous CSS-only rendering.
 	 *
-	 * @param {string} path Project-root-relative CSS or Sass file path.
+	 * @param {string} path Project-root-relative CSS file path.
 	 * @param {object} data Template data object.
-	 * @param {object} context Eleventy render context.
-	 * @return {Promise} Style tag containing the compiled style file.
+	 * @return {string} Style tag containing the CSS file.
 	 */
-	async renderStyle( path, data, context ) {
+	renderStyle( path, data ) {
 
-		if ( 'string' !== typeof path || ( false === path.endsWith( '.css' ) && false === path.endsWith( '.scss' ) ) ) {
+		if ( 'string' !== typeof path || false === path.endsWith( '.css' ) ) {
 			return '';
 		}
 
-		let css;
-
-		if ( path.endsWith( '.scss' ) ) {
-
-			if ( null === context || 'object' !== typeof context || 'function' !== typeof context.renderFile ) {
-				return '';
-			}
-
-			data.printedFiles = data.printedFiles || [];
-
-			if ( data.printedFiles.includes( path ) ) {
-				return '';
-			}
-
-			data.printedFiles.push( path );
-			css = await context.renderFile( path );
-		} else {
-			css = this.printFile( path, data );
-		}
+		const css = this.printFile( path, data );
 
 		if ( '' === css ) {
 			return '';
@@ -387,18 +369,18 @@ export default {
 	 *
 	 * @since August 13, 2026
 	 * @since September 11, 2026 Renders project-root-relative Sass paths asynchronously.
+	 * @since September 15, 2026 Renders registered CSS through renderStyle.
 	 *
 	 * @param {object} data Eleventy template data.
-	 * @param {object} context Eleventy render context.
 	 * @return {Promise} Style tags for the template CSS registry.
 	 */
-	async renderStyles( data, context ) {
+	async renderStyles( data ) {
 
 		const registry = await this.getTemplateRegistry( data );
 
-		return ( await Promise.all( registry.styles.map( function ( style ) {
-			return this.renderStyle( style.path, data, context );
-		}, this ) ) ).join( '' );
+		return registry.styles.map( function ( style ) {
+			return this.renderStyle( style.path, data );
+		}, this ).join( '' );
 	},
 
 	/**

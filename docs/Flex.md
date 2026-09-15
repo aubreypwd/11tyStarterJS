@@ -1,6 +1,6 @@
 # Custom Flex system
 
-This project uses a small, custom flexbox system in [`scss/Flex.scss`](../scss/Flex.scss). It exists to make the layout work that happens repeatedly throughout the site easier to express:
+This project uses a small, custom flexbox system in [`css/Flex.css`](../css/Flex.css). It exists to make the layout work that happens repeatedly throughout the site easier to express:
 
 - Turn an element into a flex container.
 - Decide whether its children are arranged in a row or column.
@@ -12,25 +12,25 @@ This project uses a small, custom flexbox system in [`scss/Flex.scss`](../scss/F
 
 The system intentionally uses ordinary CSS flexbox underneath. It is not a new layout engine and it does not try to hide flexbox behind a large set of shortcuts.
 
-The project-wide conversion replaces both raw flexbox declarations and previously implicit structural Flex inheritance. Active structural component classes with nested block content explicitly extend `.Flex` and a base direction in component Sass. Leaf and content elements remain normal elements, and Flex children do not need item classes unless they need special item behavior.
+The project-wide conversion replaces both raw flexbox declarations and previously implicit structural Flex inheritance. Active structural components with nested block content carry `.Flex` and a base direction directly in their markup. Leaf and content elements remain normal elements, and Flex children do not need item classes unless they need special item behavior.
 
 ## Project-wide structural conversion
 
-The active site uses semantic component classes as the source of its structural Flex behavior. A component becomes a Flex container when it contains multiple block-level children or controls their direction, alignment, or distribution. Its child elements are already Flex items, so they do not need `Flex__item` extensions unless they need a span, growth, order, shrink, or individual alignment rule.
+The active site uses explicit utility classes for structural Flex behavior. A component becomes a Flex container when it contains multiple block-level children or controls their direction, alignment, or distribution. Its child elements are already Flex items, so they do not need `Flex__item` classes unless they need a span, growth, order, shrink, or individual alignment rule.
 
-`.Container` and `.Container__content` are default column Flex containers. Other structural components, including `.SiteFooter`, `.Address`, `.Address__contact`, `.Partials`, and `.PostList`, explicitly extend `.Flex` and `.Flex--0-column` in their Sass. Components with responsive changes use the breakpoint-oriented classes directly; for example, `.SiteHeader` changes from a base column to a row at `768px`.
+`.Container` and `.Container__content` use `.Flex` and `.Flex--0-column` in markup. Other structural components, including `.SiteFooter`, `.Address`, `.Address__contact`, `.Partials`, and `.PostList`, use the same explicit class pattern. Components with responsive changes add the breakpoint-oriented classes directly; for example, `.SiteHeader` changes from a base column to a row at `768px`.
 
-Component Sass keeps its own gaps, margins, padding, colors, typography, and exceptional sizing. The bounded `789px–924px` column range in `BusinessHours` and the custom `flex-basis` used by `PostList__link` are intentional component-specific exceptions. `Starter.scss` is inactive legacy CSS and is excluded from the active conversion.
+Component CSS keeps its own gaps, margins, padding, colors, typography, and exceptional sizing. The bounded `789px–924px` column range in `BusinessHours` and the custom `flex-basis` used by `PostList__link` are intentional component-specific exceptions. `Starter.css` is inactive legacy CSS and is excluded from the active conversion.
 
 ## Why this exists
 
 The original layout style in this project is heavily based on flexbox. A typical component starts with a few direct declarations:
 
-```scss
+```css
 .Component {
 	display: flex;
 	flex-direction: row;
-	gap: $space--l;
+	gap: var( --space-l );
 }
 
 @media ( max-width: 800px ) {
@@ -60,9 +60,9 @@ FrowCSS was the closest conceptual match. It provided responsive flexbox classes
 
 - Its breakpoint names such as `sm`, `md`, and `lg` were less readable than the actual pixel values.
 - Its shortcut classes combined several declarations, so the result was not always obvious from the class name.
-- Renaming every Frow class through Sass aliases introduced a large amount of generated CSS.
+- Renaming every Frow class through preprocessor aliases introduced a large amount of generated CSS.
 - Loops and generated combinations made the source harder to audit.
-- Sass `@extend` created compilation and output concerns.
+- Preprocessor inheritance created compilation and output concerns.
 - The project would still be carrying a framework’s complete vocabulary even when only a small portion was useful.
 
 The conclusion was that the useful part of FrowCSS was its responsive flexbox idea, not its complete implementation.
@@ -76,8 +76,8 @@ The project now keeps only the useful ideas:
 - Every responsive choice is explicit.
 - The class names use the project’s BEM-style naming convention.
 - There are no framework dependencies.
-- There are no Sass loops or generated class combinations.
-- Every supported class is written directly and documented in `Flex.scss`.
+- There are no generated class combinations.
+- Every supported class is written directly and documented in `Flex.css`.
 
 ## The core language
 
@@ -422,9 +422,9 @@ There are no column-direction span variants. A column-direction container alread
 
 ## Gap and shrinking
 
-Gaps are deliberately not part of `Flex.scss`. A component owns its own spacing:
+Gaps are deliberately not part of `Flex.css`. A component owns its own spacing:
 
-```scss
+```css
 .PricingCards {
 	gap: 3rem;
 }
@@ -579,7 +579,7 @@ The `0px` class is unwrapped, and later classes use `min-width` media queries. T
 
 Component spacing stays in component CSS:
 
-```scss
+```css
 .FeatureList {
 	gap: 2rem;
 }
@@ -588,7 +588,7 @@ Component spacing stays in component CSS:
 ### Two half-width cards with a gap
 
 ```html
-<section class="PricingCards Flex Flex--0-row-horizontal-between PricingCards">
+<section class="PricingCards Flex Flex--0-row-horizontal-between">
 	<article class="Flex__item--0-6">
 		Card A
 	</article>
@@ -599,7 +599,7 @@ Component spacing stays in component CSS:
 </section>
 ```
 
-```scss
+```css
 .PricingCards {
 	gap: 3rem;
 }
@@ -662,7 +662,7 @@ Keep the component class separate from the layout classes:
 
 ## What is intentionally not included
 
-`Flex.scss` does not provide:
+`Flex.css` does not provide:
 
 - Gap classes.
 - Margin or padding classes.
@@ -683,49 +683,35 @@ If a layout needs behavior outside this vocabulary, use component CSS. The syste
 
 ## Implementation details
 
-`scss/Flex.scss` is intentionally standalone. It does not import `Globals.scss`, FrowCSS, Foundation, or another Sass file. This keeps the compiled output limited to the project’s own flex classes.
+`css/Flex.css` is intentionally standalone. It does not import another stylesheet or framework. This keeps the source limited to the project’s own flex classes.
 
-The file is loaded globally by [`_includes/layouts/Base.11ty.js`](../_includes/layouts/Base.11ty.js), alongside the other shared styles. The existing Eleventy Sass extension watches the `scss/` directory and renders the file as part of the page’s shared styles.
+The file is loaded globally by [`_includes/layouts/Base.11ty.js`](../_includes/layouts/Base.11ty.js), alongside the other shared styles. Eleventy watches the `css/` directory, and `renderStyle()` reads the source into the page’s inline CSS bundle.
 
-The source is deliberately written as explicit CSS rather than generated with Sass loops. That makes the available vocabulary visible in one file and prevents unused framework classes from entering the output.
+The source is deliberately written as explicit CSS rather than generated code. That makes the available vocabulary visible in one file and prevents unused framework classes from entering the output.
 
-Every public selector in `Flex.scss` has a nearby block comment describing its effect and linking to the relevant native CSS property documentation.
+Every public selector in `Flex.css` has a nearby block comment describing its effect and linking to the relevant native CSS property documentation.
 
-## Applying Flex behavior in component Sass
+## Applying Flex behavior in markup
 
-The preferred component pattern is to keep Flex classes out of the HTML when the component stylesheet already owns the component class. The component stylesheet can load the shared Globals module and extend the documented classes:
-
-```scss
-@use '../Globals' as *;
-
-.Component {
-
-	@extend .Flex;
-
-	@extend .Flex--0-column;
-	@extend .Flex--768-row;
-}
-```
-
-The resulting HTML can remain semantic and component-oriented:
+Add the documented Flex classes directly to the component element:
 
 ```html
-<section class="Component">
+<section class="Component Flex Flex--0-column Flex--768-row">
 	Content
 </section>
 ```
 
-When a component changes layout at a breakpoint, extend the matching breakpoint class directly. The breakpoint class already carries its own media-query scope in `Flex.scss`:
+When a component changes layout at a breakpoint, add the matching breakpoint class directly. The breakpoint class already carries its own media-query scope in `Flex.css`:
 
-```scss
-.Component {
-	@extend .Flex--768-column;
-}
+```html
+<section class="Component Flex Flex--0-row Flex--768-column">
+	Content
+</section>
 ```
 
 Only put component-owned declarations such as gaps, colors, padding, or width resets inside the component's media query:
 
-```scss
+```css
 .Component {
 	gap: 1rem;
 
@@ -735,9 +721,7 @@ Only put component-owned declarations such as gaps, colors, padding, or width re
 }
 ```
 
-Use only classes that already exist in `Flex.scss`. Do not recreate their declarations in the component stylesheet.
-
-The current Eleventy setup compiles component Sass files independently. Loading `Globals.scss`, which loads `Flex.scss`, to make its selectors available to `@extend` can therefore include the Flex module's CSS in that component's compiled style as well as in the global Flex style. This is the intentional cost of the Sass-side `@extend` pattern used by the active components. If the output becomes too large, the compilation architecture should be revisited rather than adding aliases, loops, or a second Flex vocabulary.
+Use only classes that already exist in `Flex.css`. Do not recreate their declarations in the component stylesheet.
 
 ## Maintenance rules
 
@@ -749,7 +733,7 @@ When changing this system:
 4. Keep item sizing numeric and span-based.
 5. Do not add `col-*` or fraction aliases.
 6. Do not add gap, margin, padding, or visual styling utilities.
-7. Do not add Sass loops, maps, mixins, or new public Flex aliases. Use `@extend` only in component stylesheets to apply existing Flex classes.
+7. Do not add generated combinations or new public Flex aliases. Apply existing Flex classes directly in markup.
 8. Document every new public class directly beside its selector.
 9. Update this document whenever the public class vocabulary changes.
 10. Prefer a component-specific CSS rule when a behavior is a one-off rather than expanding the global system.

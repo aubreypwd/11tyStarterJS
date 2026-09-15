@@ -46,6 +46,7 @@ export default class Blog {
 	 * Render one post link and date for the archive list.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {object} post Post record.
@@ -54,7 +55,7 @@ export default class Blog {
 	 */
 	renderPostListItem( data, post, currentUrl ) {
 		return /* html */ `
-			<li class="PostList__item${ post.url === currentUrl ? ' PostList__item--active' : '' }">
+			<li class="PostList__item Flex Flex--0-row-items-baseline Flex--0-wrap${ post.url === currentUrl ? ' PostList__item--active' : '' }">
 				<a href="${ data.fn.escHtml( post.url ) }" class="PostList__link">${ post.data?.title ? data.fn.escHtml( post.data.title ) : /* html */ `<code>${ data.fn.escHtml( post.url ) }</code>` }</a>
 				<time class="PostList__date" datetime="${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
@@ -65,6 +66,7 @@ export default class Blog {
 	 * Render the archive list in post order.
 	 *
 	 * @since Unknown
+	 * @since September 15, 2026 Adds explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {array} posts Post records.
@@ -73,7 +75,7 @@ export default class Blog {
 	 */
 	renderPostsList( data, posts, currentUrl ) {
 		return /* html */ `
-			<ol reversed class="PostList" style="--postlist-index: ${ posts.length + 1 }">
+			<ol reversed class="PostList Flex Flex--0-column" style="--postlist-index: ${ posts.length + 1 }">
 				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( data, post, currentUrl ) ).join( '' ) }
 			</ol>
 		`;

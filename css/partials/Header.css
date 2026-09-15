@@ -1,0 +1,71 @@
+.SiteHeader {
+
+	gap: var( --space-s );
+
+	@media ( min-width: 768px ) {
+
+		gap: var( --space-2xl );
+	}
+
+	.SiteHeader__menu {
+		background: var( --color-gold );
+
+		border-bottom: 2px solid #aa8951;
+		border-radius: 3px;
+		padding: var( --space-s );
+
+		@media ( min-width: 768px ) {
+
+			background: transparent;
+			padding: 0;
+
+			border: 0;
+			border-radius: 0;
+			width: auto;
+		}
+	}
+
+	.NavigationList {
+		gap: var( --space-s );
+
+		@media ( min-width: 768px ) {
+
+			gap: var( --space-xl );
+			width: auto;
+		}
+	}
+
+	.SiteHeader__item {
+		text-align: center;
+
+		@media ( min-width: 768px ) {
+			text-align: left;
+		}
+	}
+
+	.SiteHeader__link {
+
+		color: var( --color-ivory );
+		font-size: calc( var( --type-0 ) * 1.02 );
+		font-weight: 600;
+		text-decoration: none;
+
+		margin-top: 5px;
+		padding-bottom: 5px;
+
+		&:hover {
+			color: var( --color-ivory );
+
+			border-bottom: 3px solid var( --color-gold );
+		}
+
+		@media ( min-width: 768px ) {
+
+			color: var( --color-clay );
+
+			&:hover {
+				color: var( --color-black );
+			}
+		}
+	}
+}

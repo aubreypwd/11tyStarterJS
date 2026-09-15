@@ -21,6 +21,7 @@ export default class Base {
 	 *
 	 * @since Unknown
 	 * @since September 11, 2026 Loads Sass styles through the Eleventy render context.
+	 * @since September 15, 2026 Restores CSS source rendering and explicit Flex classes.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {Promise} Rendered HTML document.
@@ -73,37 +74,38 @@ export default class Base {
 					<!-- @TODO: Add Analytics -->
 
 					<!-- Styles -->
-					${ await data.fn.renderStyle( 'scss/GoogleFonts.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Base.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/SmoothScrolling.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Colors.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Posts.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/A11y.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Utopia.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Lists.scss', data, this ) }
-					${ await data.fn.renderStyle( 'scss/Containers.scss', data, this ) }
-					${ await data.fn.renderStyles( data, this ) }
+					${ data.fn.renderStyle( 'css/Colors.css', data ) }
+					${ data.fn.renderStyle( 'css/Utopia.css', data ) }
+					${ data.fn.renderStyle( 'css/Fonts.css', data ) }
+					${ data.fn.renderStyle( 'css/Flex.css', data ) }
+					${ data.fn.renderStyle( 'css/Base.css', data ) }
+					${ data.fn.renderStyle( 'css/SmoothScrolling.css', data ) }
+					${ data.fn.renderStyle( 'css/Posts.css', data ) }
+					${ data.fn.renderStyle( 'css/A11y.css', data ) }
+					${ data.fn.renderStyle( 'css/Lists.css', data ) }
+					${ data.fn.renderStyle( 'css/Containers.css', data ) }
+					${ await data.fn.renderStyles( data ) }
 					<style>${ this.getBundle( 'css' ) }</style>
 				</head>
 
-			<body class="Site">
+			<body class="Site Flex Flex--0-column-items-center">
 				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden">Skip to main content</a>
 
-					<!-- Header -->
-					${ data.partials.Header.render( data, this ) }
+				<!-- Header -->
+				${ data.partials.Header.render( data, this ) }
 
-					<main id="main" class="Site__main Container">
+				<main id="main" class="Site__main Container Flex Flex--0-column">
 
-						${ data.content }
-					</main>
+					${ data.content }
+				</main>
 
-					<!-- Footer -->
-					${ data.partials.Footer.render( data, this ) }
+				<!-- Footer -->
+				${ data.partials.Footer.render( data, this ) }
 
-					<!-- Scripts -->
-					${ await data.fn.renderScripts( data ) }
-					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
-				</body>
+				<!-- Scripts -->
+				${ await data.fn.renderScripts( data ) }
+				<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
+			</body>
 			</html>
 		`.trimStart(); // Trim the start so we get <doctype> right away.
 	}

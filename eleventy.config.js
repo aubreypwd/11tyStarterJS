@@ -4,14 +4,10 @@
  * @since Unknown
  */
 
-import { parse } from 'node:path';
-
-import * as sass from 'sass';
 import {
 	HtmlBasePlugin,
 	IdAttributePlugin,
 	InputPathToUrlTransformPlugin,
-	RenderPlugin,
 } from '@11ty/eleventy';
 import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import pluginNavigation from '@11ty/eleventy-navigation';
@@ -20,72 +16,18 @@ import pluginSyntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import metadata from './_data/metadata.js';
 import schema from './_data/schema.js';
 
-/*
- * RenderFile bypasses Eleventy's normal template compile cache, so retain
- * compiled Sass results while one build renders its pages.
- */
-const sassCompileCache = new Map();
-
 /**
  * Registers the site's Eleventy configuration.
  *
  * @since Unknown
  * @since September 11, 2026 Adds native Sass template support and file rendering.
  * @since September 15, 2026 Caches compiled Sass results across page renders.
+ * @since September 15, 2026 Restores CSS source rendering and removes Sass compilation.
  *
  * @param {object} eleventyConfig Eleventy configuration object.
  */
 export default function( eleventyConfig ) {
 	const business = schema.localBusiness;
-
-	eleventyConfig.on( 'eleventy.before', function () {
-		sassCompileCache.clear();
-	} );
-
-	eleventyConfig.addTemplateFormats( 'scss' );
-	eleventyConfig.addExtension( 'scss', {
-		outputFileExtension: 'css',
-		useLayouts: false,
-		compileOptions: {
-			cache: true,
-			permalink: false,
-		},
-		compile: function ( inputContent, inputPath ) {
-
-			const parsedPath = parse( inputPath );
-
-			if ( parsedPath.name.startsWith( '_' ) ) {
-				return;
-			}
-
-			const cached = sassCompileCache.get( inputPath );
-
-			if ( undefined !== cached && cached.inputContent === inputContent ) {
-				this.addDependencies( inputPath, cached.result.loadedUrls );
-
-				return async function () {
-					return cached.result.css;
-				};
-			}
-
-			const result = sass.compileString( inputContent, {
-				loadPaths: [
-					parsedPath.dir || '.',
-					this.config.dir.includes,
-				],
-			} );
-
-			this.addDependencies( inputPath, result.loadedUrls );
-			sassCompileCache.set( inputPath, {
-				inputContent,
-				result,
-			} );
-
-			return async function () {
-				return result.css;
-			};
-		},
-	} );
 
 	// See _data/eleventyDataSchema.js.
 	eleventyConfig.addPreprocessor( 'drafts', '*', ( data ) => {
@@ -107,7 +49,7 @@ export default function( eleventyConfig ) {
 	 * https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 	 */
 	eleventyConfig.addWatchTarget( 'content/' );
-	eleventyConfig.addWatchTarget( 'scss/' );
+	eleventyConfig.addWatchTarget( 'css/' );
 	eleventyConfig.addWatchTarget( 'js/' );
 
 	/**
@@ -142,7 +84,6 @@ export default function( eleventyConfig ) {
 	eleventyConfig.addPlugin( pluginNavigation );
 	eleventyConfig.addPlugin( HtmlBasePlugin );
 	eleventyConfig.addPlugin( InputPathToUrlTransformPlugin );
-	eleventyConfig.addPlugin( RenderPlugin );
 
 	eleventyConfig.addPlugin( feedPlugin, {
 		type: 'atom',

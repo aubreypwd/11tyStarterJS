@@ -18,53 +18,37 @@
 ## Custom Flex system
 
 - Read [`docs/Flex.md`](docs/Flex.md) before creating or modifying flexbox layouts.
-- Use [`scss/Flex.scss`](scss/Flex.scss) as the source of truth for the custom breakpoint-oriented Flex system.
+- Use [`css/Flex.css`](css/Flex.css) as the source of truth for the custom breakpoint-oriented Flex system.
 - Use only the documented BEM-style classes and the breakpoints `0`, `768`, `992`, and `1200`.
 - Use `.Flex` and breakpoint-oriented `.Flex--...` classes for flex-container behavior.
 - Use `.Flex__item--...` classes for item spans, growth, shrinking, ordering, and individual alignment.
 - Treat every breakpoint-oriented class, including visibility classes, as applying from its named breakpoint upward; later breakpoint rules override earlier ones through the normal min-width cascade.
 - Keep component gaps, margins, padding, and visual styling in the component stylesheet.
-- When converting a component, remove its raw flexbox declarations and use Sass `@extend` in that component's stylesheet so the HTML keeps only semantic/component classes.
-- Do not add FrowCSS, Foundation XY, shortcut classes, fraction span names, `col-*` span names, Sass loops, Sass maps, Sass mixins, or new undocumented Flex classes.
-- If existing tag-based flex inheritance interferes with a conversion, remove that inheritance for the converted area and explicitly extend the required classes.
+- When converting a component, remove its repeated raw flexbox declarations and add the documented Flex classes directly to its semantic component markup.
+- Do not add FrowCSS, Foundation XY, shortcut classes, fraction span names, `col-*` span names, generated class combinations, or new undocumented Flex classes.
+- If existing tag-based flex inheritance interferes with a conversion, remove that inheritance for the converted area and add the required classes directly.
 - Update `docs/Flex.md` whenever the public Flex class vocabulary changes.
 
 ## Project-wide structural conversion
 
 - The active conversion replaces both raw Flex declarations and previously implicit structural Flex inheritance.
-- Every active structural component with nested block content should explicitly extend `.Flex` and a `0px` direction in its component Sass.
-- `.Container` and `.Container__content` are default column Flex containers. `.Site__main` relies on its existing `.Container` class rather than receiving duplicate layout classes.
-- Flex children are already items automatically. Add a `Flex__item` extension only for a span, growth, shrinking, order, or individual alignment requirement.
-- Keep component-specific gaps, margins, padding, colors, typography, and exceptional sizing in component Sass.
+- Every active structural component with nested block content should carry `.Flex` and a `0px` direction directly in its markup.
+- `.Container` and `.Container__content` use `.Flex` and `.Flex--0-column` directly. `.Site__main` receives those classes through its existing `.Container` element.
+- Flex children are already items automatically. Add a `.Flex__item--...` class only for a span, growth, shrinking, order, or individual alignment requirement.
+- Keep component-specific gaps, margins, padding, colors, typography, and exceptional sizing in component CSS.
 - `BusinessHours` keeps its intentional bounded `789px–924px` column override. `PostList__link` keeps its custom `flex-basis` for the generated post-number marker.
-- `Starter.scss` is inactive legacy CSS and is excluded from the active conversion.
+- `Starter.css` is inactive legacy CSS and is excluded from the active conversion.
 
 ### Component conversion pattern
 
-- Use `scss/partials/Header.scss` as the reference implementation for converting existing flex layouts.
-- Keep the HTML semantic and component-oriented. Do not add generic Flex or list utility classes to the markup when Sass can apply them with `@extend`.
-- Give an element one meaningful component class when it needs several existing behaviors. For example, use `<ul class="NavigationList">` instead of combining `List`, `List--unlisted`, and `SiteHeader__nav`.
-- Apply the existing behaviors to that component class in its Sass file. `NavigationList` extends `.List--unlisted`, `.Flex`, its breakpoint-specific container classes, and its item span.
-- Load Flex through `@use '../Globals' as *;`. `Globals.scss` loads `Flex.scss`; do not add a separate `@use '../Flex' as *;` to individual components.
-- When a component extends a class from another Sass module, load that module explicitly. `Header.scss` uses `@use '../Lists' as *;` so `NavigationList` can extend `.List--unlisted`.
-- Group Flex extensions in this order: `.Flex`, all container behavior from `0` upward, then all item behavior from `0` upward. Keep the `0` and `768` declarations in the same group without a blank line between those breakpoints.
-- Use this structure for a Flex container with item behavior:
-
-  ```scss
-  @extend .Flex;
-
-  @extend .Flex--0-...;
-  @extend .Flex--768-...;
-
-  @extend .Flex__item--0-...;
-
-  @extend .Flex__item--768-...;
-  ```
-
-- Do not wrap breakpoint-oriented `@extend` calls in component media queries. The breakpoint classes in `Flex.scss` provide their own media-query scope.
-- Keep media queries in component Sass only for component-owned properties such as `gap`, colors, padding, borders, widths, and text alignment.
+- Use `_includes/partials/Header.11ty.js` and `css/partials/Header.css` as the reference implementation for converting existing flex layouts.
+- Keep the markup semantic and component-oriented while adding only the Flex and list classes that express real structural behavior.
+- Give an element one meaningful component class and then add the needed utilities. For example, `NavigationList` remains the component class while `.List--unlisted`, `.Flex`, its breakpoint-specific container classes, and its item span are separate classes on the same element.
+- Group Flex classes in this order: `.Flex`, all container behavior from `0` upward, then all item behavior from `0` upward.
+- Do not recreate breakpoint-oriented Flex declarations in component media queries. The breakpoint classes in `Flex.css` provide their own media-query scope.
+- Keep media queries in component CSS only for component-owned properties such as `gap`, colors, padding, borders, widths, and text alignment.
 - Remove raw flexbox declarations from the converted component stylesheet. Do not replace them with new raw flex declarations.
-- Do not style an HTML tag directly when a semantic component class can carry the same behavior. The existing `.List` class has no declarations, so do not extend or retain it merely because it appeared in older markup; extend `.List--unlisted` when the unlisted reset is needed.
+- Do not style an HTML tag directly when a semantic component class can carry the same behavior. The existing `.List` class has no declarations, so do not retain it merely because it appeared in older markup; add `.List--unlisted` when the unlisted reset is needed.
 - Convert one component at a time and leave unrelated components unchanged until their own conversion begins.
 
 ## Template Style

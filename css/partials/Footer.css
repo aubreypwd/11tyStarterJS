@@ -1,0 +1,16 @@
+.SiteFooter {
+
+	width: 100%;
+
+	background-color: var( --color-slate );
+	color: var( --color-ivory );
+
+	font-size: var( --type--1 );
+	text-align: center;
+
+	padding: var( --space-l );
+
+	.SiteFooter__copyright {
+		margin: 0;
+	}
+}
