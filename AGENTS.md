@@ -18,11 +18,22 @@
 - Use only the documented BEM-style classes and the breakpoints `0`, `768`, `992`, and `1200`.
 - Use `.Flex` and breakpoint-oriented `.Flex--...` classes for flex-container behavior.
 - Use `.Flex__item--...` classes for item spans, growth, shrinking, ordering, and individual alignment.
+- Treat every breakpoint-oriented class, including visibility classes, as applying from its named breakpoint upward; later breakpoint rules override earlier ones through the normal min-width cascade.
 - Keep component gaps, margins, padding, and visual styling in the component stylesheet.
 - When converting a component, remove its raw flexbox declarations and use Sass `@extend` in that component's stylesheet so the HTML keeps only semantic/component classes.
 - Do not add FrowCSS, Foundation XY, shortcut classes, fraction span names, `col-*` span names, Sass loops, Sass maps, Sass mixins, or new undocumented Flex classes.
 - If existing tag-based flex inheritance interferes with a conversion, remove that inheritance for the converted area and explicitly extend the required classes.
 - Update `docs/Flex.md` whenever the public Flex class vocabulary changes.
+
+## Project-wide structural conversion
+
+- The active conversion replaces both raw Flex declarations and previously implicit structural Flex inheritance.
+- Every active structural component with nested block content should explicitly extend `.Flex` and a `0px` direction in its component Sass.
+- `.Container` and `.Container__content` are default column Flex containers. `.Site__main` relies on its existing `.Container` class rather than receiving duplicate layout classes.
+- Flex children are already items automatically. Add a `Flex__item` extension only for a span, growth, shrinking, order, or individual alignment requirement.
+- Keep component-specific gaps, margins, padding, colors, typography, and exceptional sizing in component Sass.
+- `BusinessHours` keeps its intentional bounded `789px–924px` column override. `PostList__link` keeps its custom `flex-basis` for the generated post-number marker.
+- `Starter.scss` is inactive legacy CSS and is excluded from the active conversion.
 
 ### Component conversion pattern
 

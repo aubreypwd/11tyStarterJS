@@ -8,9 +8,9 @@
  * Gaps remain component decisions and are intentionally not included here.
  * Item spans represent the number of columns occupied in a twelve-column row.
  * Span items are allowed to shrink so component gaps do not normally force them
- * to wrap. Visibility classes are the only classes implemented as bounded
- * breakpoint ranges because hidden content should become normal outside its
- * named range.
+ * to wrap. Visibility classes follow the same min-width breakpoint convention
+ * as the rest of the system: each class applies from its named breakpoint
+ * upward.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex-direction
@@ -3259,36 +3259,34 @@
 	}
 }
 
-/* Visibility uses bounded ranges so hidden content returns to its normal display outside the selected range. */
+/* Visibility follows the same min-width cascade as the rest of the system. */
 
 /*
- * Hides the element below the 768px breakpoint.
+ * Hides the element from the 0px breakpoint upward.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
  */
-@media ( max-width: 767px ) {
-	.Visibility--0-hidden {
-		display: none;
-	}
+.Visibility--0-hidden {
+	display: none;
 }
 
 /*
- * Hides the element from 768px through 991px.
+ * Hides the element from the 768px breakpoint upward.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
  */
-@media ( min-width: 768px ) and ( max-width: 991px ) {
+@media ( min-width: 768px ) {
 	.Visibility--768-hidden {
 		display: none;
 	}
 }
 
 /*
- * Hides the element from 992px through 1199px.
+ * Hides the element from the 992px breakpoint upward.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display
  */
-@media ( min-width: 992px ) and ( max-width: 1199px ) {
+@media ( min-width: 992px ) {
 	.Visibility--992-hidden {
 		display: none;
 	}

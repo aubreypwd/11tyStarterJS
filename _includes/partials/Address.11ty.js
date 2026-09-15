@@ -29,14 +29,14 @@ export default class Address {
 
 		return /* html */ `
 			<address class="Address">
-				<strong class="Address__name">${ data.fn.escHtml( data.schema.localBusiness.name ) }</strong><br>
-				${ data.fn.escHtml( data.schema.localBusiness.address.streetAddress ) }<br>
-				${ data.fn.escHtml( data.schema.localBusiness.address.addressLocality ) }, ${ data.fn.escHtml( data.schema.localBusiness.address.addressRegion ) } ${ data.fn.escHtml( data.schema.localBusiness.address.postalCode ) }
+				<p><strong class="Address__name">${ data.fn.escHtml( data.schema.localBusiness.name ) }</strong></p>
+				<p>${ data.fn.escHtml( data.schema.localBusiness.address.streetAddress ) }</p>
+				<p>${ data.fn.escHtml( data.schema.localBusiness.address.addressLocality ) }, ${ data.fn.escHtml( data.schema.localBusiness.address.addressRegion ) } ${ data.fn.escHtml( data.schema.localBusiness.address.postalCode ) }</p>
 			</address>
 
 			<p class="Address__contact">
-				<a class="Address__link" title="Call Us" href="tel:${ data.fn.escHtml( data.schema.localBusiness.telephone ) }">${ data.fn.escHtml( data.fn.formatPhone( data.schema.localBusiness.telephone ) ) }</a><br>
-				<a class="Address__link" title="Email Us" href="mailto:${ data.schema.localBusiness.email }">${ data.schema.localBusiness.email }</a>
+				<span><a class="Address__link" title="Call Us" href="tel:${ data.fn.escHtml( data.schema.localBusiness.telephone ) }">${ data.fn.escHtml( data.fn.formatPhone( data.schema.localBusiness.telephone ) ) }</a></span>
+				<span><a class="Address__link" title="Email Us" href="mailto:${ data.schema.localBusiness.email }">${ data.schema.localBusiness.email }</a></span>
 			</p>
 		`;
 	}

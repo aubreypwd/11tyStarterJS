@@ -1,14 +1,24 @@
+@use 'Globals' as *;
+
 /* Posts list */
 .PostList {
+
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
 	counter-reset: start-from var(--postlist-index);
 	list-style: none;
 	padding: 0;
 	padding-left: 1.5rem;
 }
 .PostList__item {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
+
+	@extend .Flex;
+
+	@extend .Flex--0-row-items-baseline;
+	@extend .Flex--0-wrap;
+
 	counter-increment: start-from -1;
 	margin-bottom: 1em;
 }
@@ -44,27 +54,34 @@
 
 /* Tags */
 .PostTag {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+
+	@extend .Flex;
+
+	@extend .Flex--inline;
+	@extend .Flex--0-row-horizontal-center;
+	@extend .Flex--0-row-items-center;
+
 	text-transform: capitalize;
 	font-style: italic;
 }
 .PostList__item > .PostTag {
-	align-self: center;
+	@extend .Flex__item--0-self-center;
 }
 
 /* Post navigation */
 .PostNavigation {
-	display: flex;
-	justify-content: space-between;
+
+	@extend .Flex;
+
+	@extend .Flex--0-row-horizontal-between;
+
 	gap: .5em 1em;
 	list-style: "";
 	border-top: 1px dashed var(--color-gray-20);
 	padding: 1em 0;
 }
 .PostNavigation__item {
-	flex-grow: 1;
+	@extend .Flex__item--0-grow-allow;
 }
 .PostNavigation__item--next {
 	text-align: right;
@@ -72,8 +89,12 @@
 
 /* Post metadata */
 .PostMetadata {
-	display: inline-flex;
-	flex-wrap: wrap;
+
+	@extend .Flex;
+
+	@extend .Flex--inline;
+	@extend .Flex--0-wrap;
+
 	gap: .5em;
 	list-style: none;
 	padding: 0;

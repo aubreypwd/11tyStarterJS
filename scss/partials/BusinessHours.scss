@@ -2,17 +2,22 @@
 
 .BusinessHours {
 
-	display: flex;
-	flex-direction: column;
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
 	gap: $space--3xs;
 	margin: 0;
 
 	.BusinessHours__row {
 
-		display: flex;
-		flex-direction: row;
+		@extend .Flex;
+
+		@extend .Flex--0-row;
+
 		gap: $space--xs;
 
+		/* Preserve the existing bounded layout for this narrow range. */
 		@media ( max-width: 924px ) and ( min-width: 789px ) {
 			flex-direction: column;
 			gap: 0;

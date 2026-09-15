@@ -17,27 +17,22 @@ p {
 }
 
 /* Body */
-	body {
+.Site {
 
-	display: flex;
-	flex-direction: column;
-	gap: 0;
+	@extend .Flex;
 
-	align-items: center;
+	@extend .Flex--0-column-items-center;
 
 	min-height: 100vh;
 
 	font-size: $type--0;
 	font-family: $font-family--system;
 
+	margin: 0;
 	overflow: hidden;
 }
 
 /* Customizations */
-body {
-	margin: 0;
-}
-
 html,
 body {
 	background-color: $color--cloth;

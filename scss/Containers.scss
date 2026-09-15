@@ -5,6 +5,10 @@ $breakpoint--small: 768px;
 
 .Container {
 
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
 	width: min(100%, calc(1200px*1.5));
 	padding: $space--m $space--l;
 
@@ -80,6 +84,10 @@ $breakpoint--small: 768px;
 	}
 
 	> .Container__content {
+
+		@extend .Flex;
+
+		@extend .Flex--0-column;
 
 		max-width: 100%;
 

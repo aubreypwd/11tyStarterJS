@@ -2,6 +2,10 @@
 
 .SiteFooter {
 
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
 	width: 100%;
 	padding: $space--l;
 	background-color: $color--slate;

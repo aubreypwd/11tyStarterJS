@@ -1,6 +1,11 @@
 @use '../Globals' as *;
 
 .Address {
+
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
 	font-style: normal;
 
 	.Address__name {
@@ -19,11 +24,16 @@
 			color: $color--shine;
 		}
 	}
+}
 
-	.Address__contact {
-		font-size: $type--negative-1;
-		letter-spacing: 1px;
-		line-height: $type--0;
-		margin: 0;
-	}
+.Address__contact {
+
+	@extend .Flex;
+
+	@extend .Flex--0-column;
+
+	font-size: $type--negative-1;
+	letter-spacing: 1px;
+	line-height: $type--0;
+	margin: 0;
 }

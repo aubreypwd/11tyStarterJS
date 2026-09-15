@@ -6,6 +6,17 @@
 export default class Partials {
 
 	/**
+	 * CSS file paths keyed by numeric load priority.
+	 *
+	 * @since September 15, 2026
+	 *
+	 * @type {object}
+	 */
+	static styles = {
+		10: 'scss/Partials.scss',
+	};
+
+	/**
 	 * Provides partials-page data.
 	 *
 	 * @since August 13, 2026

@@ -1,7 +1,12 @@
+@use 'Globals' as *;
+
 %Code--diff-prefix {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+
+	@extend .Flex;
+
+	@extend .Flex--inline;
+	@extend .Flex--0-row-horizontal-center;
+	@extend .Flex--0-row-items-center;
 
 	padding-top: 2px;
 	padding-bottom: 2px;
