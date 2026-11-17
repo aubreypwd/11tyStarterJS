@@ -1,0 +1,31 @@
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.VisuallyHidden:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.SkipLink {
+	text-decoration: none;
+	color: var(--color-ink);
+	font-size: var(--type--2);
+	padding: var(--space-2xs);
+}
+
+/* Prevent visually-hidden skip link from pushing content around when focused */
+#skip-link.VisuallyHidden:focus {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	/* Ensure it is positioned on top of everything else when it is shown */
+	z-index: 999;
+}
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}

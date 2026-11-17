@@ -15,7 +15,10 @@ export default class Tags {
 	data() {
 		return {
 			layout: 'layouts/Page.11ty.js',
-			permalink: '/tags/',
+			// permalink: '/tags/',
+			permalink: false,
+			eleventyExcludeFromCollections: true,
+			title: 'Tags',
 		};
 	}
 
@@ -49,12 +52,13 @@ export default class Tags {
 	 *
 	 * @since Unknown
 	 * @since September 15, 2026 Adds explicit Flex classes.
+	 * @since October 27, 2026 Moves tag layout into the stylesheet.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {string} tag Tag name.
 	 * @return {string} Tag link HTML.
 	 */
 	renderTagListItem( data, tag ) {
-		return /* html */ `<li><a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag Flex Flex--inline Flex--0-row-horizontal-center Flex--0-row-items-center">${ data.fn.escHtml( tag ) }</a></li>`;
+		return /* html */ `<li><a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a></li>`;
 	}
 }

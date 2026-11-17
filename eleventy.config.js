@@ -13,6 +13,10 @@ import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import pluginNavigation from '@11ty/eleventy-navigation';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import pluginSyntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
+import { transform as esbuildTransform } from 'esbuild';
+import { minify as minifyHtml } from 'html-minifier-terser';
+import postcss from 'postcss';
+import postcssCustomMedia from 'postcss-custom-media';
 import { PurgeCSS } from 'purgecss';
 import metadata from './_data/metadata.js';
 import schema from './_data/schema.js';
@@ -24,10 +28,14 @@ import schema from './_data/schema.js';
  * @since September 11, 2026 Adds native Sass template support and file rendering.
  * @since September 15, 2026 Caches compiled Sass results across page renders.
  * @since September 15, 2026 Restores CSS source rendering and removes Sass compilation.
+ * @since October 27, 2026 Processes custom media queries in the final CSS bundle.
+ * @since November 5, 2026 Minifies HTML, CSS, and JavaScript in build and serve modes.
+ * @since November 10, 2026 Disables the sample blog feed while retaining its configuration.
  *
  * @param {object} eleventyConfig Eleventy configuration object.
  */
-export default function( eleventyConfig ) {
+export default function ( eleventyConfig ) {
+
 	const business = schema.localBusiness;
 
 	// See _data/eleventyDataSchema.js.
@@ -41,9 +49,9 @@ export default function( eleventyConfig ) {
 		}
 	} );
 
-	eleventyConfig
-		.addPassthroughCopy( { './public/': '/', } )
-		.addPassthroughCopy( './content/feed/pretty-atom-feed.xsl' );
+	eleventyConfig.addPassthroughCopy( { './public/': '/', } );
+
+	// eleventyConfig.addPassthroughCopy( './content/feed/pretty-atom-feed.xsl' );
 
 	/**
 	 * Run Eleventy when these files change.
@@ -52,6 +60,7 @@ export default function( eleventyConfig ) {
 	eleventyConfig.addWatchTarget( 'content/' );
 	eleventyConfig.addWatchTarget( 'css/' );
 	eleventyConfig.addWatchTarget( 'js/' );
+	eleventyConfig.addWatchTarget( 'md/' );
 
 	/**
 	 * Per-page bundles. The bundle plugin collects literal <style> and <script>
@@ -71,6 +80,20 @@ export default function( eleventyConfig ) {
 
 	eleventyConfig.addBundle( 'js', {
 		toFileDirectory: 'dist',
+		transforms: [
+			async function ( content ) {
+
+				if ( 'string' !== typeof content ) {
+					return content;
+				}
+
+				return ( await esbuildTransform( content, {
+					format: 'esm',
+					minify: true,
+					target: 'es2022',
+				} ) ).code;
+			},
+		],
 
 		/**
 		 * Add all <script> content to the js bundle.
@@ -80,17 +103,47 @@ export default function( eleventyConfig ) {
 		bundleHtmlContentFromSelector: 'script',
 	} );
 
-	// Register after the bundle plugin so the final CSS is available to PurgeCSS.
-	/**
-	 * Remove unused selectors from each page's final inline CSS bundle.
-	 *
-	 * @since September 15, 2026
-	 */
+	// Process the final bundle so custom media definitions are shared across component styles.
 	eleventyConfig.addPlugin( ( config ) => {
-		config.addTransform( 'purge-inline-css', async function ( content ) {
+		config.addTransform( 'postcss-inline-css', async function ( content ) {
 
 			if (
-				'build' !== process.env.ELEVENTY_RUN_MODE ||
+				'string' !== typeof this.page?.outputPath ||
+				false === this.page.outputPath.endsWith( '.html' ) ||
+				'string' !== typeof content
+			) {
+				return content;
+			}
+
+			const stylePattern = /<style>([\s\S]*?)<\/style>/;
+			const styleMatch = stylePattern.exec( content );
+
+			if ( null === styleMatch ) {
+				return content;
+			}
+
+			const postCSSResult = await postcss( [ postcssCustomMedia() ] ).process( styleMatch[ 1 ], {
+				from: 'eleventy-inline.css',
+			} );
+
+			return content.replace(
+				stylePattern,
+				`<style>${ postCSSResult.css }</style>`
+			);
+		} );
+	} );
+
+	// Register after the bundle plugin so the final CSS is available to PurgeCSS.
+	/**
+	 * Purge unused selectors and minify each page's final inline CSS bundle.
+	 *
+	 * @since September 15, 2026
+	 * @since November 5, 2026 Minifies the final CSS bundle in build and serve modes.
+	 */
+	eleventyConfig.addPlugin( ( config ) => {
+		config.addTransform( 'purge-and-minify-inline-css', async function ( content ) {
+
+			if (
 				'string' !== typeof this.page?.outputPath ||
 				false === this.page.outputPath.endsWith( '.html' ) ||
 				'string' !== typeof content
@@ -119,8 +172,8 @@ export default function( eleventyConfig ) {
 				],
 				variables: false,
 				safelist: {
-					// Keep pseudo-state rules written with native CSS nesting.
-					standard: [ /^:/ ],
+					// Keep pseudo-state and runtime selectors missing from page markup.
+					standard: [ /^:/, 'Header__mobile-active' ],
 				},
 			} );
 
@@ -131,9 +184,14 @@ export default function( eleventyConfig ) {
 				return content;
 			}
 
+			const minifiedCSS = await esbuildTransform( purgeCSSResults[ 0 ].css, {
+				loader: 'css',
+				minify: true,
+			} );
+
 			return content.replace(
 				stylePattern,
-				`<style>${ purgeCSSResults[ 0 ].css }</style>`
+				`<style>${ minifiedCSS.code }</style>`
 			);
 		} );
 	} );
@@ -144,26 +202,27 @@ export default function( eleventyConfig ) {
 	eleventyConfig.addPlugin( HtmlBasePlugin );
 	eleventyConfig.addPlugin( InputPathToUrlTransformPlugin );
 
-	eleventyConfig.addPlugin( feedPlugin, {
-		type: 'atom',
-		outputPath: '/feed/feed.xml',
-		stylesheet: 'pretty-atom-feed.xsl',
-		collection: {
-			name: 'posts',
-			limit: 10,
-		},
-		metadata: {
-			language: metadata.language,
-			title: business.name,
-			subtitle: business.description,
-				base: metadata.url,
-			author: {
-				name: metadata.author.name,
-				email: metadata.author.email,
-				url: metadata.author.url,
-			},
-		},
-	} );
+	// Re-enable alongside the blog posts and tag pages when the blog is ready.
+	// eleventyConfig.addPlugin( feedPlugin, {
+	// 	type: 'atom',
+	// 	outputPath: '/feed/feed.xml',
+	// 	stylesheet: 'pretty-atom-feed.xsl',
+	// 	collection: {
+	// 		name: 'posts',
+	// 		limit: 10,
+	// 	},
+	// 	metadata: {
+	// 		language: metadata.language,
+	// 		title: business.name,
+	// 		subtitle: business.description,
+	// 		base: metadata.url,
+	// 		author: {
+	// 			name: metadata.author.name,
+	// 			email: metadata.author.email,
+	// 			url: metadata.author.url,
+	// 		},
+	// 	},
+	// } );
 
 	// Image optimization: https://www.11ty.dev/docs/plugins/image/#eleventy-transform
 	eleventyConfig.addPlugin( eleventyImageTransformPlugin, {
@@ -188,6 +247,29 @@ export default function( eleventyConfig ) {
 		// By default we use Eleventy's built-in `slugify` filter:
 		// slugify: eleventyConfig.getFilter( 'slugify' ),
 		// selector: 'h1,h2,h3,h4,h5,h6', // default
+	} );
+
+	// Minify completed pages after other plugins have transformed their HTML.
+	eleventyConfig.addPlugin( ( config ) => {
+		config.addTransform( 'minify-html', function ( content ) {
+
+			if (
+				'string' !== typeof this.page?.outputPath ||
+				false === this.page.outputPath.endsWith( '.html' ) ||
+				'string' !== typeof content
+			) {
+				return content;
+			}
+
+			return minifyHtml( content, {
+				collapseWhitespace: true,
+				minifyCSS: false,
+				minifyJS: false,
+				processScripts: [ 'application/ld+json' ],
+				removeComments: true,
+				useShortDoctype: true,
+			} );
+		} );
 	} );
 
 	/**

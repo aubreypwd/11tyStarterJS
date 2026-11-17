@@ -1,0 +1,18 @@
+/*
+ * Range-specific responsive breakpoints:
+ *
+ * Base styles apply at all widths unless a range-specific rule overrides them.
+ * Low-resolution: 992px to below 1200px.
+ * Tablet: 768px to below 992px.
+ * Mobile: below 768px.
+ * High-resolution: 1200px and wider.
+ *
+ * PostCSS expands these aliases in the final CSS bundle.
+ */
+
+@custom-media --mobile (width < 768px);
+@custom-media --tablet (width >= 768px) and (width < 992px);
+@custom-media --lowres (width >= 992px) and (width < 1200px);
+@custom-media --highres (width >= 1200px);
+
+@custom-media --below-highres (--mobile), (--tablet), (--lowres);

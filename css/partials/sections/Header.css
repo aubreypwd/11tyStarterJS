@@ -1,0 +1,306 @@
+.Header {
+
+	&:not(.Header--navigation-ready) {
+
+		@media(--mobile) {
+
+			position: static;
+
+			.Header__logo-menu .Header__mobile-trigger {
+				display: none;
+			}
+
+			.Header__menu,
+			.Header__buttons {
+				display: flex;
+			}
+
+			.Header__navigation-list {
+				flex-direction: column;
+			}
+
+			.Header__buttons {
+
+				position: static;
+				transform: none;
+				flex-wrap: wrap;
+			}
+		}
+	}
+
+	a:focus-visible,
+	button:focus-visible {
+		outline: 2px solid var(--color-navy);
+		outline-offset: 2px;
+	}
+
+	position: sticky;
+	top: 0;
+	z-index: 10;
+
+	background: var(--color-ice);
+
+
+	border-bottom: 1px solid var(--color-sky);
+
+	padding: var(--space-m) var(--space-l);
+
+	.Container__content {
+
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		gap: var(--space-m);
+		justify-content: space-between;
+
+		width: 100%;
+
+		@media(--mobile) {
+			margin: 0;
+			height: 100%;
+		}
+
+		@media(--below-highres) {
+			flex-wrap: wrap;
+		}
+	}
+
+	&.Header__mobile-active {
+
+		@media(--mobile) {
+
+			height: 100vh;
+			height: 100dvh;
+			max-height: 100dvh;
+			overflow-y: auto;
+
+			.Container__content {
+
+				min-height: 100%;
+				align-items: center;
+				align-content: space-between;
+				justify-content: space-between;
+			}
+
+			.Header__menu,
+			.Header__buttons {
+				display: flex;
+			}
+
+			.Header__logo-menu {
+
+				border-bottom: 2px solid var(--color-slate);
+				padding-bottom: var(--space-s);
+			}
+
+			.Header__menu {
+
+				.Header__navigation-list {
+
+					flex-direction: column;
+
+					.Header__item {
+
+						font-size: var(--type-4);
+						font-weight: 300;
+					}
+				}
+			}
+
+			.Header__buttons {
+
+				position: relative;
+				right: 0;
+				top: 0;
+				transform: none;
+				flex-direction: column;
+
+				.Button {
+					justify-content: center;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.Header__logo-menu {
+
+		display: flex;
+		flex-direction: row;
+		gap: var(--space-s);
+		align-items: flex-end;
+
+		@media(--mobile) {
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		.Header__mobile-trigger {
+
+			display: none;
+
+			@media(--mobile) {
+				display: flex;
+			}
+		}
+
+		.LogoMark {
+
+			@media(max-width: 375px) {
+				min-width: 0;
+
+				.LogoMark__image {
+					min-width: 0;
+				}
+			}
+		}
+ 	}
+
+	.Header__menu {
+
+		align-items: stretch;
+		align-self: auto;
+		box-sizing: border-box;
+		flex: 0 1 100%;
+		flex-direction: column;
+		justify-content: flex-start;
+		min-width: 0;
+		width: auto;
+
+		@media(--below-highres) {
+			flex: 0 0 100%;
+		}
+
+		@media(--mobile) {
+			display: none;
+		}
+
+		.Header__navigation-list {
+
+			align-items: center;
+			box-sizing: border-box;
+			display: flex;
+			flex: 0 1 100%;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--space-s);
+			min-width: 0;
+
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			text-align: center;
+
+			@media(--highres) {
+				justify-content: flex-end;
+			}
+
+			@media(--tablet), (--lowres) {
+
+				flex-wrap: wrap;
+			}
+
+			@media(--below-highres) {
+
+				justify-content: flex-start;
+			}
+
+			@media(--mobile) {
+
+				flex-wrap: nowrap;
+				padding: var(--space-xl);
+			}
+
+			.Header__item {
+
+				font-size: var(--type--1);
+
+				@media(min-width:768px) and (max-width:1266px) {
+					&:first-child {
+						display: none;
+					}
+				}
+
+				@media(min-width:992px) and (max-width:1313px) {
+					font-size: calc(var(--type--2)*1.1);
+				}
+
+				@media(--highres) {
+					font-weight: 500;
+				}
+
+				@media(--below-highres) {
+					font-weight: bold;
+				}
+
+				@media(--mobile) {
+					font-size: var(--type-0);
+
+					&:first-child {
+						display: flex;
+					}
+				}
+
+				.Header__link {
+
+					text-decoration: none;
+					text-transform: uppercase;
+
+					@media(--highres) {
+						color: var(--color-ink);
+					}
+
+					&:hover {
+						border-bottom: 1.5px solid var(--color-orange);
+					}
+
+					@media(--below-highres) {
+						color: var(--color-orange);
+					}
+				}
+			}
+		}
+	}
+
+	.Header__buttons {
+
+		display: flex;
+		flex-direction: row;
+		gap: var(--space-xs);
+
+		@media(--below-highres) {
+
+			position: absolute;
+			right: var(--space-l);
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		@media(--mobile) {
+
+			justify-content: center;
+			width: 100%;
+			display: none;
+		}
+
+		.Header__button-call {
+
+			@media(--tablet) {
+				display: none;
+			}
+		}
+	}
+}
+
+.Header .LogoMark {
+
+	@media(--mobile) {
+
+		min-width: 0;
+
+		.LogoMark__image {
+			width: min(180px, 45vw);
+		}
+	}
+}

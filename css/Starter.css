@@ -6,7 +6,7 @@
 
 	--background-color: #fff;
 
-	--text-color: var( --color-gray-90 );
+	--text-color: var(--color-gray-90);
 	--text-color-link: #082840;
 	--text-color-link-active: #5f2b48;
 	--text-color-link-visited: #17050f;
@@ -14,7 +14,7 @@
 	--syntax-tab-size: 2;
 }
 
-@media (prefers-color-scheme: dark) {
+@media(prefers-color-scheme: dark) {
 	:root {
 		--color-gray-20: #e0e0e0;
 		--color-gray-50: #c0c0c0;
@@ -33,9 +33,9 @@ html,
 body {
 	padding: 0;
 	margin: 0 auto;
-	font-family: var( --font-family-system );
-	color: var( --text-color );
-	background-color: var( --background-color );
+	font-family: var(--font-family-system);
+	color: var(--text-color);
+	background-color: var(--background-color);
 }
 body {
 	max-width: 40em;
@@ -50,14 +50,14 @@ li {
 }
 
 a[href] {
-	color: var( --text-color-link );
+	color: var(--text-color-link);
 }
 a[href]:visited {
-	color: var( --text-color-link-visited );
+	color: var(--text-color-link-visited);
 }
 a[href]:hover,
 a[href]:active {
-	color: var( --text-color-link-active );
+	color: var(--text-color-link-active);
 }
 
 main,
@@ -69,7 +69,7 @@ main :first-child {
 }
 
 header {
-	border-bottom: 1px dashed var( --color-gray-20 );
+	border-bottom: 1px dashed var(--color-gray-20);
 }
 
 table {

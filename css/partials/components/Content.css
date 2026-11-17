@@ -1,0 +1,231 @@
+.Content {
+
+	background-color: var(--color-ice);
+	background-repeat: repeat;
+
+	/* Category Content */
+	&.Content--variation-category {
+
+		.Content__container-content {
+
+			gap: var(--space-3xl);
+
+			h3 {
+				color: var(--color-orange);
+				font-size: var(--type-3);
+				line-height: var(--type-4);
+			}
+
+			@media(--mobile),(--tablet) {
+
+				h3 {
+					font-size: var(--type-2);
+					line-height: var(--type-3);
+				}
+			}
+
+			@media(--mobile) {
+
+				gap: var(--space-2xl);
+				text-align: center;
+				align-items: center;
+			}
+		}
+	}
+
+	&.Content--variation-category {
+		.Content__container-content {
+			> .Content__apply {
+
+				gap: var(--space-3xl);
+
+				@media(--mobile) {
+					gap: var(--space-xl);
+				}
+			}
+		}
+	}
+
+	/* Thank You Pages */
+	&.Content--variation-thank-you {
+
+		.Content__container-content {
+			text-align: center;
+			align-items: center;
+		}
+
+		.Button {
+			margin-inline: auto;
+		}
+
+		p:last-child {
+			margin-top: var(--space-2xl);
+		}
+	}
+
+	&.Content--has-aside {
+
+		.Content__container-content {
+
+			flex-direction: row;
+			display: flex;
+			gap: var(--space-l);
+			justify-content: space-between;
+
+			@media(--tablet),(--mobile) {
+
+				flex-direction: column;
+				gap: var(--space-xl);
+			}
+		}
+
+		.Content__aside {
+
+			min-width: 350px;
+			max-width: 350px;
+
+			@media(--tablet),(--mobile) {
+				min-width: 100%;
+				max-width: 100%;
+			}
+
+			.Content__aside-faq {
+
+				gap: var(--space-m);
+
+				> dl,
+				> details {
+
+					border: 1px solid var(--color-sky);
+					border-radius: 0;
+					padding: var(--space-xs);
+					gap: var(--space-xs);
+
+					background-color: var(--color-ice);
+
+					@media(--tablet),(--mobile) {
+						padding: var(--space-m);
+					}
+
+					> .Content__aside-faq-question {
+
+						font-family: var(--font-SansSerif);
+						text-transform: uppercase;
+						color: var(--color-orange);
+						font-size: var(--type--1);
+						line-height: var(--type-0);
+						font-weight: 600;
+						letter-spacing: 1px;
+					}
+
+					> dd {
+
+						color: var(--color-ink);
+						font-size: calc(var(--type--1)*1.05);
+						line-height: calc(var(--type-0)*1.05);
+					}
+				}
+			}
+		}
+	}
+
+	.Content__container-content {
+
+		margin: var(--space-2xl) auto var(--space-2xl) auto;
+
+		@media(--lowres) {
+			margin: var(--space-s) auto var(--space-s) auto;
+		}
+
+		@media(--tablet) {
+			margin: var(--space-m) auto var(--space-m) auto;
+		}
+
+		@media(--mobile) {
+			margin: 0;
+		}
+
+		max-width: 1200px;
+		min-width: 0;
+		width: 100%;
+
+		/* Use this class to apply content styles to an area */
+		.Content__apply {
+
+			gap: var(--space-s);
+
+			display: flex;
+			flex-direction: column;
+
+			font-size: calc(var(--type-0));
+			line-height: var(--type-2);
+			color: var(--color-slate);
+
+			a {
+				text-decoration-color: var(--color-steel);
+			}
+
+			b, a:not(.Button) {
+				color: var(--color-ink);
+			}
+
+			h2:not(.eyebrow), h3 {
+
+				font-family: var(--font-Serif);
+				font-weight: 400;
+				letter-spacing: 1px;
+
+				color: var(--color-ink);
+			}
+
+			h2:not(.eyebrow) {
+
+				font-size: var(--type-3);
+				line-height: var(--type-4);
+			}
+
+			h3 {
+				font-size: var(--type-2);
+				line-height: var(--type-3);
+			}
+
+			h4, h5 {
+
+				font-family: var(--font-SansSerif);
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				font-size: var(--type-0);
+
+				color: var(--color-orange);
+			}
+
+			> h2:not(:first-child),
+			> h3:not(:first-child) {
+				margin-top: var(--space-l);
+			}
+
+			> h4:not(:first-child),
+			> h5:not(:first-child) {
+				margin-top: var(--space-xs);
+			}
+
+			ul, ol {
+				padding-left: var(--space-m);
+			}
+
+			blockquote {
+
+				font-family: var(--font-SansSerif);
+				font-weight: 500;
+				font-size: var(--type-2);
+				padding-left: var(--space-m);
+				color: var(--color-muted);
+
+				margin: var(--space-s) 0 var(--space-s) var(--space-xs);
+
+				border-left: 2px solid var(--color-slate);
+			}
+		}
+	}
+}

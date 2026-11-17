@@ -1,0 +1,15 @@
+:root {
+
+	/* Northline's fictional palette: cool blue surfaces and a dark orange accent. */
+
+	--color-ice: #f5f9ff;
+	--color-mist: #e5effb;
+	--color-sky: #c4d9f1;
+	--color-steel: #8da9cb;
+	--color-accent-light: #ffcf9e;
+	--color-orange: #a13f0b;
+	--color-muted: #566b84;
+	--color-slate: #344e6b;
+	--color-ink: #102b49;
+	--color-navy: #173d69;
+}

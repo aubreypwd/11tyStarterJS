@@ -1,0 +1,222 @@
+html {
+
+	*,
+	*::after,
+	*::before {
+		box-sizing: border-box; /* Include borders and padding in declared dimensions. */
+	}
+}
+
+head {
+	display: none; /* Keep document metadata out of the rendered page. */
+}
+
+blockquote,
+dd,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+menu,
+ol,
+ul,
+div,
+section,
+form,
+header {
+
+	/* Remove browser spacing so components own their block layout. */
+
+	margin: 0;
+	padding: 0;
+
+	display: flex;
+	flex-direction: column;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+/* Body */
+.Site {
+
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+
+	min-height: 100vh;
+	margin: 0;
+	overflow-x: clip;
+
+	font-family: var(--font-SansSerif);
+}
+
+.Site__main {
+
+	display: flex;
+	flex-direction: column;
+
+	min-width: 100%;
+	max-width: 100vw;
+}
+
+/* Customizations */
+html,
+body {
+
+	background-color: var(--color-ice);
+	color: var(--color-ink);
+
+	background-repeat: repeat;
+
+	font-size: 1rem;
+}
+
+abbr {
+	cursor: help;
+}
+
+a {
+	color: var(--color-ink);
+	text-decoration-color: var(--color-slate);
+}
+
+/* Starter */
+
+html {
+	overflow-y: scroll;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+/* Fluid images */
+img {
+	max-width: 100%;
+}
+img[width][height] {
+	height: auto;
+}
+img[src$=".svg"] {
+	width: 100%;
+	height: auto;
+	max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16 / 9;
+}
+
+/* Code */
+pre,
+code {
+	font-family: var(--font-Monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+/* Diff syntax */
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl( 0, 51%, 37% );
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl( 126, 31%, 39% );
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	display: inline-flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+	-webkit-user-select: none;
+	user-select: none;
+
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba( 0, 0, 0, 0.2 );
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+
+	color: inherit;
+
+	margin-left: calc( -1 * var(--eleventy-code-padding) );
+	margin-right: calc( -1 * var(--eleventy-code-padding) );
+
+	text-decoration: none;
+}
+
+.eyebrow {
+
+	text-transform: uppercase;
+	font-size: var(--type--1);
+	font-weight: 500;
+	letter-spacing: 3px;
+}
+
+main > section {
+	border-top: 1px solid var(--color-sky);
+}
+
+.CTALink {
+	text-transform: uppercase;
+	color: var(--color-orange) !important;
+	font-size: var(--type--1);
+	font-weight: 600;
+	text-decoration: none;
+
+	&::after {
+		content: " →";
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

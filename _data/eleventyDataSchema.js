@@ -4,27 +4,28 @@
  * @since Unknown
  */
 
-import { z } from "zod";
+import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
-// Draft content, validate `draft` front matter
 /**
  * Creates the project's Eleventy data-schema callback.
  *
  * @since Unknown
+ * @since November 10, 2026 Normalizes callback formatting and declaration termination.
  *
- * @return {Function} Data validation callback.
+ * @return {function} Data validation callback.
  */
-export default function() {
-	return function(data) {
-		// Note that drafts may be skipped in a preprocessor (see eleventy.config.js)
-		// when doing a standard build (not --serve or --watch)
-		let result = z.object({
-			draft: z.boolean().optional(),
-		}).safeParse(data);
+export default function () {
 
-		if(result.error) {
-			throw fromZodError(result.error);
+	return function ( data ) {
+
+		/* Standard builds may skip drafts in the Eleventy preprocessor. */
+		const result = z.object( {
+			draft: z.boolean().optional(),
+		} ).safeParse( data );
+
+		if ( undefined !== result.error ) {
+			throw fromZodError( result.error );
 		}
-	}
+	};
 }

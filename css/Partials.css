@@ -1,1 +1,5 @@
-/* Partials page styling belongs here when the examples need visual treatment. */
+.Partials {
+
+	display: flex;
+	flex-direction: column;
+}

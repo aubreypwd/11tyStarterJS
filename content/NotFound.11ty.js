@@ -19,6 +19,8 @@ export default class NotFound {
 			permalink: '404.html',
 			eleventyExcludeFromCollections: true,
 			title: 'Page not found',
+			description: 'This page could not be found. Return to Northline & Co. homepage to explore services or contact Alex Morgan.',
+			robots: 'noindex, follow',
 		};
 	}
 
@@ -30,8 +32,9 @@ export default class NotFound {
 	 * @return {string} 404 page HTML.
 	 */
 	render() {
+
 		return /* html */ `
-			<h1>Content not found.</h1>
+			<h2>Content not found.</h2>
 			<p>That page is not here. Go <a href="/">home</a>.</p>
 		`;
 	}

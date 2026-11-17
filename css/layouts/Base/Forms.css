@@ -1,0 +1,31 @@
+form :where(
+	input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="image"]):not([type="hidden"]),
+	textarea,
+	select
+) {
+
+	/* Native-element selectors are intentional for this global reset; button-like and hidden inputs are excluded. */
+
+	appearance: none;
+	background: none;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	margin: 0;
+	text-align: inherit;
+
+	background-color: white;
+	padding: var(--space-2xs);
+	width: 100%;
+
+	border-radius: 0;
+
+	font-family: var(--font-SansSerif);
+}
+
+form select {
+
+	/* Keep the native dropdown arrow as part of the global form reset. */
+	appearance: auto;
+}
+

@@ -1,0 +1,116 @@
+:root {
+	--font-System: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+	--font-Fancy: var(--font-System);
+	--font-Monospace: var(--font-System);
+	--font-SansSerif: var(--font-System);
+	--font-Serif: var(--font-System);
+}
+
+.Fancy {
+
+	font-family: var(--font-Fancy);
+	letter-spacing: 2.3px;
+	text-transform: uppercase;
+
+	&.Fancy--regular {
+		font-style: normal;
+		font-weight: 400;
+	}
+
+	&.Fancy--bold {
+		font-style: normal;
+		font-weight: 700;
+	}
+
+	&.Fancy--italic {
+		font-style: italic;
+		font-weight: 400;
+	}
+
+	&.Fancy--bold-italic {
+		font-style: italic;
+		font-weight: 700;
+	}
+}
+
+.SansSerif {
+
+	font-family: var(--font-SansSerif);
+	letter-spacing: 0.5px;
+
+	&.SansSerif--thin {
+		font-style: normal;
+		font-weight: 100;
+	}
+
+	&.SansSerif--thin-italic {
+		font-style: italic;
+		font-weight: 100;
+	}
+
+	&.SansSerif--light {
+		font-style: normal;
+		font-weight: 300;
+	}
+
+	&.SansSerif--light-italic {
+		font-style: italic;
+		font-weight: 300;
+	}
+
+	&.SansSerif--regular {
+		font-style: normal;
+		font-weight: 400;
+	}
+
+	&.SansSerif--italic {
+		font-style: italic;
+		font-weight: 400;
+	}
+
+	&.SansSerif--bold {
+		font-style: normal;
+		font-weight: 700;
+	}
+
+	&.SansSerif--bold-italic {
+		font-style: italic;
+		font-weight: 700;
+	}
+
+	&.SansSerif--black {
+		font-style: normal;
+		font-weight: 900;
+	}
+
+	&.SansSerif--black-italic {
+		font-style: italic;
+		font-weight: 900;
+	}
+}
+
+.Serif {
+
+	font-family: var(--font-Serif);
+	letter-spacing: 0.5px;
+
+	&.Serif--regular {
+		font-style: normal;
+		font-weight: 400;
+	}
+
+	&.Serif--italic {
+		font-style: italic;
+		font-weight: 400;
+	}
+
+	&.Serif--bold {
+		font-style: normal;
+		font-weight: 700;
+	}
+
+	&.Serif--bold-italic {
+		font-style: italic;
+		font-weight: 700;
+	}
+}

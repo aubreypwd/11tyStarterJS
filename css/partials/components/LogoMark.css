@@ -1,0 +1,14 @@
+.LogoMark {
+
+	display: inline-flex;
+	max-width: 100%;
+	text-decoration: none;
+
+	.LogoMark__image {
+
+		display: block;
+		height: auto;
+		max-width: 100%;
+		width: 200px;
+	}
+}

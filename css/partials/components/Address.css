@@ -1,0 +1,35 @@
+.Address {
+
+	display: flex;
+	flex-direction: column;
+
+	font-style: normal;
+
+	.Address__name {
+		color: var(--color-ink);
+		font-family: var(--font-System);
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+
+	.Address__link {
+		color: var(--color-ink);
+		text-decoration-color: var(--color-slate);
+
+		&:hover {
+			text-decoration-color: var(--color-orange);
+		}
+	}
+}
+
+.Address__contact {
+
+	display: flex;
+	flex-direction: column;
+
+	font-size: var(--type--1);
+	letter-spacing: 1px;
+	line-height: var(--type-0);
+	margin: 0;
+}

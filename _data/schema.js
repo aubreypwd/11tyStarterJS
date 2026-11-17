@@ -1,37 +1,57 @@
 /**
- * Defines reusable fictional starter business schema data.
- *
- * Replace this example data before launching a real site.
+ * Defines fictional business data for the demonstration website.
  *
  * @since August 13, 2026
+ * @since November 17, 2026 Replaces client information with invented details.
  */
+import metadata from './metadata.js';
 
 export default {
 	localBusiness: {
 		'@type': 'LocalBusiness',
-		'@id': 'https://example.com/#local-business',
-		name: '11ty Starter JS',
-		legalName: '11ty Starter JS',
-		description: 'A flexible Eleventy starter for Albuquerque local-business websites.',
-		url: 'https://example.com',
-		telephone: '+15055550147',
-		email: 'hello@example.com',
+		'@id': `${ metadata.url }/#local-business`,
+		name: 'Northline & Co.',
+		legalName: 'Northline & Co. LLC',
+		description: 'A fictional local business demonstrating Primary Business Category, Secondary Category A, and Secondary Category B services in Example City.',
+		url: metadata.url,
+		logo: 'https://placehold.co/320x100/173d69/f5f9ff?text=Northline+%26+Co.',
+		image: 'https://placehold.co/600x600/173d69/f5f9ff?text=Team+Portrait',
+		founder: {
+			'@type': 'Person',
+			'@id': `${ metadata.url }/#alex-morgan`,
+			name: 'Alex Morgan',
+			jobTitle: 'Owner and Project Coordinator',
+			image: 'https://placehold.co/600x600/173d69/f5f9ff?text=Team+Portrait',
+			worksFor: {
+				'@id': `${ metadata.url }/#local-business`,
+			},
+		},
+		owner: {
+			'@id': `${ metadata.url }/#alex-morgan`,
+		},
+		employee: {
+			'@id': `${ metadata.url }/#alex-morgan`,
+		},
+		telephone: '+12025550148',
+		email: 'hello@northline.example',
 		priceRange: '$$',
 		paymentAccepted: 'Credit Card',
 		foundingDate: '2026',
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: '123 Example Avenue NE',
-			addressLocality: 'Albuquerque',
-			addressRegion: 'NM',
-			postalCode: '87102',
+			streetAddress: '123 Example Avenue, Suite 200',
+			addressLocality: 'Example City',
+			addressRegion: 'EX',
+			postalCode: '00000',
 			addressCountry: 'US',
 		},
-		geo: {
-			'@type': 'GeoCoordinates',
-			latitude: 35.0844,
-			longitude: -106.6504,
-		},
+		// Set these when replacing the fictional address with a real location.
+		// geo: {
+		// 	'@type': 'GeoCoordinates',
+		// 	latitude: 0,
+		// 	longitude: 0,
+		// },
+		// hasMap: 'https://www.google.com/maps?cid=YOUR_PLACE_ID',
 		openingHoursSpecification: [
 			{
 				'@type': 'OpeningHoursSpecification',
@@ -40,26 +60,17 @@ export default {
 				closes: '17:00',
 			},
 		],
-		areaServed: [
-			'Albuquerque',
-			'Old Town',
-			'Downtown Albuquerque',
-			'Nob Hill',
-			'North Valley',
-			'South Valley',
-			'Rio Rancho',
-		],
-		hasMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3264.427635296353!2d-106.66927184999999!3d35.09603125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87220cd36c1f3b49%3A0x1584fe64c3315361!2sOld%20Town%2C%20Albuquerque%2C%20NM%2087104!5e0!3m2!1sen!2sus!4v1786680267745!5m2!1sen!2sus',
+		areaServed: [ 'Example City', 'North Quarter', 'River District', 'East Commons', 'West Village', 'South Park' ],
 		sameAs: [
-			'https://example.com/11ty-starter-js/facebook',
-			'https://example.com/11ty-starter-js/instagram',
+			'https://www.facebook.com/northlineandco.demo/',
+			'https://www.instagram.com/northlineandco.demo/',
 		],
 		contactPoint: [
 			{
 				'@type': 'ContactPoint',
 				contactType: 'customer service',
-				telephone: '+15055550147',
-				email: 'hello@example.com',
+				telephone: '+12025550148',
+				email: 'hello@northline.example',
 			},
 		],
 	},

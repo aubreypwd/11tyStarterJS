@@ -1,0 +1,200 @@
+.Footer {
+
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+
+	font-size: var(--type--1);
+	text-align: center;
+
+	a {
+
+		color: var(--color-ice);
+		text-decoration: none;
+
+		&:hover {
+
+			text-decoration: underline;
+			text-decoration-color: var(--color-ice);
+		}
+	}
+
+	.Footer__content {
+
+		background-color: var(--color-ink);
+		color: var(--color-ice);
+		border-top: 1px solid var(--color-slate);
+	}
+
+	.Footer__copyright {
+
+		background-color: var(--color-ice);
+		background-repeat: repeat;
+
+		color: var(--color-navy);
+
+		padding: var(--space-m) var(--space-l);
+
+		font-size: var(--type--1);
+
+		text-transform: uppercase;
+	}
+
+	.Footer__columns {
+
+		flex-direction: row;
+		gap: var(--space-m);
+
+		@media(--lowres),(--tablet),(--mobile) {
+			flex-wrap: wrap;
+		}
+
+		.Footer__column {
+
+			width: calc(25% - var(--space-m));
+			align-items: flex-start;
+
+			min-width: calc(25% - var(--space-m));
+
+			gap: var(--space-m);
+
+			@media(--lowres),(--tablet),(--mobile) {
+				width: calc(50% - var(--space-m));
+			}
+
+			@media(max-width: 522px) {
+				width: 100%;
+			}
+
+			&.Footer__column-0 {
+
+				justify-content: center;
+
+				@media(--mobile) {
+					margin-top: var(--space-xl);
+				}
+
+				.Footer__column-content {
+					width: 100%;
+				}
+			}
+
+			&.Footer__column-2 {
+				min-width: 233px;
+			}
+
+			.Footer__column-content {
+
+				gap: var(--space-s);
+				text-align: left;
+			}
+
+			.Footer__column-heading {
+
+				font-size: var(--type--1);
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				color: var(--color-steel);
+			}
+
+			.Footer__column-links {
+
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+
+				gap: var(--space-2xs);
+			}
+		}
+	}
+
+	.BusinessHours {
+
+		.BusinessHours__day {
+
+			color: var(--color-mist);
+			min-width: 80px;
+		}
+
+		.BusinessHours__value {
+			color: var(--color-sky);
+		}
+	}
+
+	.Address {
+
+		p:first-child {
+			margin-bottom: var(--space-2xs);
+		}
+
+		.Address__name {
+
+			color: var(--color-mist);
+			font-family: var(--font-Serif);
+			font-weight: 400;
+			font-size: var(--type-0);
+		}
+	}
+
+	.Footer__column-mark {
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		gap: var(--space-s);
+
+		text-align: center;
+
+		.Footer__slogan {
+
+			line-height: var(--type-1);
+			color: var(--color-sky);
+		}
+	}
+
+	.Footer__socials {
+
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: var(--space-2xs);
+		justify-content: center;
+	}
+
+	.Footer__social-link {
+
+		align-items: center;
+		display: inline-flex;
+		justify-content: center;
+
+		height: 44px;
+		width: 44px;
+
+		border: 1px solid var(--color-slate);
+		border-radius: 0;
+
+		&:hover {
+
+			background-color: var(--color-mist);
+			color: var(--color-ink);
+		}
+
+		&:focus-visible {
+
+			outline: 2px solid var(--color-mist);
+			outline-offset: 3px;
+		}
+	}
+
+	.Footer__social-icon {
+
+		display: block;
+		fill: currentColor;
+
+		height: 24px;
+		width: 24px;
+	}
+}
+

@@ -34,7 +34,7 @@ export default class UnheadSchema {
 						description: data.description || business.description,
 						trailingSlash: path === '/' || path.endsWith( '/' ),
 					} ),
-				}, null, 2 ) }
+				} ) }
 			</script>
 		`.trimStart();
 	}

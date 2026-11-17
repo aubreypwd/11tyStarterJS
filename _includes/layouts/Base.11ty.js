@@ -1,9 +1,44 @@
+import { defineLocalBusiness, defineWebPage } from '@unhead/schema-org';
+
 /**
  * Renders the base site layout.
  *
  * @since Unknown
  */
 export default class Base {
+
+	data() {
+		return {
+			eleventyComputed: {
+				pageSchema( data ) {
+
+					return {
+
+						// LocalBusiness
+						LocalBusiness: defineLocalBusiness( {
+							...data.schema.localBusiness,
+							url: data.metadata.url,
+						} ),
+
+						// FAQPage
+						...( Array.isArray( data.faq ) && data.faq.length > 0 ? {
+							FAQPage: defineWebPage( {
+								'@type': 'FAQPage',
+								mainEntity: data.faq.map( ( faq ) => ( {
+									'@type': 'Question',
+									name: faq.question,
+									acceptedAnswer: {
+										'@type': 'Answer',
+										text: data.fn.markdown( faq.answer ),
+									},
+								} ) ),
+							} ),
+						} : {} ),
+					};
+				},
+			},
+		};
+	}
 
 	/**
 	 * JavaScript file paths keyed by numeric load priority.
@@ -22,6 +57,8 @@ export default class Base {
 	 * @since Unknown
 	 * @since September 11, 2026 Loads Sass styles through the Eleventy render context.
 	 * @since September 15, 2026 Restores CSS source rendering and explicit Flex classes.
+	 * @since October 27, 2026 Removes the Flex and Visibility helper styles.
+	 * @since October 27, 2026 Loads the shared custom media breakpoint definitions.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @return {Promise} Rendered HTML document.
@@ -39,6 +76,7 @@ export default class Base {
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<meta name="description" content="${ data.fn.escHtml( data.description || data.schema.localBusiness.description ) }">
+					${ data.robots ? /* html */ `<meta name="robots" content="${ data.fn.escHtml( data.robots ) }">` : '' }
 					<link rel="canonical" href="${ data.fn.escHtml( new URL( data.page.url, data.metadata.url ).href ) }">
 
 					<!-- Open Graph -->
@@ -47,61 +85,72 @@ export default class Base {
 					<meta property="og:type" content="${ data.page?.inputPath?.includes( '/blog' ) ? 'article' : 'website' }">
 					<meta property="og:site_name" content="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
 					<meta property="og:url" content="${ data.fn.escHtml( new URL( data.page.url, data.metadata.url ).href ) }">
-					<meta property="og:image" content="/img/social.webp"> <!-- @TODO: Add the social sharing image. -->
-					<meta property="og:image:alt" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
+
+					<!--
+						Enable after adding /img/social.webp. Update dimensions and descriptions to match the image.
+						<meta property="og:image" content="${ data.fn.escHtml( new URL( '/img/social.webp', data.metadata.url ).href ) }">
+						<meta property="og:image:width" content="1200">
+						<meta property="og:image:height" content="630">
+						<meta property="og:image:type" content="image/webp">
+						<meta property="og:image:alt" content="Northline &amp; Co. Primary Business Category in Example City, EX.">
+					-->
 
 					<!-- Twitter -->
 					<meta name="twitter:card" content="summary_large_image">
 					<meta name="twitter:title" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
 					<meta name="twitter:description" content="${ data.fn.escHtml( data.description || data.schema.localBusiness.description ) }">
-					<meta name="twitter:image" content="/img/social.webp"> <!-- @TODO: Add the social sharing image. -->
+
+					<!--
+						Enable with the Open Graph image tags above.
+						<meta name="twitter:image" content="${ data.fn.escHtml( new URL( '/img/social.webp', data.metadata.url ).href ) }">
+						<meta name="twitter:image:alt" content="Northline &amp; Co. Primary Business Category in Example City, EX.">
+					-->
 
 					<!-- Icons -->
-					<!-- @TODO: Use https://realfavicongenerator.net to generate these icons and place them directly in public/. -->
 					<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
 					<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 					<link rel="shortcut icon" href="/favicon.ico">
 					<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-					<meta name="apple-mobile-web-app-title" content="${ data.fn.escHtml( data.title || data.schema.localBusiness.name ) }">
+					<meta name="apple-mobile-web-app-title" content="Northline & Co.">
 					<link rel="manifest" href="/site.webmanifest">
 
 					<!-- RSS -->
+					<!--
 					<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="${ data.fn.escHtml( data.schema.localBusiness.name ) }">
-
-					<!-- Schema -->
-					${ data.partials.Schema.render( data, this ) }
-
-					<!-- @TODO: Add Analytics -->
+					-->
 
 					<!-- Styles -->
-					${ data.fn.renderStyle( 'css/Colors.css', data ) }
-					${ data.fn.renderStyle( 'css/Utopia.css', data ) }
-					${ data.fn.renderStyle( 'css/Fonts.css', data ) }
-					${ data.fn.renderStyle( 'css/Flex.css', data ) }
-					${ data.fn.renderStyle( 'css/Visibility.css', data ) }
-					${ data.fn.renderStyle( 'css/Base.css', data ) }
-					${ data.fn.renderStyle( 'css/SmoothScrolling.css', data ) }
-					${ data.fn.renderStyle( 'css/Posts.css', data ) }
-					${ data.fn.renderStyle( 'css/A11y.css', data ) }
-					${ data.fn.renderStyle( 'css/Lists.css', data ) }
-					${ data.fn.renderStyle( 'css/Containers.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/Colors.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/Utopia.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/fonts.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/images.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/breakpoints.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/Forms.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/SmoothScrolling.css', data ) }
+					${ /* data.fn.renderStyle( 'css/layouts/Base/Posts.css', data ) */ '' }
+					${ data.fn.renderStyle( 'css/layouts/Base/A11y.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/Containers.css', data ) }
+					${ data.fn.renderStyle( 'css/layouts/Base/Button.css', data ) }
 					${ await data.fn.renderStyles( data ) }
 					<style>${ this.getBundle( 'css' ) }</style>
+
+					${ data.partials.Schema.render( data, this ) }
+					<!-- Paste your Umami analytics script here. -->
 				</head>
 
-			<body class="Site Flex Flex--0-column-items-center">
-				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden">Skip to main content</a>
+			<body class="SansSerif SansSerif--regular Site Body--${ data.page.fileSlug }">
+				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden Button">Skip to main content</a>
 
 				<!-- Header -->
-				${ data.partials.Header.render( data, this ) }
+				${ data.partials.Header.render( data, this, data.Header ) }
 
-				<main id="main" class="Site__main Container Flex Flex--0-column">
-
+				<main id="main" class="Site__main">
 					${ data.content }
 				</main>
 
 				<!-- Footer -->
-				${ data.partials.Footer.render( data, this ) }
+				${ data.partials.Footer.render( data, this, data.Footer ) }
 
 				<!-- Scripts -->
 				${ await data.fn.renderScripts( data ) }

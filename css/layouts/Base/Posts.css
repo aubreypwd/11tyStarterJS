@@ -1,0 +1,103 @@
+/* Posts list */
+.PostList {
+
+	display: flex;
+	flex-direction: column;
+
+	counter-reset: start-from var(--postlist-index);
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.PostList__item {
+
+	align-items: baseline;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.PostList__item::before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.PostList__date,
+.PostList__item::before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-ink);
+}
+.PostList__date {
+	word-spacing: -0.5px;
+}
+.PostList__link {
+	flex-basis: calc( 100% - 1.5rem );
+
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.PostList__item--active .PostList__link {
+	font-weight: bold;
+}
+
+/* Tags */
+.PostTag {
+
+	align-items: center;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: center;
+
+	font-style: italic;
+	text-transform: capitalize;
+}
+.PostList__item > .PostTag {
+	align-self: center; /* Preserve item alignment for externally supplied post tags. */
+}
+
+/* Post navigation */
+.PostNavigation {
+
+	display: flex;
+	flex-direction: row;
+	gap: .5em 1em;
+	justify-content: space-between;
+
+	list-style: "";
+	border-top: 1px dashed var(--color-steel);
+	padding: 1em 0;
+}
+.PostNavigation__item {
+	box-sizing: border-box;
+	flex-grow: 1;
+	min-width: 0;
+}
+.PostNavigation__item--next {
+	text-align: right;
+}
+
+/* Post metadata */
+.PostMetadata {
+
+	display: inline-flex;
+	gap: .5em;
+	flex-wrap: wrap;
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.PostMetadata__date {
+	margin-right: 1em;
+}

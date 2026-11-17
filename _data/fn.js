@@ -14,6 +14,8 @@ import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownPrismJsOptions from '@11ty/eleventy-plugin-syntaxhighlight/src/markdownSyntaxHighlightOptions.js';
 
+import { JSDOM } from 'jsdom';
+
 const markdownLibrary = markdownIt( {
 	html: true,
 	breaks: true,
@@ -24,6 +26,7 @@ const markdownLibrary = markdownIt( {
 	.use( markdownItAnchor );
 
 const projectDirectory = fileURLToPath( new URL( '../', import.meta.url ) );
+const templateDocument = new JSDOM().window.document;
 
 let discoveredTemplateFiles = [];
 
@@ -45,14 +48,25 @@ export default {
 	},
 
 	/**
-	 * Get the current ISO timestamp.
+	 * Checks whether this build is running on Netlify.
 	 *
-	 * @since Unknown
+	 * @since October 26, 2026
 	 *
-	 * @return {string} Current ISO timestamp.
+	 * @return {boolean} Whether the build is running on Netlify.
 	 */
-	currentBuildDate() {
-		return new Date().toISOString();
+	isNetlify() {
+		return 'true' === process.env.NETLIFY;
+	},
+
+	/**
+	 * Checks whether the current deploy context is production.
+	 *
+	 * @since October 26, 2026
+	 *
+	 * @return {boolean} Whether the deploy context is production.
+	 */
+	isProduction() {
+		return 'production' === process.env.CONTEXT;
 	},
 
 	/**
@@ -231,6 +245,40 @@ export default {
 			.replace( />/g, '&gt;' )
 			.replace( /"/g, '&quot;' )
 			.replace( /'/g, '&#39;' );
+	},
+
+	/**
+	 * Sanitize a string to lowercase, dash-separated text.
+	 *
+	 * @since October 30, 2026
+	 *
+	 * @param {string} value String to sanitize.
+	 * @return {string} Sanitized string.
+	 */
+	escStringToDashes( value ) {
+
+		if ( 'string' !== typeof value ) {
+			return '';
+		}
+
+		let sanitized = value.replace( /<[^>]*>/g, '' );
+
+		// Preserve percent-encoded octets while removing stray percent signs.
+		sanitized = sanitized.replace( /%([a-f0-9]{2})/gi, '---$1---' );
+		sanitized = sanitized.replace( /%/g, '' );
+		sanitized = sanitized.replace( /---([a-f0-9]{2})---/gi, '%$1' );
+
+		sanitized = sanitized.replace( /[^\u0000-\u007f]+/g, function ( characters ) {
+			return encodeURIComponent( characters );
+		} ).toLowerCase();
+
+		return sanitized
+			.replace( /&.+?;/g, '' )
+			.replace( /\./g, '-' )
+			.replace( /[^%a-z0-9 _-]/g, '' )
+			.replace( /\s+/g, '-' )
+			.replace( /-+/g, '-' )
+			.replace( /^-+|-+$/g, '' );
 	},
 
 	/**
@@ -426,35 +474,10 @@ export default {
 	},
 
 	/**
-	 * Gets the retained top-level page navigation entries.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {array} Top-level navigation entries.
-	 */
-	navigationItems( data ) {
-		return ( data.collections?.all || [] )
-			.filter( function( page ) {
-				return page.data?.eleventyNavigation && ! page.data.eleventyNavigation.parent;
-			} )
-			.sort( function( first, second ) {
-				return ( first.data.eleventyNavigation.order || 0 ) - ( second.data.eleventyNavigation.order || 0 );
-			} )
-			.map( function( page ) {
-				const navigation = page.data.eleventyNavigation;
-
-				return {
-					title: navigation.title || navigation.key,
-					url: navigation.url || page.url,
-				};
-			} );
-	},
-
-	/**
 	 * Builds a LAB-style page title.
 	 *
 	 * @since August 13, 2026
+	 * @since October 26, 2026 Reads the title separator from settings data.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {string} title Page or category title.
@@ -466,11 +489,41 @@ export default {
 			return '';
 		}
 
-		if ( 'string' !== typeof title || '' === title.trim() ) {
-			title = 'Local Business';
-		}
-
-		return `${ title } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.metadata.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
+		return `${ title } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
 	},
 
+	/**
+	 * Creates HTML markup from an element's tag, content, attributes, and options.
+	 *
+	 * @since October 26, 2026
+	 *
+	 * @param {string} element Element tag name.
+	 * @param {string} content HTML content to place inside the element.
+	 * @param {object} [attributes={}] Attributes to add to the element.
+	 * @param {object} [options={}] Options for adding Umami tracking attributes.
+	 * @return {string} HTML markup for the created element.
+	 */
+	createElement( element, content, attributes = {}, options = {} ) {
+
+		const el = templateDocument.createElement( element );
+
+		// Add attributes.
+		for ( const [ name, value ] of Object.entries( attributes ) ) {
+			el.setAttribute( name, value );
+		}
+
+		// Add umami tracking to the el.
+		if ( options.hasOwnProperty( 'umami' ) ) {
+
+			for ( const [ name, value ] of Object.entries( options.umami ?? {} ) ) {
+				el.setAttribute( `data-umami-${ name }`, value );
+			}
+
+			el.setAttribute( 'data-umami-event', options.umami?.event || 'Unknown' );
+		}
+
+		el.innerHTML = content;
+
+		return el.outerHTML;
+	}
 };

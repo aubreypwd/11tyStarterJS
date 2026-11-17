@@ -1,7 +1,7 @@
 pre[class*="language-diff-"] {
 	--eleventy-code-padding: 1.25em;
-	padding-right: var( --eleventy-code-padding );
-	padding-left: var( --eleventy-code-padding );
+	padding-right: var(--eleventy-code-padding);
+	padding-left: var(--eleventy-code-padding);
 }
 
 .token.deleted {
@@ -30,7 +30,7 @@ pre[class*="language-diff-"] {
 
 .token.prefix.inserted,
 .token.prefix.deleted {
-	width: var( --eleventy-code-padding );
+	width: var(--eleventy-code-padding);
 	background-color: rgb( 0 0 0 / 20% );
 }
 
@@ -40,8 +40,8 @@ pre[class*="language-diff-"] {
 
 	color: inherit;
 
-	margin-left: calc( -1 * var( --eleventy-code-padding ) );
-	margin-right: calc( -1 * var( --eleventy-code-padding ) );
+	margin-left: calc( -1 * var(--eleventy-code-padding) );
+	margin-right: calc( -1 * var(--eleventy-code-padding) );
 
 	text-decoration: none;
 }

@@ -1,0 +1,139 @@
+.Testimonials {
+
+	background-color: var(--color-ink);
+	background-repeat: repeat;
+
+	color: var(--color-ice);
+
+	.Testimonials__sample-note {
+		text-align: center;
+	}
+
+	.Container__content {
+
+		gap: var(--space-2xl);
+
+		.Testimonials__header {
+
+			text-align: center;
+
+			.Testimonials__heading {
+
+				font-size: var(--type-5);
+				line-height: calc(var(--type-5)*1.2);
+				letter-spacing: 1px;
+
+				color: var(--color-ice);
+			}
+		}
+
+		.Testimonials__actions {
+			align-items: center;
+		}
+
+		.Testimonials__list {
+
+			flex-direction: row;
+			gap: var(--space-l);
+			justify-content: center;
+			align-items: stretch;
+
+			list-style-type: none;
+
+			flex-wrap: wrap;
+
+			.Testimonials__item {
+				margin: 0;
+				padding: 0;
+			}
+
+			.Testimonials__item {
+
+				color: var(--color-ink);
+
+				padding: var(--space-m);
+				border-radius: 0;
+
+
+				position: relative;
+
+				flex: 1 1 0;
+				min-width: 254px;
+				max-width: 300px;
+
+				@media(--lowres) {
+					max-width: none;
+				}
+
+				@media(--mobile) {
+
+					max-width: none;
+
+					flex-basis: calc(25% - var(--space-l));
+				}
+
+				transition: filter 1s ease-in-out;
+
+				&:hover {
+					filter: brightness(110%);
+				}
+
+
+				.Testimonials__quote {
+
+					font-size: var(--type-0);
+
+					@media(--lowres) {
+						font-size: var(--type--1);
+					}
+				}
+
+				.Testimonials__figure {
+
+					gap: var(--space-s);
+
+					height: 100%;
+				}
+
+				.Testimonials__caption {
+
+					margin-top: auto;
+					justify-self: flex-end;
+					color: var(--color-orange);
+
+					a {
+						color: var(--color-orange);
+						text-decoration: none;
+
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+
+				.Testimonials__rating {
+
+					display: flex;
+					flex-direction: row;
+
+					.Testimonials__rating-star {
+
+						height: 24px;
+						width: 24px;
+
+						fill: var(--color-orange);
+					}
+				}
+			}
+		}
+
+	}
+}
+
+.Testimonials {
+
+	.Testimonials__item {
+		background-color: var(--color-ice);
+	}
+
+}

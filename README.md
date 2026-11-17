@@ -1,123 +1,97 @@
-# 11tyStarterJS v9
+# 11tyStarterJS: Northline & Co.
 
-A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v3.0 release](https://github.com/11ty/eleventy/releases/tag/v3.0.0)).
+An Eleventy 3 starter with a complete fictional local-business website. Northline & Co., owner Alex Morgan, the service categories, contact details, service areas, and testimonials are sample content.
 
-## Getting Started
+The structure and shared functionality were ported from TheGlowStandard, then generalized and restyled. Its current implementation is the reference when it differs from the upstream change log. This starter deliberately excludes membership, Products navigation, client imagery, downloaded fonts, and client analytics configuration.
 
-* [Want a more generic/detailed getting started guide?](https://www.11ty.dev/docs/getting-started/)
+## Development
 
-1. Make a directory and navigate to it:
+Use Node 24 or newer. `.nvmrc` selects Node 24, `package.json` requires Node 24+, and Netlify is configured for Node 24.
 
-```
-mkdir my-blog-name
-cd my-blog-name
-```
+| Command | Purpose |
+| --- | --- |
+| `npm install` | Install the declared dependencies. |
+| `npm run start` | Run the Eleventy development server with its default port. |
+| `npm run serve` | Run Eleventy with the PORT supplied by Portless. |
+| `npm run build` | Clear `_site` and generate the complete site. |
 
-2. Clone this Repository
+`portless.json` uses the name `11tyStarterJS` and the `serve` script. Eleventy runs directly; it is not wrapped in Node watch mode. Explicit watch targets cover `content/`, `css/`, `js/`, and `md/`, alongside Eleventy's normal watching for includes, data, configuration, dependencies, and passthrough assets.
 
-```
-git clone https://github.com/aubreypwd/11tyStarterJS.git .
-```
+The normal build runs output cleanup through npm's prebuild lifecycle. The alternate debug and path-prefix scripts remain in [package.json](package.json); they do not all run that cleanup step.
 
-_Optional:_ Review `eleventy.config.js` and `_data/metadata.js` to configure the site’s options and data.
+## Published pages
 
-3. Install dependencies
+| Route | Source |
+| --- | --- |
+| `/` | [Index.11ty.js](content/Index.11ty.js) |
+| `/primary-business-category/` | [PrimaryBusinessCategory.11ty.js](content/PrimaryBusinessCategory.11ty.js), four sample services |
+| `/secondary-category-a/` | [SecondaryCategoryA.11ty.js](content/SecondaryCategoryA.11ty.js), five sample services |
+| `/secondary-category-b/` | [SecondaryCategoryB.11ty.js](content/SecondaryCategoryB.11ty.js), five text-led sample services |
+| `/thank-you-for-contacting-us/` | [ThankYouContact.11ty.js](content/ThankYouContact.11ty.js) |
+| `/privacy-policy/` | [PrivacyPolicy.11ty.js](content/PrivacyPolicy.11ty.js) and [Markdown](md/PrivacyPolicy.md) |
+| `/terms-of-service/` | [TermsOfService.11ty.js](content/TermsOfService.11ty.js) and [Markdown](md/TermsOfService.md) |
+| `/404.html` | [NotFound.11ty.js](content/NotFound.11ty.js) |
+| `/sitemap.xml` | [Sitemap.xml.11ty.js](content/Sitemap.xml.11ty.js) |
 
-```
-npm install
-```
+The homepage composes Hero, About, Testimonials, Services, Contact, and ServiceAreas, with shared Header and Footer. Category pages use the same sections around their service content. There is one contact form and one contact confirmation page. The confirmation and 404 pages retain robots directives; the sitemap follows the current reference's permalink and noindex filtering.
 
-4. Run Eleventy
+The last clean build produced nine files through Eleventy, plus the JavaScript bundle and passthrough manifest. Build and local serving checks have passed. Rendered browser appearance and live reload across every watch target have not been exhaustively checked.
 
-Generate a production-ready build to the `_site` folder:
+## Source organization
 
-```
-npx @11ty/eleventy
-```
+| Location | Responsibility |
+| --- | --- |
+| `content/` | Page templates, sitemap, and retained sample posts. |
+| `_includes/layouts/` | Base document, Category composition, Page content, Post layout, and a scaffold. |
+| `_includes/partials/sections/` | Header, Footer, Hero, About, Services, Testimonials, Contact, and ServiceAreas. |
+| `_includes/partials/components/` | Section wrappers, content rendering, links, buttons, branding placeholders, navigation, address, hours, schema, and Toast. |
+| `_includes/utils/UnheadSchema.11ty.js` | JSON-LD graph rendering. |
+| `_data/` | Business data, metadata, settings, testimonials, events, helpers, and the partial registry. |
+| `css/layouts/` | Layout styles; Base's supporting styles are grouped under `css/layouts/Base/`. |
+| `css/partials/` and `js/partials/` | Assets grouped by the section or component that owns them. |
+| `md/` | Markdown read by its owning page template. |
+| `public/` | Files copied to the output root; currently the web manifest. |
+| `_site/` | Generated output, recreated by the normal full build. |
 
-Or build and host on a local development server:
+The partial registry discovers nested class templates and exposes unique filename-based keys through `data.partials`. Partial render calls use data, context, and an options object. Section receives its rendered HTML slot as a fourth argument. Content receives child content as its fourth argument, renders Markdown by default, and supports HTML passthrough through `markdownIfy: false`. Its optional fifth argument supplies aside HTML.
 
-```
-npx @11ty/eleventy --serve
-```
+Layouts receive child output through `data.content`. Shared file, Markdown, escaping, date, element, asset-registry, and title helpers live in [_data/fn.js](_data/fn.js). The title separator lives in [_data/settings.js](_data/settings.js).
 
-Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the internals.
+## Current visual direction
 
-## Features
+- All typography uses system sans-serif stacks. Retained font helper names, including Serif and Fancy, resolve to that same system stack.
+- The palette is blue and orange, defined in [Colors.css](css/layouts/Base/Colors.css).
+- The Hero card spans the available Hero content width over an [Unsplash office image](https://images.unsplash.com/photo-1497366811353-6870744d04b2).
+- Portrait, category images, and header/footer logos use remote placehold.co images. They bypass build-time image processing through `eleventy:ignore`.
+- Everything is square and has no drop shadow. Filled buttons are borderless; transparent buttons retain borders.
+- About has a square portrait and no signature. Sample testimonials have a centered fictional-review notice and no quote decoration.
+- Contact is titled “Contact Us,” uses a generic Message textarea without placeholder text, and puts Address and Hours in separate responsive columns. It has no building-directions section or phone icons.
+- The borderless Google Maps embed shows Central Park, New York, explicitly as a sample location rather than the fictional business address.
 
-- Using [Eleventy v3](https://github.com/11ty/eleventy/releases/tag/v3.0.0) with zero-JavaScript output.
-	- Content is exclusively pre-rendered (this is a static site).
-	- Can easily [deploy to a subfolder without changing any content](https://www.11ty.dev/docs/plugins/html-base/)
-	- All URLs are decoupled from the content’s location on the file system.
-	- Configure templates via the [Eleventy Data Cascade](https://www.11ty.dev/docs/data-cascade/)
-- **Performance focused**: four-hundos Lighthouse score out of the box!
-	- _0 Cumulative Layout Shift_
-	- _0ms Total Blocking Time_
-- Local development live reload provided by [Eleventy Dev Server](https://www.11ty.dev/docs/dev-server/).
-- Content-driven [navigation menu](https://www.11ty.dev/docs/plugins/navigation/)
-- Fully automated [Image optimization](https://www.11ty.dev/docs/plugins/image/)
-	- Zero-JavaScript output.
-	- Support for modern image formats automatically (e.g. AVIF and WebP)
-	- Processes images on-request during `--serve` for speedy local builds.
-	- Prefers `<img>` markup if possible (single image format) but switches automatically to `<picture>` for multiple image formats.
-	- Automated `<picture>` syntax markup with `srcset` and optional `sizes`
-	- Includes `width`/`height` attributes to avoid [content layout shift](https://web.dev/cls/).
-	- Includes `loading="lazy"` for native lazy loading without JavaScript.
-	- Includes [`decoding="async"`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding)
-	- Images can be co-located with blog post files.
-- Per-page inline CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
-	- Source styles live in the root `css/` directory.
-	- `renderStyle()` reads each CSS source file into a `<style>` tag, and Eleventy collects those tags into one final inline bundle.
-	- Standalone builds run PurgeCSS on that final bundle so each page keeps only the selectors it uses; source CSS remains complete.
-- Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (zero-JavaScript output).
-- Draft content: use `draft: true` to mark any template as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds. This is driven by the `addPreprocessor` configuration API in `eleventy.config.js`. Schema validator will show an error if non-boolean value is set in data cascade.
-- Blog Posts
-	- Automated next/previous links
-	- Accessible deep links to headings
-- Generated Pages
-	- Home, Archive, and About pages.
-	- [Atom feed included (with easy one-line swap to use RSS or JSON)](https://www.11ty.dev/docs/plugins/rss/)
-	- `sitemap.xml`
-	- Zero-maintenance tag pages ([View on the Demo](https://11tyStarterJS.netlify.app/tags/))
-	- Content not found (404) page
+Components own their layout in plain CSS. The named media queries are exclusive ranges: mobile below 768px, tablet from 768px to below 992px, lowres from 992px to below 1200px, and highres from 1200px upward. `--below-highres` combines the first three. Definitions live in [breakpoints.css](css/layouts/Base/breakpoints.css); intentional component-specific and preference queries remain literal.
 
-## Demos
+## Bundles, metadata, and forms
 
-- [Netlify](https://11tyStarterJS.netlify.app/)
-- [Vercel](https://demo-base-blog.11ty.dev/)
-- [Cloudflare Pages](https://11tyStarterJS-d2a.pages.dev/)
-- [GitHub Pages](https://11ty.github.io/11tyStarterJS/)
+Both serve and build collect styles and scripts through Eleventy's bundle support. JavaScript is minified as ESM. The completed CSS bundle goes through PostCSS custom-media expansion, PurgeCSS, and CSS minification. HTML is minified last. The pipeline preserves CSS custom properties, its runtime-selector safelist, preformatted whitespace, and JSON-LD. Ordinary HTML comments are removed from generated pages.
 
-## Deploy this to your own site
+Base emits canonical URLs, robots directives when present, body classes based on file slugs, and the shared business/WebSite/WebPage schema graph. Post retains Article schema support. A populated page FAQ array generates FAQ schema; there is currently no published FAQ example after the membership removal.
 
-Deploy this Eleventy site in just a few clicks on these services:
+Open Graph and Twitter text metadata are active. Image metadata is retained as commented code in [Base.11ty.js](_includes/layouts/Base.11ty.js), ready for `/img/social.webp`. Its 1200×630 dimensions and descriptions are placeholders to update with the actual image.
 
-- Read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/) to the web.
-- [Deploy this to **Netlify**](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/11tyStarterJS)
-- [Deploy this to **Vercel**](https://vercel.com/import/project?template=11ty%2F11tyStarterJS)
-- Look in `.github/workflows/gh-pages.yml.sample` for information on [Deploying to **GitHub Pages**](https://www.11ty.dev/docs/deployment/#deploy-an-eleventy-project-to-git-hub-pages).
-- [Try it out on **Stackblitz**](https://stackblitz.com/github/11ty/11tyStarterJS)
+Favicon and manifest icon references are active, but the icon files are intentionally absent. Their expected filenames are listed in [TODO.md](TODO.md). The fictional business schema uses the same placeholder logo and portrait URLs as the site; geographic coordinates and a business-map URL remain commented until a real location is supplied.
 
-### Implementation Notes
+The contact form retains Netlify-compatible markup and its local thank-you action. Call, text, email, and testimonial destinations without official URLs use `#`. Facebook and Instagram are the requested exception, with invented `northlineandco.demo` profile URLs. Working internal routes and section anchors remain intact.
 
-- `content/About.11ty.js` is an example of a content page.
-- `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
-- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your template data to add a template to the top-level site navigation. This is in use on the Home, About, and Blog pages.
-- Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
-- Root `css/` files are source files read by `renderStyle()` and collected into the inline CSS bundle; they are not copied to the output directory.
-- The `public` folder in your input directory is copied to the output folder via `addPassthroughCopy` in `eleventy.config.js`. Styles placed under `public/` are standalone passthrough assets and are not part of the root `css/` rendering pipeline.
-- This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
-	- `_includes/layouts/Base.11ty.js`: the top-level HTML structure and shared local-business schema
-	- `_includes/layouts/Page.11ty.js`: general content pages
-	- `_includes/layouts/Post.11ty.js`: blog post pages with Article schema
-- `_includes/partials/` is automatically registered as `data.partials`, so reusable components can be edited or added without maintaining a central import list.
-- `_data/schema.js` contains fictional LocalBusiness starter values that must be replaced before launch.
-- The starter keeps address, business hours, and a simple footer available for reuse without assuming a particular contact or booking workflow.
-- The archive and tag pages render their post lists directly in `*.11ty.js` templates now, so there is no shared `postslist.njk` include.
+No analytics script or client identifier is included. Paste your Umami script into the HTML comment placeholder in Base and add `eleventy:ignore` to its script tag. Optional event attributes remain supported by shared Link and Button rendering.
 
-#### Content Security Policy
+## Retained, disabled features
 
-If your site enforces a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (as public-facing sites should), you have a few choices (pick one):
+Sample blog posts remain under `content/blog/`, with output disabled by folder data. Tags, the partial showcase, and the page scaffold are not published. The Post layout, tag-page template, feed configuration, XSL stylesheet, Toast assets, and class-based partial/layout scaffolds remain available. The feed configuration and some example asset registrations are commented out.
 
-1. In `Base.11ty.js`, replace the inline CSS bundle output with a `this.getBundleFileUrl( 'css' )` link if you need a separate stylesheet file.
-2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).
+These are retained starting points, not active site features. Re-enable their routes, collections, and asset registrations together when a project needs them. `css/Starter.css` remains inactive legacy CSS.
+
+## Adapting the starter
+
+Replace the fictional identity in [_data/schema.js](_data/schema.js) and [_data/metadata.js](_data/metadata.js), then update page and section copy, testimonials, sample legal pages, images, social links, and contact destinations. The `.example` origin, 202-555-0148 phone number, and Example City address are deliberate placeholders.
+
+Keep useful configuration and implementation scaffolding when an asset is not ready. Leave the relevant markup commented rather than deleting it. [TODO.md](TODO.md) distinguishes deferred assets from project-specific setup, and [AGENTS.md](AGENTS.md) records the development rules and accepted design decisions.

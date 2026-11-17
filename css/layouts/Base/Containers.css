@@ -1,0 +1,134 @@
+.Container {
+
+	display: flex;
+	flex-direction: column;
+
+	padding: var(--space-xl) var(--space-l);
+	background-repeat: no-repeat;
+
+	width: 100%;
+
+	> .Container__content {
+
+		display: flex;
+		flex-direction: column;
+		max-width: 1800px;
+		margin: auto;
+		width: 100%;
+
+		&.Container__content--none {
+
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	&.Container--none,
+	&.Container--variation-page {
+		padding: 0;
+	}
+
+	&.Container--variation-page {
+		.Content {
+
+			background-repeat: repeat;
+		}
+	}
+
+	&.Container--variation-large {
+
+		.Container__content {
+
+			@media(--lowres) {
+				padding: var(--space-2xl) var(--space-xl);
+			}
+
+			@media(--tablet) {
+				padding: var(--space-xl) var(--space-l);
+			}
+
+			@media(--mobile) {
+				padding: 0;
+			}
+
+			@media(--highres) {
+				padding: calc(var(--space-xl)*1.5) calc(var(--space-xl)*2);
+			}
+		}
+	}
+
+	&.Container--variation-medium {
+
+		.Container__content {
+
+			@media(--lowres) {
+				padding: var(--space-s) var(--space-xl);
+			}
+
+			@media(--tablet) {
+				padding: var(--space-s) var(--space-xl);
+			}
+
+			@media(--mobile) {
+				padding: 0;
+			}
+
+			@media(--highres) {
+				padding: calc(var(--space-l)*1.5) calc(var(--space-l)*2);
+			}
+		}
+	}
+
+	/* Used in the footer */
+	&.Container--variation-small {
+
+		.Container__content {
+
+			@media(--lowres) {
+				padding: var(--space-s) var(--space-l);
+			}
+
+			@media(--tablet) {
+				padding: var(--space-s) var(--space-l);
+			}
+
+			@media(--mobile) {
+				padding: 0;
+			}
+
+			@media(--highres) {
+				padding: var(--space-m) var(--space-l);
+			}
+		}
+	}
+
+	&.Container--variation-xl {
+
+		.Container__content {
+
+			@media(--highres) {
+				padding: var(--space-xl) calc(var(--space-xl)*4);
+			}
+
+			@media(--lowres) {
+				padding: var(--space-xl) calc(var(--space-xl)*3);
+			}
+
+			@media(--tablet) {
+				padding: var(--space-xl) calc(var(--space-xl));
+			}
+		}
+	}
+
+	/* Full */
+	&.Container--variation-none {
+
+		padding: 0;
+
+		&.Container__content {
+
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+}

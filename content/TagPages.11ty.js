@@ -41,17 +41,18 @@ export default class TagPages {
 				},
 
 				/**
-				 * Builds the tag archive permalink.
+				 * Keeps tag archive output disabled until the blog is ready.
 				 *
 				 * @since Unknown
 				 *
 				 * @param {object} data Eleventy data cascade.
-				 * @return {string} Tag archive permalink.
+				 * @return {boolean} False disables tag archive output.
 				 */
-				permalink: function( data ) {
+				permalink: function ( data ) {
 
 					// If DuplicatePermalinkOutputError occurs, check that no tag occurs with differing case, e.g. "RSS" and "rss".
-					return `/tags/${ this.slugify( data.tag ) }/`;
+					// return `/tags/${ this.slugify( data.tag ) }/`;
+					return false;
 				},
 			},
 		};
@@ -81,6 +82,7 @@ export default class TagPages {
 	 *
 	 * @since Unknown
 	 * @since September 15, 2026 Adds explicit Flex classes.
+	 * @since October 27, 2026 Moves post-item layout into the stylesheet.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {object} post Post record.
@@ -89,7 +91,7 @@ export default class TagPages {
 	 */
 	renderPostListItem( data, post, currentUrl ) {
 		return /* html */ `
-			<li class="PostList__item Flex Flex--0-row-items-baseline Flex--0-wrap${ post.url === currentUrl ? ' PostList__item--active' : '' }">
+			<li class="PostList__item${ post.url === currentUrl ? ' PostList__item--active' : '' }">
 				<a href="${ data.fn.escHtml( post.url ) }" class="PostList__link">${ post.data?.title ? data.fn.escHtml( post.data.title ) : /* html */ `<code>${ data.fn.escHtml( post.url ) }</code>` }</a>
 				<time class="PostList__date" datetime="${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'yyyy-LL-dd' ) ) }">${ data.fn.escHtml( data.fn.dateToFormat( post.date, 'LLLL yyyy' ) ) }</time>
 			</li>
@@ -101,6 +103,7 @@ export default class TagPages {
 	 *
 	 * @since Unknown
 	 * @since September 15, 2026 Adds explicit Flex classes.
+	 * @since October 27, 2026 Moves post-list layout into the stylesheet.
 	 *
 	 * @param {object} data Eleventy data cascade.
 	 * @param {array} posts Post records.
@@ -109,7 +112,7 @@ export default class TagPages {
 	 */
 	renderPostsList( data, posts, currentUrl ) {
 		return /* html */ `
-			<ol reversed class="PostList Flex Flex--0-column" style="--postlist-index: ${ posts.length + 1 }">
+			<ol reversed class="PostList" style="--postlist-index: ${ posts.length + 1 }">
 				${ posts.slice().reverse().map( ( post ) => this.renderPostListItem( data, post, currentUrl ) ).join( '' ) }
 			</ol>
 		`;

@@ -1,0 +1,82 @@
+.Button {
+
+	--border-size: 2px;
+
+	background-color: var(--color-ink);
+	border: 0;
+	border-radius: 0;
+	color: var(--color-ice);
+	padding: var(--space-xs) var(--space-s);
+	text-transform: uppercase;
+	font-weight: 600;
+	text-decoration: none;
+	font-size: var(--type--1);
+
+	white-space: nowrap;
+
+	transition: filter 0.5s ease-in-out;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-2xs);
+
+	width: max-content;
+
+	&:hover {
+		cursor: pointer;
+		filter: brightness(110%);
+	}
+
+	&.Button--alt {
+
+		background-color: transparent;
+		color: var(--color-slate);
+
+		border: var(--border-size) solid var(--color-muted);
+
+		svg {
+			fill: var(--color-muted);
+		}
+	}
+
+	&.Button--variation-orange {
+
+		color: var(--color-ice);
+
+		background-color: var(--color-orange);
+
+		filter: brightness(110%);
+
+		&:hover {
+			filter: brightness(120%);
+		}
+	}
+
+	&.Button--variation-navy {
+
+		background-color: var(--color-navy);
+
+		color: var(--color-ice);
+
+		svg {
+			fill: var(--color-ice);
+		}
+	}
+
+	&.Button--centered {
+		justify-content: center;
+	}
+
+	&.Button--thin {
+		padding: var(--space-2xs) var(--space-m);
+	}
+
+	svg {
+
+		height: 16px;
+		width: 16px;
+
+		fill: var(--color-ice);
+	}
+}

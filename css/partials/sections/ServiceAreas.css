@@ -1,0 +1,152 @@
+.ServiceAreas {
+
+	background-repeat: repeat;
+
+	.Container__content {
+
+		flex-direction: row;
+		gap: var(--space-3xl);
+
+		@media(--lowres),(--tablet),(--mobile) {
+
+			flex-direction: column-reverse;
+			gap: var(--space-l);
+		}
+	}
+
+	.ServiceAreas__google-map,
+	.ServiceAreas__content {
+
+		width: calc(50% - var(--space-2xl));
+
+		@media(--lowres),(--tablet),(--mobile) {
+			width: 100%;
+		}
+	}
+
+	.ServiceAreas__google-map {
+
+		border: 0;
+		border-radius: 0;
+		overflow: hidden;
+
+
+		.ServiceAreas__map {
+
+			height: 100%;
+			width: 100%;
+			/*filter: grayscale(100%) sepia(45%) hue-rotate(23deg) contrast(90%) brightness(103%);*/
+
+			transition: filter 0.15s ease-in-out;
+
+			@media(prefers-reduced-motion: reduce) {
+				transition: none;
+			}
+		}
+
+		@media(--lowres),(--highres) {
+
+			&:hover .ServiceAreas__map,
+			&:focus-within .ServiceAreas__map {
+				filter: none;
+			}
+		}
+
+		@media(--tablet),(--mobile) {
+
+			.ServiceAreas__map {
+				filter: none;
+				transition: none;
+			}
+		}
+	}
+
+	.ServiceAreas__content {
+
+		gap: var(--space-m);
+
+		.ServiceAreas__header {
+
+			gap: var(--space-m);
+			text-align: left;
+		}
+
+		.ServiceAreas__eyebrow {
+			color: var(--color-orange);
+		}
+
+		.ServiceAreas__content-heading {
+			font-size: var(--type-3);
+		}
+
+		.ServiceAreas__content-info {
+
+			font-size: var(--type-0);
+			line-height: var(--type-1);
+		}
+
+		.ServiceAreas__areas {
+
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			justify-content: space-between;
+
+			.ServiceAreas__areas-area {
+
+				width: 50%;
+				padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) 0;
+
+				font-size: calc(var(--type--1)*1.1);
+				text-transform: uppercase;
+
+				color: var(--color-navy);
+
+				display: flex;
+				flex-direction: row;
+				gap: var(--space-2xs);
+
+				align-items: flex-start;
+
+				max-width: 329px;
+
+				@media(max-width: 584px) {
+
+					font-size: var(--type-0);
+					font-family: var(--font-SansSerif);
+					min-width: 0;
+					max-width: 100%;
+					width: 100%;
+				}
+
+				.ServiceAreas__areas-area-icon {
+
+					img {
+
+						height: 24px;
+						width: 24px;
+
+						min-width: 24px;
+						min-height: 24px;
+
+						filter: var(--filter-orange);
+
+						position: relative;
+						top: 1px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.ServiceAreas__map {
+
+	border: 0;
+	display: block;
+	min-height: 24rem;
+}
