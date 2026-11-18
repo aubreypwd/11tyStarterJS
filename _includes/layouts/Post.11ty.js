@@ -1,43 +1,16 @@
 import { defineArticle } from '@unhead/schema-org';
-/**
- * Defines the blog-post layout.
- *
- * @since Unknown
- */
 export default class Post {
 
-	/**
-	 * CSS file paths keyed by numeric load priority.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @type {object}
-	 */
 	static styles = {
 		// 10: 'node_modules/prismjs/themes/prism-okaidia.css',
 	};
 
-	/**
-	 * Provides post layout data and article schema.
-	 *
-	 * @since Unknown
-	 *
-	 * @return {object} Post layout data.
-	 */
 	data() {
 
 		return {
 			layout: 'layouts/Base.11ty.js',
 			eleventyComputed: {
 
-				/**
-				 * Builds article schema for the current post.
-				 *
-				 * @since Unknown
-				 *
-				 * @param {object} data Eleventy data cascade.
-				 * @return {object} Article schema data.
-				 */
 				layoutSchema( data ) {
 					return {
 
@@ -58,16 +31,6 @@ export default class Post {
 		};
 	}
 
-	/**
-	 * Renders a blog post.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves post layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {string} Rendered post content.
-	 */
 	render( data ) {
 
 		// Content
@@ -90,30 +53,10 @@ export default class Post {
 		`;
 	}
 
-	/**
-	 * Turn one tag into a link to its archive page.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves tag layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {string} tag Tag name.
-	 * @return {string} Tag link HTML.
-	 */
 	renderTagItem( data, tag ) {
 		return /* html */ `<a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a>`;
 	}
 
-	/**
-	 * Hide the tag list when a post has no tags.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {array} tags Tag names.
-	 * @return {string} Tag list HTML.
-	 */
 	renderTagsList( data, tags ) {
 
 		if ( ! tags.length ) {
@@ -123,18 +66,6 @@ export default class Post {
 		return tags.map( ( tag, index ) => /* html */ `<li>${ this.renderTagItem( data, tag ) }${ index < tags.length - 1 ? ', ' : '' }</li>` ).join( '' );
 	}
 
-	/**
-	 * Link to the neighboring posts in the archive.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves navigation layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {array} posts Post records.
-	 * @param {string} currentUrl Current post URL.
-	 * @return {string} Previous and next links HTML.
-	 */
 	renderPreviousNextLinks( data, posts, currentUrl ) {
 
 		const currentIndex = posts.findIndex( ( post ) => post.url === currentUrl );

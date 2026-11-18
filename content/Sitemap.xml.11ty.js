@@ -1,17 +1,5 @@
-/**
- * Renders the XML sitemap.
- *
- * @since Unknown
- */
 export default class Sitemap {
 
-	/**
-	 * Provides sitemap page data.
-	 *
-	 * @since Unknown
-	 *
-	 * @return {object} Sitemap page data.
-	 */
 	data() {
 		return {
 			permalink: '/sitemap.xml',
@@ -20,15 +8,6 @@ export default class Sitemap {
 		};
 	}
 
-	/**
-	 * Renders the XML sitemap.
-	 *
-	 * @since Unknown
-	 * @since November 17, 2026 Excludes pages marked noindex.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {string} Sitemap XML.
-	 */
 	render( data ) {
 
 		return /* html */ `

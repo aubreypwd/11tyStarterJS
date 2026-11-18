@@ -17,7 +17,7 @@ export default class SecondaryCTA {
 				{
 					content: phoneFormatted,
 					attributes: {
-						href: '#',
+						href: `tel:${ data.schema.localBusiness.telephone }`,
 						title: `Call ${ phoneFormatted }`,
 						class: `SecondaryCTA Button Button--alt ${ options.class }`,
 					},

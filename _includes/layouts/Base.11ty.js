@@ -1,10 +1,5 @@
 import { defineLocalBusiness, defineWebPage } from '@unhead/schema-org';
 
-/**
- * Renders the base site layout.
- *
- * @since Unknown
- */
 export default class Base {
 
 	data() {
@@ -40,29 +35,10 @@ export default class Base {
 		};
 	}
 
-	/**
-	 * JavaScript file paths keyed by numeric load priority.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @type {object}
-	 */
 	static scripts = {
 		20: 'node_modules/@zachleat/heading-anchors/heading-anchors.js',
 	};
 
-	/**
-	 * Renders the complete HTML document.
-	 *
-	 * @since Unknown
-	 * @since September 11, 2026 Loads Sass styles through the Eleventy render context.
-	 * @since September 15, 2026 Restores CSS source rendering and explicit Flex classes.
-	 * @since October 27, 2026 Removes the Flex and Visibility helper styles.
-	 * @since October 27, 2026 Loads the shared custom media breakpoint definitions.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {Promise} Rendered HTML document.
-	 */
 	async render( data ) {
 		// Content
 		return /* html */ `

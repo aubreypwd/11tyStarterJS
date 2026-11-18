@@ -1,9 +1,3 @@
-/**
- * Configures the Eleventy build.
- *
- * @since Unknown
- */
-
 import {
 	HtmlBasePlugin,
 	IdAttributePlugin,
@@ -21,19 +15,6 @@ import { PurgeCSS } from 'purgecss';
 import metadata from './_data/metadata.js';
 import schema from './_data/schema.js';
 
-/**
- * Registers the site's Eleventy configuration.
- *
- * @since Unknown
- * @since September 11, 2026 Adds native Sass template support and file rendering.
- * @since September 15, 2026 Caches compiled Sass results across page renders.
- * @since September 15, 2026 Restores CSS source rendering and removes Sass compilation.
- * @since October 27, 2026 Processes custom media queries in the final CSS bundle.
- * @since November 5, 2026 Minifies HTML, CSS, and JavaScript in build and serve modes.
- * @since November 10, 2026 Disables the sample blog feed while retaining its configuration.
- *
- * @param {object} eleventyConfig Eleventy configuration object.
- */
 export default function ( eleventyConfig ) {
 
 	const business = schema.localBusiness;
@@ -50,10 +31,18 @@ export default function ( eleventyConfig ) {
 	} );
 
 	eleventyConfig.addPassthroughCopy( { './public/': '/', } );
+	eleventyConfig.addPassthroughCopy( { './content/img/css/': '/img/css/' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/social.webp': '/img/social.webp' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/favicon-96x96.png': '/favicon-96x96.png' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/favicon.svg': '/favicon.svg' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/favicon.ico': '/favicon.ico' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/apple-touch-icon.png': '/apple-touch-icon.png' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/web-app-manifest-192x192.png': '/web-app-manifest-192x192.png' } );
+	eleventyConfig.addPassthroughCopy( { './content/img/favicons/web-app-manifest-512x512.png': '/web-app-manifest-512x512.png' } );
 
 	// eleventyConfig.addPassthroughCopy( './content/feed/pretty-atom-feed.xsl' );
 
-	/**
+	/*
 	 * Run Eleventy when these files change.
 	 * https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 	 */
@@ -62,7 +51,7 @@ export default function ( eleventyConfig ) {
 	eleventyConfig.addWatchTarget( 'js/' );
 	eleventyConfig.addWatchTarget( 'md/' );
 
-	/**
+	/*
 	 * Per-page bundles. The bundle plugin collects literal <style> and <script>
 	 * blocks from the layouts.
 	 * https://github.com/11ty/eleventy-plugin-bundle
@@ -70,7 +59,7 @@ export default function ( eleventyConfig ) {
 	eleventyConfig.addBundle( 'css', {
 		toFileDirectory: 'dist',
 
-		/**
+		/*
 		 * Add all <style> content to the css bundle.
 		 * Use <style eleventy:ignore> to opt out.
 		 * Supported selectors: https://www.npmjs.com/package/posthtml-match-helper
@@ -95,7 +84,7 @@ export default function ( eleventyConfig ) {
 			},
 		],
 
-		/**
+		/*
 		 * Add all <script> content to the js bundle.
 		 * Use <script eleventy:ignore> to opt out.
 		 * Supported selectors: https://www.npmjs.com/package/posthtml-match-helper
@@ -134,12 +123,6 @@ export default function ( eleventyConfig ) {
 	} );
 
 	// Register after the bundle plugin so the final CSS is available to PurgeCSS.
-	/**
-	 * Purge unused selectors and minify each page's final inline CSS bundle.
-	 *
-	 * @since September 15, 2026
-	 * @since November 5, 2026 Minifies the final CSS bundle in build and serve modes.
-	 */
 	eleventyConfig.addPlugin( ( config ) => {
 		config.addTransform( 'purge-and-minify-inline-css', async function ( content ) {
 
@@ -272,7 +255,7 @@ export default function ( eleventyConfig ) {
 		} );
 	} );
 
-	/**
+	/*
 	 * Use this to emulate passthrough copy on the dev server when needed.
 	 * https://www.11ty.dev/docs/copy/#emulate-passthrough-copy-during-serve
 	 */
@@ -304,7 +287,7 @@ export const config = {
 		output: '_site',
 	},
 
-	/**
+	/*
 	 * If your site deploys to a subdirectory, change `pathPrefix`.
 	 * Read more: https://www.11ty.dev/docs/config/#deploy-to-a-subdirectory-with-a-path-prefix
 	 *

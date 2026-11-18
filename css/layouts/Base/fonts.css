@@ -1,36 +1,5 @@
 :root {
-	--font-System: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-	--font-Fancy: var(--font-System);
-	--font-Monospace: var(--font-System);
-	--font-SansSerif: var(--font-System);
-	--font-Serif: var(--font-System);
-}
-
-.Fancy {
-
-	font-family: var(--font-Fancy);
-	letter-spacing: 2.3px;
-	text-transform: uppercase;
-
-	&.Fancy--regular {
-		font-style: normal;
-		font-weight: 400;
-	}
-
-	&.Fancy--bold {
-		font-style: normal;
-		font-weight: 700;
-	}
-
-	&.Fancy--italic {
-		font-style: italic;
-		font-weight: 400;
-	}
-
-	&.Fancy--bold-italic {
-		font-style: italic;
-		font-weight: 700;
-	}
+	--font-SansSerif: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
 .SansSerif {
@@ -86,31 +55,5 @@
 	&.SansSerif--black-italic {
 		font-style: italic;
 		font-weight: 900;
-	}
-}
-
-.Serif {
-
-	font-family: var(--font-Serif);
-	letter-spacing: 0.5px;
-
-	&.Serif--regular {
-		font-style: normal;
-		font-weight: 400;
-	}
-
-	&.Serif--italic {
-		font-style: italic;
-		font-weight: 400;
-	}
-
-	&.Serif--bold {
-		font-style: normal;
-		font-weight: 700;
-	}
-
-	&.Serif--bold-italic {
-		font-style: italic;
-		font-weight: 700;
 	}
 }

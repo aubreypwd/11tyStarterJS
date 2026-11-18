@@ -1,11 +1,9 @@
 # AGENTS.md instructions for /Users/aubreypwd/Sites/11ty/11tyStarterJS
 
-## Current project and reference
+## Current project
 
 - This is the fictional Northline & Co. local-business starter, built with Eleventy 3.1.5 and ESM JavaScript. Node 24 is selected by `.nvmrc`; `package.json` supports Node 24 or newer.
-- Treat the current implementation in `/Users/aubreypwd/Sites/11ty/TheGlowStandard` as the reference for inherited structure and behavior. Keep that project read-only.
-- Its `11tyStaterJS.md` is a change log that may lag behind its implementation. Do not impose stricter validation, sanitization, or behavior solely because an older note differs from the working reference.
-- Aubrey's explicit instructions and this starter's accepted adaptations take precedence over the reference. Do not recopy the reference wholesale and undo those changes.
+- Treat this starter's current source, README, TODO, and user-approved decisions as authoritative. Keep its fictional content and assets free of outside business-specific material.
 - Preserve generic implementation and configuration scaffolding even when an asset is absent. Comment out asset-dependent markup when appropriate; do not remove code merely because its image, icon, or optional service has not been supplied.
 - Keep work scoped to the requested change. Do not perform unrelated cleanup, audits, speculative helper additions, or source-parity refactors.
 - Use README.md for the current structure and enabled features. Use TODO.md for deferred assets and real-business setup. Disabled examples and deliberately removed features are not unfinished work.
@@ -47,13 +45,14 @@
 - Group page compositions under `_includes/partials/sections/` and reusable or technical pieces under `_includes/partials/components/`. Header and Footer are sections; Schema is a component.
 - Mirror partial ownership under `css/partials/` and `js/partials/`. Group layout-loaded styles under `css/layouts/` and layout-loaded scripts under `js/layouts/`; keep package assets in `node_modules`.
 - Keep the partial registry recursive with keys derived from unique class filenames.
-- Render partials with data, context, and an options object. Prefer explicit caller settings for new work; preserve existing reference-derived cascade behavior unless the requested task changes it.
+- Render partials with data, context, and an options object. Prefer explicit caller settings for new work; preserve existing cascade behavior unless the requested task changes it.
 - Preserve context fallbacks and existing defaults followed by caller options. Header and Footer default to rendering; Base passes their page-level options.
 - Section receives rendered HTML as its fourth argument. Content receives child content as its fourth argument and renders Markdown unless `markdownIfy` is false.
 - Section requires a non-empty name. Supply meaningful names/content when calling SectionHeader, while preserving its current reference-derived defaults and validation. Use descriptive variation names with `default`, never numbered variations.
 - Use the Section wrapper for shared Container shells. Keep its section, container, and content variations independent.
 - Put template-owned Markdown under root `md/`, read it in the owning page through `data.fn.printFile()`, and pass layout children through `data.content`. Blog posts remain Markdown in `content/blog/`.
 - Keep FAQ arrays shared between visible questions/answers and Base's computed FAQ schema.
+- Store every image source under `content/img/`. Images used in HTML are transformed by Eleventy's image plugin. Put CSS background images under `content/img/css/` and pass that subtree through to `/img/css/`; do not passthrough-copy HTML image sources. Pass the social image from `content/img/social.webp` through to `/img/social.webp`. Put favicon and manifest icon files under `content/img/favicons/` and copy them to the site root.
 - Keep generic scaffold templates free of site-specific assets and content.
 
 ## Template Style
@@ -67,7 +66,6 @@
 - Do not add more helpers from other projects without a current need. Preserve the helpers already ported with the reference implementation unless their removal is part of the requested work.
 - Source the site origin and canonical URL from `_data/metadata.js` instead of hardcoding the same base URL in config or templates.
 - Prefer `_data/fn.js` for simple reusable build helpers like `currentBuildDate` instead of adding config shortcodes.
-- Document every helper in `_data/fn.js` with a WordPress-style docblock that includes a short summary, a blank line, and the right `@param` and `@return` tags.
 - When a requested conversion makes support code obsolete, remove that support code within the conversion's scope. Do not prune intentionally retained examples, helpers, or asset-dependent scaffolding merely because they are currently disabled.
 - When converting a Nunjucks file to `*.11ty.js`, remove the old file and any support code that becomes unused.
 - Use `*.11tydata.js` for shared folder-level post metadata such as tags and layout when several posts share it.
@@ -88,7 +86,7 @@
 - Do not reduce everything into one large `render()` when named class methods improve readability.
 - When a `*.11ty.js` class has helper methods that reuse `data.fn`, pass `data` to those helpers and use `data.fn` directly; do not assign or use `this.fn`.
 - Add shared escaping helpers to `_data/fn.js` only when multiple templates need them and there is a real call site.
-- Use `/** ... */` docblocks for functions in `*.11ty.js` files except `data()` and `render()`, and keep the text short and plain language.
+- Do not add declaration docblocks or JSDoc to project source. Keep ordinary comments concise and limited to useful, non-obvious behavior.
 - Prefix returned template literals with an appropriate language comment, such as `/* html */`, `/* css */`, `/* xml */`, or `/* txt */`.
 
 ## Eleventy Data Flow
@@ -149,15 +147,15 @@
 ## Fictional business and links
 
 - Northline & Co. and Alex Morgan are invented. Keep Primary Business Category, Secondary Category A, and Secondary Category B as literal placeholder category names until deliberately replacing them.
-- Do not reintroduce TheGlowStandard client copy, medical qualifications or claims, branding assets, contact details, product destinations, or analytics identifiers.
+- Do not add real client copy, medical qualifications or claims, client branding assets, contact details, product destinations, or analytics identifiers.
 - The `.example` origin, phone number, address, and service areas are placeholders. Keep sample testimonials clearly identified as fictional, with the explanatory note centered.
 - Keep exactly one contact form and its `/thank-you-for-contacting-us/` confirmation route. Membership, a second form variation, its thank-you page, and Products navigation were intentionally removed.
-- Use `#` when no official destination exists, including fictional contact and testimonial links. Facebook and Instagram are the explicit exception: retain the invented `northlineandco.demo` profile URLs until official accounts are supplied.
+- Use schema telephone/email values for Call, Text, and Email links. Use `#` when a review or testimonial destination has no official URL. Keep the invented `northlineandco.demo` Facebook and Instagram profiles until official accounts are supplied.
 - Preserve working internal page links and section anchors. The Google Maps embed shows Central Park, New York, as a labeled sample, not the fictional business address.
 
 ## Current presentation
 
-- Use only system sans-serif fonts. Retained Serif, Fancy, and Monospace variable/helper names intentionally resolve to the system sans-serif stack; do not infer a request for other fonts from those legacy names.
+- Use only the `--font-SansSerif` custom property for font families. Retained Serif and Fancy helper classes use that same system sans-serif stack; do not add font-family aliases.
 - Keep the blue-and-orange palette in `css/layouts/Base/Colors.css`.
 - Keep the Hero card full width within its content shell, with the selected remote Unsplash office background.
 - Use remote placehold.co images for other photo areas and both shared LogoMark variants. Retain `eleventy:ignore`, intrinsic dimensions, and appropriate alternative text on these placeholders.
@@ -168,8 +166,8 @@
 
 ## Deferred configuration and retained examples
 
-- Retain the favicon links and manifest icon entries using their current filenames. Aubrey will supply the files; do not copy reference-project icons.
-- Keep the complete Open Graph and Twitter image tags commented in Base until `public/img/social.webp` exists. Update the dimensions, type, and alternatives for the actual image before enabling them. Do not delete this metadata scaffolding.
+- Retain the favicon links and manifest icon entries using their current filenames. Aubrey will supply the files under `content/img/favicons/`.
+- Keep the complete Open Graph and Twitter image tags commented in Base until `content/img/social.webp` exists. Update the dimensions, type, and alternatives for the actual image before enabling them. Do not delete this metadata scaffolding.
 - Business schema retains logo/portrait placeholders and owner/founder relationships. Keep optional geographic configuration available for a real business location rather than copying the reference client's coordinates.
 - Keep the HTML comment in Base for pasting an Umami script. There is no separate analytics loader or website-ID setting. Retain optional event attributes on shared links/buttons, and use `eleventy:ignore` on a future external analytics script.
 - Keep the sample blog posts, Tags, partial showcase, PageTemplate, Post layout, feed configuration/XSL, Toast assets, and generic scaffolds available without publishing them by default. Check their routes, collections, and asset registrations together if explicitly re-enabling them.

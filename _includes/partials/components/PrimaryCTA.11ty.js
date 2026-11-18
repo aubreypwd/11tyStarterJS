@@ -15,7 +15,7 @@ export default class PrimaryCTA {
 				{
 					content: options.content
 						? options.content
-						: 'Schedule Consultation',
+						: 'Book Now',
 					attributes: {
 						class: '' === options.class
 							? 'Button PrimaryCTA'
@@ -23,7 +23,7 @@ export default class PrimaryCTA {
 						href: '#contact',
 					},
 					umami: {
-						event: data.events.scheduleConsultationCTA,
+						event: data.events.bookNowCTA,
 						location: options.location,
 					},
 				},

@@ -1,17 +1,5 @@
-/**
- * Renders the site's 404 page.
- *
- * @since August 13, 2026
- */
 export default class NotFound {
 
-	/**
-	 * Provides 404 page data.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @return {object} 404 page data.
-	 */
 
 	data() {
 		return {
@@ -24,13 +12,6 @@ export default class NotFound {
 		};
 	}
 
-	/**
-	 * Renders the 404 page.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @return {string} 404 page HTML.
-	 */
 	render() {
 
 		return /* html */ `

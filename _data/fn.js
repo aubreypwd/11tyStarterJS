@@ -1,9 +1,3 @@
-/**
- * Provides shared data and rendering helpers.
- *
- * @since Unknown
- */
-
 import { readFileSync } from 'node:fs';
 import { readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -32,51 +26,20 @@ let discoveredTemplateFiles = [];
 
 export default {
 
-	/**
-	 * Format a date in UTC.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {Date} date Date object to format.
-	 * @param {string} format Date format string.
-	 * @return {string} Formatted date string.
-	 */
 	dateToFormat( date, format ) {
 		return DateTime.fromJSDate( date, { zone: 'utc' } ).toFormat(
 			String( format )
 		);
 	},
 
-	/**
-	 * Checks whether this build is running on Netlify.
-	 *
-	 * @since October 26, 2026
-	 *
-	 * @return {boolean} Whether the build is running on Netlify.
-	 */
 	isNetlify() {
 		return 'true' === process.env.NETLIFY;
 	},
 
-	/**
-	 * Checks whether the current deploy context is production.
-	 *
-	 * @since October 26, 2026
-	 *
-	 * @return {boolean} Whether the deploy context is production.
-	 */
 	isProduction() {
 		return 'production' === process.env.CONTEXT;
 	},
 
-	/**
-	 * Finds JavaScript templates within one directory.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @param {string} directory Absolute directory path to search.
-	 * @return {Promise} Template file paths in discovery order.
-	 */
 	async findTemplateFiles( directory ) {
 
 		const templateFiles = [];
@@ -98,13 +61,6 @@ export default {
 		return templateFiles;
 	},
 
-	/**
-	 * Gets the discovered template file paths.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @return {Promise} Cached template file paths.
-	 */
 	async getTemplateFiles() {
 
 		if ( 0 < discoveredTemplateFiles.length ) {
@@ -122,14 +78,6 @@ export default {
 		return discoveredTemplateFiles;
 	},
 
-	/**
-	 * Imports one JavaScript template with its current modification time.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @param {string} templatePath Absolute template file path.
-	 * @return {Promise} Template class.
-	 */
 	async importTemplate( templatePath ) {
 
 		const templateModule = await import(
@@ -143,13 +91,6 @@ export default {
 		return templateModule.default;
 	},
 
-	/**
-	 * Collects styles and scripts declared by template classes.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @return {Promise} Priority-ordered style and script registries.
-	 */
 	async collectTemplateRegistry() {
 
 		const registry = {
@@ -211,14 +152,6 @@ export default {
 		return registry;
 	},
 
-	/**
-	 * Gets the current render's template asset registry.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @param {object} data Eleventy template data.
-	 * @return {Promise} Cached style and script registries.
-	 */
 	async getTemplateRegistry( data ) {
 
 		if ( data.templateAssetRegistry ) {
@@ -230,14 +163,6 @@ export default {
 		return data.templateAssetRegistry;
 	},
 
-	/**
-	 * Escape text for safe HTML output.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {string} content Content to escape.
-	 * @return {string} Escaped HTML string.
-	 */
 	escHtml( content ) {
 		return String( content ?? '' )
 			.replace( /&/g, '&amp;' )
@@ -247,14 +172,6 @@ export default {
 			.replace( /'/g, '&#39;' );
 	},
 
-	/**
-	 * Sanitize a string to lowercase, dash-separated text.
-	 *
-	 * @since October 30, 2026
-	 *
-	 * @param {string} value String to sanitize.
-	 * @return {string} Sanitized string.
-	 */
 	escStringToDashes( value ) {
 
 		if ( 'string' !== typeof value ) {
@@ -281,14 +198,6 @@ export default {
 			.replace( /^-+|-+$/g, '' );
 	},
 
-	/**
-	 * Format a North American telephone number for visible text.
-	 *
-	 * @since July 31, 2026
-	 *
-	 * @param {string} telephone Telephone number from LocalBusiness schema.
-	 * @return {string} Human-readable telephone number.
-	 */
 	formatPhone( telephone ) {
 
 		if ( 'string' !== typeof telephone ) {
@@ -308,29 +217,12 @@ export default {
 		return telephone;
 	},
 
-	/**
-	 * Remove Eleventy reserved tags from a tag list.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {array} tags Tag list to filter.
-	 * @return {array} Filtered tag list.
-	 */
 	filterTagList( tags ) {
 		return ( tags || [] ).filter( function ( tag ) {
 			return [ 'all', 'nav', 'post', 'posts' ].indexOf( tag ) === -1;
 		} );
 	},
 
-	/**
-	 * Render Markdown as HTML.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {string} content Markdown content to render.
-	 * @param {object} options Markdown rendering options.
-	 * @return {string} Rendered HTML.
-	 */
 	markdown( content, options = {} ) {
 		options = Object.assign(
 			{
@@ -353,17 +245,6 @@ export default {
 		return markdownLibrary.render( String( content || '' ) );
 	},
 
-	/**
-	 * Read a file as text.
-	 *
-	 * @since Unknown
-	 * @since September 11, 2026 Uses project-root-relative file paths.
-	 *
-	 * @param {string} path Project-root-relative file path.
-	 * @param {object} data Template data object.
-	 * @param {boolean} [once=false] Only print this file one time per render.
-	 * @return {string} File contents.
-	 */
 	printFile( path, data, once = false ) {
 
 		// There is no reason to output styles more than once.
@@ -386,17 +267,6 @@ export default {
 		return readFileSync( fileUrl, 'utf8' );
 	},
 
-	/**
-	 * Renders a CSS file in a style tag.
-	 *
-	 * @since August 13, 2026
-	 * @since September 11, 2026 Renders Sass through Eleventy.
-	 * @since September 15, 2026 Restores synchronous CSS-only rendering.
-	 *
-	 * @param {string} path Project-root-relative CSS file path.
-	 * @param {object} data Template data object.
-	 * @return {string} Style tag containing the CSS file.
-	 */
 	renderStyle( path, data ) {
 
 		if ( 'string' !== typeof path || false === path.endsWith( '.css' ) ) {
@@ -412,16 +282,6 @@ export default {
 		return /* html */ `<style>${ css }</style>`;
 	},
 
-	/**
-	 * Renders all CSS declared by template classes.
-	 *
-	 * @since August 13, 2026
-	 * @since September 11, 2026 Renders project-root-relative Sass paths asynchronously.
-	 * @since September 15, 2026 Renders registered CSS through renderStyle.
-	 *
-	 * @param {object} data Eleventy template data.
-	 * @return {Promise} Style tags for the template CSS registry.
-	 */
 	async renderStyles( data ) {
 
 		const registry = await this.getTemplateRegistry( data );
@@ -431,15 +291,6 @@ export default {
 		}, this ).join( '' );
 	},
 
-	/**
-	 * Renders a JavaScript file in a module script tag.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @param {string} path Project-root-relative JavaScript file path.
-	 * @param {object} data Template data object.
-	 * @return {string} Script tag containing the JavaScript file.
-	 */
 	renderScript( path, data ) {
 
 		if ( 'string' !== typeof path || false === path.endsWith( '.js' ) ) {
@@ -455,15 +306,6 @@ export default {
 		return /* html */ `<script type="module">${ javascript }</script>`;
 	},
 
-	/**
-	 * Renders all JavaScript declared by template classes.
-	 *
-	 * @since August 13, 2026
-	 * @since September 11, 2026 Uses project-root-relative script paths.
-	 *
-	 * @param {object} data Eleventy template data.
-	 * @return {Promise} Script tags for the template JavaScript registry.
-	 */
 	async renderScripts( data ) {
 
 		const registry = await this.getTemplateRegistry( data );
@@ -473,16 +315,6 @@ export default {
 		}, this ).join( '' );
 	},
 
-	/**
-	 * Builds a LAB-style page title.
-	 *
-	 * @since August 13, 2026
-	 * @since October 26, 2026 Reads the title separator from settings data.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {string} title Page or category title.
-	 * @return {string} LAB-style page title.
-	 */
 	labTitle( data, title ) {
 
 		if ( null === data || 'object' !== typeof data ) {
@@ -492,17 +324,6 @@ export default {
 		return `${ title } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
 	},
 
-	/**
-	 * Creates HTML markup from an element's tag, content, attributes, and options.
-	 *
-	 * @since October 26, 2026
-	 *
-	 * @param {string} element Element tag name.
-	 * @param {string} content HTML content to place inside the element.
-	 * @param {object} [attributes={}] Attributes to add to the element.
-	 * @param {object} [options={}] Options for adding Umami tracking attributes.
-	 * @return {string} HTML markup for the created element.
-	 */
 	createElement( element, content, attributes = {}, options = {} ) {
 
 		const el = templateDocument.createElement( element );

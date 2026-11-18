@@ -1,30 +1,9 @@
-/**
- * Renders the retained reusable partials.
- *
- * @since August 13, 2026
- */
 export default class Partials {
 
-	/**
-	 * CSS file paths keyed by numeric load priority.
-	 *
-	 * @since September 15, 2026
-	 *
-	 * @type {object}
-	 */
 	static styles = {
 		// 10: 'css/Partials.css',
 	};
 
-	/**
-	 * Provides partials-page data.
-	 *
-	 * @since August 13, 2026
-	 * @since September 11, 2026 Adds link and button partial examples.
-	 * @since September 15, 2026 Adds a Toast partial example.
-	 *
-	 * @return {object} Partials-page data.
-	 */
 	data() {
 		return {
 			layout: 'layouts/Page.11ty.js',
@@ -41,18 +20,6 @@ export default class Partials {
 		};
 	}
 
-	/**
-	 * Renders the retained partials.
-	 *
-	 * @since August 13, 2026
-	 * @since September 11, 2026 Renders link and button partial examples.
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since September 15, 2026 Renders default and error Toast examples.
-	 * @since October 27, 2026 Moves layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {string} Partials-page HTML.
-	 */
 	render( data ) {
 		return /* html */ `
 			<h1>Partials</h1>

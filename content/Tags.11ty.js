@@ -1,17 +1,5 @@
-/**
- * Renders the tag archive page.
- *
- * @since Unknown
- */
 export default class Tags {
 
-	/**
-	 * Provides tag archive data.
-	 *
-	 * @since Unknown
-	 *
-	 * @return {object} Tag archive data.
-	 */
 	data() {
 		return {
 			layout: 'layouts/Page.11ty.js',
@@ -22,14 +10,6 @@ export default class Tags {
 		};
 	}
 
-	/**
-	 * Renders the tag archive.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {string} Tag archive HTML.
-	 */
 	render( data ) {
 
 		return /* html */ `
@@ -47,17 +27,6 @@ export default class Tags {
 		`;
 	}
 
-	/**
-	 * Turn one tag into a link to its tag archive page.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves tag layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {string} tag Tag name.
-	 * @return {string} Tag link HTML.
-	 */
 	renderTagListItem( data, tag ) {
 		return /* html */ `<li><a href="${ data.fn.escHtml( `/tags/${ this.slugify( tag ) }/` ) }" class="PostTag">${ data.fn.escHtml( tag ) }</a></li>`;
 	}

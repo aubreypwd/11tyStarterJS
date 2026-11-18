@@ -6,14 +6,6 @@ if ( Object.prototype.hasOwnProperty.call( window, 'toast' ) ) {
 	throw Error( `window.toast is already set.` );
 }
 
-/**
- * Shows or hides a Toast notification.
- *
- * @since September 11, 2026
- *
- * @param {string} id Toast identifier.
- * @param {boolean} status Whether to show the Toast.
- */
 window.toast = function toast( id, status ) {
 
 	if ( 'string' !== typeof id ) {

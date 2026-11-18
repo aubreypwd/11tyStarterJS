@@ -1,21 +1,5 @@
-/**
- * Renders the site header.
- *
- * @since August 13, 2026
- * @since September 14, 2026 Keeps Flex layout modifiers in the component stylesheet.
- * @since September 15, 2026 Moves Flex layout modifiers into the markup for native CSS.
- * @since October 27, 2026 Inlines navigation in the header.
- * @since October 27, 2026 Moves layout and visibility into the component stylesheet.
- */
 export default class Header {
 
-	/**
-	 * CSS file paths keyed by numeric load priority.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @type {object}
-	 */
 	static styles = {
 		10: 'css/partials/sections/Header.css',
 	};
@@ -24,21 +8,6 @@ export default class Header {
 		10: 'js/partials/sections/Header.js',
 	};
 
-	/**
-	 * Renders the site header content.
-	 *
-	 * @since August 13, 2026
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Renders navigation in the header.
-	 * @since October 27, 2026 Keeps only semantic component classes in the markup.
-	 * @since October 29, 2026 Accepts a render options object.
-	 * @since October 29, 2026 Supports conditional rendering through options.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {object} context Rendering context.
-	 * @param {object} options Options controlling whether the header renders.
-	 * @return {string} Header HTML.
-	 */
 	render( data, context = this, options = {} ) {
 
 		options = {
@@ -107,7 +76,7 @@ export default class Header {
 						${ options.hideContact ? '' : data.partials.PrimaryCTA.render( data, this, {
 							location: location,
 							class: `Header__button-schedule`,
-							content: 'Schedule Consultation',
+							content: 'Book Now',
 						} ) }
 					</div>
 			`,

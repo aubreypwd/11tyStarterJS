@@ -1,9 +1,3 @@
-/**
- * Defines fictional business data for the demonstration website.
- *
- * @since August 13, 2026
- * @since November 17, 2026 Replaces client information with invented details.
- */
 import metadata from './metadata.js';
 
 export default {

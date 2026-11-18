@@ -1,5 +1,5 @@
 export default {
-	scheduleConsultationCTA: 'Schedule Consultation CTA',
+	bookNowCTA: 'Book Now CTA',
 	callButton: 'Call Button',
 	readReviews: 'Read More Reviews',
 	readReview: 'Read Review',

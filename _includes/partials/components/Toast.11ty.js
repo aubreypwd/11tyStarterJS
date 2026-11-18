@@ -1,45 +1,13 @@
-/**
- * Renders a reusable Toast notification.
- *
- * @since September 11, 2026
- */
 export default class Toast {
 
-	/**
-	 * CSS file paths keyed by numeric load priority.
-	 *
-	 * @since September 11, 2026
-	 *
-	 * @type {object}
-	 */
 	static styles = {
 		// 10: 'css/partials/components/Toast.css',
 	};
 
-	/**
-	 * JavaScript file paths keyed by numeric load priority.
-	 *
-	 * @since September 11, 2026
-	 *
-	 * @type {object}
-	 */
 	static scripts = {
 		// 10: 'js/partials/components/Toast.js',
 	};
 
-	/**
-	 * Renders a hidden Toast notification.
-	 *
-	 * @since September 11, 2026
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves layout into the component stylesheet.
-	 * @since October 29, 2026 Accepts toast settings as an options object.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {object} context Rendering context.
-	 * @param {object} options Toast identifier and display values.
-	 * @return {string} Toast HTML.
-	 */
 	render( data, context, options = {} ) {
 
 		if ( null === data || 'object' !== typeof data ) {

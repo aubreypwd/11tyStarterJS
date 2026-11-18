@@ -1,17 +1,5 @@
-/**
- * Renders individual tag archive pages.
- *
- * @since Unknown
- */
 export default class TagPages {
 
-	/**
-	 * Provides paginated tag archive data.
-	 *
-	 * @since Unknown
-	 *
-	 * @return {object} Tag page data.
-	 */
 	data() {
 		return {
 			layout: 'layouts/Page.11ty.js',
@@ -28,26 +16,10 @@ export default class TagPages {
 			eleventyExcludeFromCollections: true,
 			eleventyComputed: {
 
-				/**
-				 * Builds the tag archive title.
-				 *
-				 * @since Unknown
-				 *
-				 * @param {object} data Eleventy data cascade.
-				 * @return {string} Tag archive title.
-				 */
 				title( data ) {
 					return `Tagged '${ data.tag }'`;
 				},
 
-				/**
-				 * Keeps tag archive output disabled until the blog is ready.
-				 *
-				 * @since Unknown
-				 *
-				 * @param {object} data Eleventy data cascade.
-				 * @return {boolean} False disables tag archive output.
-				 */
 				permalink: function ( data ) {
 
 					// If DuplicatePermalinkOutputError occurs, check that no tag occurs with differing case, e.g. "RSS" and "rss".
@@ -58,14 +30,6 @@ export default class TagPages {
 		};
 	}
 
-	/**
-	 * Renders a tag archive page.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @return {string} Tag archive HTML.
-	 */
 	render( data ) {
 
 		return /* html */ `
@@ -77,18 +41,6 @@ export default class TagPages {
 		`;
 	}
 
-	/**
-	 * Render one tagged post in the list.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves post-item layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {object} post Post record.
-	 * @param {string} currentUrl Current page URL.
-	 * @return {string} Post-list item HTML.
-	 */
 	renderPostListItem( data, post, currentUrl ) {
 		return /* html */ `
 			<li class="PostList__item${ post.url === currentUrl ? ' PostList__item--active' : '' }">
@@ -98,18 +50,6 @@ export default class TagPages {
 		`;
 	}
 
-	/**
-	 * Render the tagged posts newest-first.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves post-list layout into the stylesheet.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {array} posts Post records.
-	 * @param {string} currentUrl Current page URL.
-	 * @return {string} Post-list HTML.
-	 */
 	renderPostsList( data, posts, currentUrl ) {
 		return /* html */ `
 			<ol reversed class="PostList" style="--postlist-index: ${ posts.length + 1 }">

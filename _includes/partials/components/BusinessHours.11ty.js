@@ -1,35 +1,10 @@
-/**
- * Renders the business-hours section.
- *
- * @since Unknown
- */
 export default class BusinessHours {
 
-	/**
-	 * CSS file paths keyed by numeric load priority.
-	 *
-	 * @since August 13, 2026
-	 *
-	 * @type {object}
-	 */
 	static styles = {
 		10: 'css/partials/components/BusinessHours.css',
 	};
 
 	// Content
-	/**
-	 * Renders the business-hours list.
-	 *
-	 * @since Unknown
-	 * @since September 15, 2026 Adds explicit Flex classes.
-	 * @since October 27, 2026 Moves layout into the component stylesheet.
-	 * @since October 29, 2026 Accepts a render options object.
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {object} context Rendering context.
-	 * @param {object} options Render options.
-	 * @return {string} Business-hours HTML.
-	 */
 	render( data, context = this, options = {} ) {
 
 		if ( false === Array.isArray( data.schema?.localBusiness?.openingHoursSpecification ) ) {
@@ -44,17 +19,6 @@ export default class BusinessHours {
 		`;
 	}
 
-	/**
-	 * Renders LocalBusiness opening hours.
-	 *
-	 * @since July 21, 2026
-	 * @since July 21, 2026 Renders one row for each day of the week.
-	 * @since September 15, 2026 Adds explicit Flex classes to each row.
-	 * @since October 27, 2026 Moves row layout into the component stylesheet.
-	 *
-	 * @param {object} data Template data containing LocalBusiness schema.
-	 * @return {string} Business hours HTML.
-	 */
 	renderBusinessHours( data ) {
 
 		return [
@@ -78,15 +42,6 @@ export default class BusinessHours {
 			.join( '' );
 	}
 
-	/**
-	 * Renders the hours for one day.
-	 *
-	 * @since July 21, 2026
-	 *
-	 * @param {object} data Template data containing LocalBusiness schema.
-	 * @param {string} day Day of the week.
-	 * @return {string} Hours or closed status HTML.
-	 */
 	renderBusinessHour( data, day ) {
 
 		const hours = data.schema.localBusiness.openingHoursSpecification.find( ( openingHours ) => {
@@ -108,14 +63,6 @@ export default class BusinessHours {
 		`;
 	}
 
-	/**
-	 * Formats an ISO time for human-readable display.
-	 *
-	 * @since July 21, 2026
-	 *
-	 * @param {string} time ISO time value.
-	 * @return {string} Formatted time.
-	 */
 	formatBusinessHour( time ) {
 
 		// Keep schema times independent of the build machine's timezone.

@@ -131,7 +131,7 @@
 		.Address__name {
 
 			color: var(--color-mist);
-			font-family: var(--font-Serif);
+			font-family: var(--font-SansSerif);
 			font-weight: 400;
 			font-size: var(--type-0);
 		}

@@ -73,9 +73,9 @@ export default class Category {
 		for ( const service of data.services ) {
 
 			const cta = data.partials.Link.render( data, this, {
-				content: 'Discuss with Alex',
+				content: 'Learn More',
 				umami: {
-					event: data.events.scheduleConsultationCTA,
+					event: data.events.bookNowCTA,
 					location: 'Individual Service Content',
 					context: service.header,
 				},

@@ -1,20 +1,6 @@
 import { createSchemaOrgGraph } from '@unhead/schema-org';
-/**
- * Renders an Unhead schema graph.
- *
- * @since Unknown
- */
 export default class UnheadSchema {
 
-	/**
-	 * Resolves schema data into JSON-LD HTML.
-	 *
-	 * @since Unknown
-	 *
-	 * @param {object} data Eleventy data cascade.
-	 * @param {object} schema Schema nodes.
-	 * @return {string} JSON-LD script HTML.
-	 */
 	render( data, schema = {} ) {
 		const graph = createSchemaOrgGraph();
 		const path = data.page?.url || '/'; // Might be the home dir.

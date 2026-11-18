@@ -4,11 +4,11 @@ The fictional Northline & Co. starter is implemented. The tasks below distinguis
 
 ## Deferred assets
 
-Aubrey will provide these files. References are intentionally retained; do not copy TheGlowStandard's assets.
+Aubrey will provide these files. The expected links are retained; add the image files under `content/img/` when available.
 
-- [ ] Add the favicon files to `public/`: `favicon-96x96.png`, `favicon.svg`, `favicon.ico`, and `apple-touch-icon.png`.
-- [ ] Add `web-app-manifest-192x192.png` and `web-app-manifest-512x512.png` to `public/`, matching the manifest's maskable icon entries.
-- [ ] Add `public/img/social.webp`; update its width, height, MIME type, and descriptive alternatives, then uncomment the Open Graph and Twitter image tags in Base. The current 1200×630 values are placeholders.
+- [ ] Add the favicon files to `content/img/favicons/`: `favicon-96x96.png`, `favicon.svg`, `favicon.ico`, and `apple-touch-icon.png`.
+- [ ] Add `web-app-manifest-192x192.png` and `web-app-manifest-512x512.png` to `content/img/favicons/`, matching the manifest's maskable icon entries.
+- [ ] Add `content/img/social.webp`; update its width, height, MIME type, and descriptive alternatives, then uncomment the Open Graph and Twitter image tags in Base. The current 1200×630 values are placeholders.
 
 ## When adapting for a real business
 
@@ -16,7 +16,7 @@ Aubrey will provide these files. References are intentionally retained; do not c
 - [ ] Set the actual origin and author metadata, business schema, logo/portrait references, coordinates, and business-map URL.
 - [ ] Replace the placehold.co photos and logos, and choose whether to retain or replace the Unsplash Hero image.
 - [ ] Replace the sample Google Maps location with the business location.
-- [ ] Replace `#` contact/review destinations and the invented Facebook/Instagram profiles with official links.
+- [ ] Replace `#` review destinations and the invented Facebook/Instagram profiles with official links.
 - [ ] Replace invented testimonial content with authorized real material, and update the fictional-review notice accordingly.
 - [ ] Replace the demonstration privacy and terms pages with the actual operator's policies.
 - [ ] Configure and check the contact form on the chosen host, retaining its single thank-you flow and robots directives.

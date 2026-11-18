@@ -1,8 +1,6 @@
 # 11tyStarterJS: Northline & Co.
 
-An Eleventy 3 starter with a complete fictional local-business website. Northline & Co., owner Alex Morgan, the service categories, contact details, service areas, and testimonials are sample content.
-
-The structure and shared functionality were ported from TheGlowStandard, then generalized and restyled. Its current implementation is the reference when it differs from the upstream change log. This starter deliberately excludes membership, Products navigation, client imagery, downloaded fonts, and client analytics configuration.
+An Eleventy 3 starter with a complete fictional local-business website. Northline & Co., owner Alex Morgan, the service categories, contact details, service areas, and testimonials are sample content. The starter deliberately excludes membership, Products navigation, client imagery, downloaded fonts, and client analytics configuration.
 
 ## Development
 
@@ -33,7 +31,7 @@ The normal build runs output cleanup through npm's prebuild lifecycle. The alter
 | `/404.html` | [NotFound.11ty.js](content/NotFound.11ty.js) |
 | `/sitemap.xml` | [Sitemap.xml.11ty.js](content/Sitemap.xml.11ty.js) |
 
-The homepage composes Hero, About, Testimonials, Services, Contact, and ServiceAreas, with shared Header and Footer. Category pages use the same sections around their service content. There is one contact form and one contact confirmation page. The confirmation and 404 pages retain robots directives; the sitemap follows the current reference's permalink and noindex filtering.
+The homepage composes Hero, About, Testimonials, Services, Contact, and ServiceAreas, with shared Header and Footer. Category pages use the same sections around their service content. There is one contact form and one contact confirmation page. The confirmation and 404 pages retain robots directives; the sitemap includes pages with a permalink unless their robots metadata contains `noindex`.
 
 The last clean build produced nine files through Eleventy, plus the JavaScript bundle and passthrough manifest. Build and local serving checks have passed. Rendered browser appearance and live reload across every watch target have not been exhaustively checked.
 
@@ -50,6 +48,7 @@ The last clean build produced nine files through Eleventy, plus the JavaScript b
 | `css/layouts/` | Layout styles; Base's supporting styles are grouped under `css/layouts/Base/`. |
 | `css/partials/` and `js/partials/` | Assets grouped by the section or component that owns them. |
 | `md/` | Markdown read by its owning page template. |
+| `content/img/` | All image source files. HTML images are optimized; CSS images in `content/img/css/` pass through to `/img/css/`, the social image passes through to `/img/social.webp`, and favicon files from `content/img/favicons/` pass through to the site root. |
 | `public/` | Files copied to the output root; currently the web manifest. |
 | `_site/` | Generated output, recreated by the normal full build. |
 
@@ -59,7 +58,7 @@ Layouts receive child output through `data.content`. Shared file, Markdown, esca
 
 ## Current visual direction
 
-- All typography uses system sans-serif stacks. Retained font helper names, including Serif and Fancy, resolve to that same system stack.
+- All typography uses the single `--font-SansSerif` system stack. Retained Serif and Fancy helper classes use that same font.
 - The palette is blue and orange, defined in [Colors.css](css/layouts/Base/Colors.css).
 - The Hero card spans the available Hero content width over an [Unsplash office image](https://images.unsplash.com/photo-1497366811353-6870744d04b2).
 - Portrait, category images, and header/footer logos use remote placehold.co images. They bypass build-time image processing through `eleventy:ignore`.
@@ -80,7 +79,9 @@ Open Graph and Twitter text metadata are active. Image metadata is retained as c
 
 Favicon and manifest icon references are active, but the icon files are intentionally absent. Their expected filenames are listed in [TODO.md](TODO.md). The fictional business schema uses the same placeholder logo and portrait URLs as the site; geographic coordinates and a business-map URL remain commented until a real location is supplied.
 
-The contact form retains Netlify-compatible markup and its local thank-you action. Call, text, email, and testimonial destinations without official URLs use `#`. Facebook and Instagram are the requested exception, with invented `northlineandco.demo` profile URLs. Working internal routes and section anchors remain intact.
+Keep every image source under `content/img/`. Local images used in HTML are processed by Eleventy's image transform. Put CSS background images under `content/img/css/`; that folder passes through to `/img/css/` without copying the images used by the optimizer. The social image passes through from `content/img/social.webp` to `/img/social.webp`. Put favicon and manifest icon files under `content/img/favicons/`; they pass through to the site root. The non-image web manifest remains in `public/`.
+
+The contact form retains Netlify-compatible markup and its local thank-you action. Call, text, and email links use the fictional telephone and email values in the business schema. Testimonial destinations without official URLs use `#`. Facebook and Instagram use invented `northlineandco.demo` profile URLs. Working internal routes and section anchors remain intact.
 
 No analytics script or client identifier is included. Paste your Umami script into the HTML comment placeholder in Base and add `eleventy:ignore` to its script tag. Optional event attributes remain supported by shared Link and Button rendering.
 
