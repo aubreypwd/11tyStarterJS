@@ -7,19 +7,15 @@ export default class Hero {
 	render( data, context, options = {} ) {
 
 		options = {
-
 			variation: 'default',
-
 			renderWith: true,
 			renderLocation: true,
 			renderCtas: true,
-
 			heading: 'Unknown',
 			subHeading: '',
 			description: '',
 			humanizedHeading: '',
 			location: `${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion }`,
-
 			...options,
 		};
 
@@ -100,6 +96,7 @@ export default class Hero {
 	}
 
 	renderCtas( data, location ) {
+
 		return /* html */ `
 			<div class="Hero__ctas">
 				${ data.partials.PrimaryCTA.render( data, this, {

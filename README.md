@@ -31,7 +31,7 @@ The normal build runs output cleanup through npm's prebuild lifecycle. The alter
 | `/404.html` | [NotFound.11ty.js](content/NotFound.11ty.js) |
 | `/sitemap.xml` | [Sitemap.xml.11ty.js](content/Sitemap.xml.11ty.js) |
 
-The homepage composes Hero, About, Testimonials, Services, Contact, and ServiceAreas, with shared Header and Footer. Category pages use the same sections around their service content. There is one contact form and one contact confirmation page. The confirmation and 404 pages retain robots directives; the sitemap includes pages with a permalink unless their robots metadata contains `noindex`.
+The homepage and category pages share `layouts/Category.11ty.js`: each renders Hero, a category content section with photo-and-text rows, About, Testimonials, Contact, and ServiceAreas, with shared Header and Footer. The homepage rows link to the three category pages; category-page rows show individual services. There is one contact form and one contact confirmation page. The confirmation and 404 pages retain robots directives; the sitemap includes pages with a permalink unless their robots metadata contains `noindex`.
 
 The last clean build produced nine files through Eleventy, plus the JavaScript bundle and passthrough manifest. Build and local serving checks have passed. Rendered browser appearance and live reload across every watch target have not been exhaustively checked.
 
@@ -41,7 +41,7 @@ The last clean build produced nine files through Eleventy, plus the JavaScript b
 | --- | --- |
 | `content/` | Page templates, sitemap, and retained sample posts. |
 | `_includes/layouts/` | Base document, Category composition, Page content, Post layout, and a scaffold. |
-| `_includes/partials/sections/` | Header, Footer, Hero, About, Services, Testimonials, Contact, and ServiceAreas. |
+| `_includes/partials/sections/` | Header, Footer, Hero, About, Testimonials, Contact, and ServiceAreas. |
 | `_includes/partials/components/` | Section wrappers, content rendering, links, buttons, branding placeholders, navigation, address, hours, schema, and Toast. |
 | `_includes/utils/UnheadSchema.11ty.js` | JSON-LD graph rendering. |
 | `_data/` | Business data, metadata, settings, testimonials, events, helpers, and the partial registry. |

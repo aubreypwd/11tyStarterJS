@@ -5,7 +5,6 @@ export default class PrimaryBusinessCategory {
 		return {
 			permalink: '/primary-business-category/',
 			layout: 'layouts/Category.11ty.js',
-			layoutVariation: 'default',
 			category: 'Primary Business Category',
 			description: 'Explore Primary Business Category at Northline & Co. in Example City, from the first conversation to a written plan and a final review.',
 			eleventyComputed: {

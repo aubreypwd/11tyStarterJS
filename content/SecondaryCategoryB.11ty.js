@@ -5,7 +5,6 @@ export default class SecondaryCategoryB {
 		return {
 			permalink: '/secondary-category-b/',
 			layout: 'layouts/Category.11ty.js',
-			layoutVariation: 'default',
 			category: 'Secondary Category B',
 			description: 'Find one-to-one guidance and ongoing project support through Secondary Category B at the fictional Northline & Co.',
 			eleventyComputed: {

@@ -3,9 +3,8 @@ export default class SecondaryCategoryA {
 	data() {
 
 		return {
-			permalink: '/secondary-category-a/',
 			layout: 'layouts/Category.11ty.js',
-			layoutVariation: 'default',
+			permalink: '/secondary-category-a/',
 			category: 'Secondary Category A',
 			description: 'Compare Secondary Category A services at Northline & Co., with example scope checks, options reviews, scheduling, and progress support.',
 			eleventyComputed: {
