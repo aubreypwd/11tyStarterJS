@@ -1,6 +1,6 @@
 export default class Link {
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		options = {
 			attributes: {},

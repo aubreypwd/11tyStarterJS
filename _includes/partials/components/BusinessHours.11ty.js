@@ -4,8 +4,7 @@ export default class BusinessHours {
 		10: 'css/partials/components/BusinessHours.css',
 	};
 
-	// Content
-	render( data, context = this, options = {} ) {
+	render( data ) {
 
 		if ( false === Array.isArray( data.schema?.localBusiness?.openingHoursSpecification ) ) {
 			return '';

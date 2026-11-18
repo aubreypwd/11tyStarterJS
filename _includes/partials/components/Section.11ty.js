@@ -1,35 +1,40 @@
 export default class Section {
 
-	render( data, context, options = {}, content = '' ) {
+	render( data, options = {} ) {
 
-		if ( 'string' !== typeof options.name || '' === options.name.trim() ) {
-			throw new TypeError( 'options.name must be a non-empty string.' );
+		options = {
+			content: '',
+			...options,
+		};
+
+		if ( 'string' !== typeof options.sectionName || '' === options.sectionName.trim() ) {
+			throw new TypeError( 'options.sectionName must be a non-empty string.' );
 		}
 
-		if ( 'string' !== typeof content ) {
-			throw new TypeError( `content must be an HTML string.` );
+		if ( 'string' !== typeof options.content ) {
+			throw new TypeError( 'options.content must be an HTML string.' );
 		}
 
 		return /* html */ `
 
-			<${ options.section?.tag ?? 'section' } id="${ data.fn.escStringToDashes( options.name ) }"
+			<${ options.sectionElement?.tag ?? 'section' } id="${ data.fn.escStringToDashes( options.sectionName ) }"
 				class="
 					Section
-					Section__${ options.name }
+					Section__${ options.sectionName }
 					Container
 					Container--variation-${ options.containerVariation ?? 'default' }
-					${ options.name }
-					${ options.name }--variation-${ options.variation ?? 'default' }
-					${ options.class ?? '' }
+					${ options.sectionName }
+					${ options.sectionName }--variation-${ options.sectionVariation ?? 'default' }
+					${ options.className ?? '' }
 				">
-					<${ options.content?.tag ? options.content.tag : 'div' } class="
+					<${ options.contentElement?.tag ?? 'div' } class="
 						Container__content
 						Container__content--variation-${ options.contentVariation ?? 'default' }
-						${ options.content?.class ?? '' }
+						${ options.contentElement?.className ?? '' }
 					">
-						${ content }
-					</${ options.content?.tag ? options.content.tag : 'div' }>
-			</${ options.section?.tag ?? 'section' }>
+						${ options.content }
+					</${ options.contentElement?.tag ?? 'div' }>
+			</${ options.sectionElement?.tag ?? 'section' }>
 		`;
 	}
 }

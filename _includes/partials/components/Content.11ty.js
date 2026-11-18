@@ -4,38 +4,41 @@ export default class Content {
 		10: 'css/partials/components/Content.css',
 	};
 
-	render( data, context, options = {}, content, aside ) {
+	render( data, options = {} ) {
 
 		options = {
-			markdownIfy: true,
-			variation: 'default',
+			content: '',
+			aside: false,
+			asideVariation: 'default',
+			renderMarkdown: true,
+			contentVariation: 'default',
 			...options,
 		};
 
 		return /* html */ `
 
-			<div class="Container Content Content--variation-${ options.variation } SansSerif SansSerif--regular ${ 'string' === typeof aside ? `Content--has-aside` : `` }">
+			<div class="Container Content Content--variation-${ options.contentVariation } SansSerif SansSerif--regular ${ 'string' === typeof options.aside ? `Content--has-aside` : `` }">
 				<article class="Content__container-content">
 
 					<div class="Content__apply">
-						${ options.markdownIfy ? data.fn.markdown( content ) : content }
+						${ options.renderMarkdown ? data.fn.markdown( options.content ) : options.content }
 					</div>
 
-					${ this.maybeRenderAside( data, aside ) }
+					${ this.renderAside( options ) }
 				</article>
 			</div>
 		`;
 	}
 
-	maybeRenderAside( data, aside ) {
+	renderAside( options ) {
 
-		if ( 'string' !== typeof aside ) {
+		if ( 'string' !== typeof options.aside ) {
 			return ``; // No aside.
 		}
 
 		return /* html */ `
-			<aside class="Content__aside Content__aside--variation-${ data.Content__aside?.variation ?? 'default' }">
-				${ aside }
+			<aside class="Content__aside Content__aside--variation-${ options.asideVariation }">
+				${ options.aside }
 			</aside>
 		`;
 	}

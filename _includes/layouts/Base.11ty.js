@@ -40,6 +40,7 @@ export default class Base {
 	};
 
 	async render( data ) {
+
 		// Content
 		return /* html */ `
 			<!doctype html>
@@ -111,28 +112,28 @@ export default class Base {
 					${ await data.fn.renderStyles( data ) }
 					<style>${ this.getBundle( 'css' ) }</style>
 
-					${ data.partials.Schema.render( data, this ) }
+					${ data.partials.Schema.render( data ) }
 					<!-- Paste your Umami analytics script here. -->
 				</head>
 
-			<body class="SansSerif SansSerif--regular Site Body--${ data.page.fileSlug }">
-				<a href="#main" id="skip-link" class="SkipLink VisuallyHidden Button">Skip to main content</a>
+				<body class="SansSerif SansSerif--regular Site Body--${ data.page.fileSlug }">
+					<a href="#main" id="skip-link" class="SkipLink VisuallyHidden Button">Skip to main content</a>
 
-				<!-- Header -->
-				${ data.partials.Header.render( data, this, data.Header ) }
+					<!-- Header -->
+					${ data.partials.Header.render( data, data.sections?.Header ?? {} ) }
 
-				<main id="main" class="Site__main">
-					${ data.content }
-				</main>
+					<main id="main" class="Site__main">
+						${ data.content }
+					</main>
 
-				<!-- Footer -->
-				${ data.partials.Footer.render( data, this, data.Footer ) }
+					<!-- Footer -->
+					${ data.partials.Footer.render( data, data.sections?.Footer ?? {} ) }
 
-				<!-- Scripts -->
-				${ await data.fn.renderScripts( data ) }
-				<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
+					<!-- Scripts -->
+					${ await data.fn.renderScripts( data ) }
+					<script type="module" src="${ this.getBundleFileUrl( 'js' ) }"></script>
 			</body>
-			</html>
+		</html>
 		`.trimStart(); // Trim the start so we get <doctype> right away.
 	}
 }

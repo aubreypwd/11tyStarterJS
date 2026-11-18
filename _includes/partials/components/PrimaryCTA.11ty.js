@@ -1,9 +1,9 @@
 export default class PrimaryCTA {
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		options = {
-			location: 'Unknown',
-			class: '',
+			analyticsLocation: 'Unknown',
+			className: '',
 
 			...options,
 		};
@@ -11,20 +11,17 @@ export default class PrimaryCTA {
 		return /* html */ `
 			${ data.partials.Link.render(
 				data,
-				this,
 				{
-					content: options.content
-						? options.content
-						: 'Book Now',
+					content: options.label ?? 'Book Now',
 					attributes: {
-						class: '' === options.class
+						class: '' === options.className
 							? 'Button PrimaryCTA'
-							: `Button PrimaryCTA ${ options.class }`,
+							: `Button PrimaryCTA ${ options.className }`,
 						href: '#contact',
 					},
 					umami: {
 						event: data.events.bookNowCTA,
-						location: options.location,
+						location: options.analyticsLocation,
 					},
 				},
 			) }

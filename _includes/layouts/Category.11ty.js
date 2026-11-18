@@ -9,12 +9,11 @@ export default class Category {
 
 				title( data ) {
 
-					if ( 'home' === data.variation ) {
+					if ( 'home' === data.Category?.layoutVariation ) {
 						return `${ data.schema.localBusiness.name } ${ data.settings.titleSeparator } ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion }`;
 					}
 
-					// Category variation (default).
-					return `${ data.category ?? 'Unknown Category' } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
+					return `${ data.Category?.name ?? 'Unknown Category' } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion } ${ data.settings.titleSeparator } ${ data.schema.localBusiness.name }`;
 				},
 
 				description( data ) {
@@ -31,90 +30,110 @@ export default class Category {
 
 	render( data ) {
 
-		if ( 'home' === data.variation ) {
+		if ( 'home' === data.Category?.layoutVariation ) {
 
 			return /* html */ `
 
-				<!-- Hero -->
-				${ data.partials.Hero.render( data, this, data.Hero ) }
+				${ data.partials.Hero.render( data, {
+					...data.sections?.Hero,
+					heading: data.sections?.Hero?.heading || data.Category?.name || 'Unknown Category',
+				} ) }
 
-				${ data.partials.About.render( data, this, {} ) } <!-- Required -->
-				${ data.partials.Testimonials.render( data, this, {} ) }
+				${ data.partials.About.render( data, data.sections?.About ?? {} ) }
+				${ data.partials.Testimonials.render( data, data.sections?.Testimonials ?? {} ) }
 
-				<!-- Services -->
-				${ data.partials.Section.render( data, this, { name: data.sectionName ?? 'Category__section', containerVariation: 'none' }, data.partials.Content.render( data, this, { variation: 'category', markdownIfy: false }, this.renderCategoryContent( data ) ) ) }
+				${ this.renderServicesSection( data, data.sections?.Services ?? {} ) }
 
-				<!-- Other Sections -->
-				${ data.partials.Contact.render( data, this, {} ) } <!-- Required -->
-				${ data.partials.ServiceAreas.render( data, this, {} ) }
+				${ data.partials.Contact.render( data, data.sections?.Contact ?? {} ) }
+				${ data.partials.ServiceAreas.render( data, data.sections?.ServiceAreas ?? {} ) }
 			`;
 		}
 
 		return /* html */ `
 
-			<!-- Hero -->
-			${ data.partials.Hero.render( data, this, data.Hero ) }
+			${ data.partials.Hero.render( data, {
+				...data.sections?.Hero,
+				heading: data.sections?.Hero?.heading || data.Category?.name || 'Unknown Category',
+			} ) }
 
-			<!-- Services -->
-			${ data.partials.Section.render( data, this, { name: data.sectionName ?? 'Category__section', containerVariation: 'none' }, data.partials.Content.render( data, this, { variation: 'category', markdownIfy: false }, this.renderCategoryContent( data ) ) ) }
+			${ this.renderServicesSection( data, data.sections?.Services ?? {} ) }
 
-			<!-- Other Sections -->
-			${ data.partials.About.render( data, this, {} ) } <!-- Required -->
-			${ data.partials.Testimonials.render( data, this, {} ) }
-			${ data.partials.Contact.render( data, this, {} ) } <!-- Required -->
-			${ data.partials.ServiceAreas.render( data, this, {} ) }
+			${ data.partials.About.render( data, data.sections?.About ?? {} ) }
+			${ data.partials.Testimonials.render( data, data.sections?.Testimonials ?? {} ) }
+			${ data.partials.Contact.render( data, data.sections?.Contact ?? {} ) }
+			${ data.partials.ServiceAreas.render( data, data.sections?.ServiceAreas ?? {} ) }
 		`;
 	}
 
-	renderCategoryContent( data ) {
+	renderServicesSection( data, options ) {
+
+		if ( false === options.render ) {
+			return '';
+		}
+
+		return data.partials.Section.render( data, {
+			sectionName: options.sectionName ?? 'Category__section',
+			containerVariation: options.containerVariation ?? 'none',
+			content: data.partials.Content.render( data, {
+				contentVariation: options.contentVariation ?? 'category',
+				renderMarkdown: options.renderMarkdown ?? false,
+				content: this.renderServicesContent( data, options ),
+			} ),
+		} );
+	}
+
+	renderServicesContent( data, options ) {
 
 		return /* html */ `
 
-			${ data.partials.SectionHeader.render( data, this, data.header ) }
+			${ data.partials.SectionHeader.render( data, {
+				sectionName: 'Category',
+				...options.sectionHeader,
+			} ) }
 
-			${ this.renderServices( data ) }
+			${ this.renderServices( data, options.items ?? [] ) }
 		`;
 	}
 
-	renderServices( data ) {
+	renderServices( data, serviceItems ) {
 
 		let markup = ``;
 
-		for ( const service of data.services ) {
+		for ( const service of serviceItems ) {
 
-			const cta = data.partials.Link.render( data, this, {
+			const cta = data.partials.Link.render( data, {
 				content: 'Learn More',
 				umami: {
 					event: data.events.bookNowCTA,
 					location: 'Category Content',
-					context: service.header,
+					context: service.heading,
 				},
 				attributes: {
-					href: service.permalink ?? '#contact',
-					class: data.Category?.noImages
+					href: service.url ?? '#contact',
+					class: data.Category?.textOnlyServices
 						? 'CTALink'
 						: 'Button Button--variation-orange Button--thin',
-				}
+				},
 			} );
 
-			if ( 'undefined' === typeof service.src ) {
+			if ( 'undefined' === typeof service.image ) {
 
 				// No photo.
 				markup += data.fn.markdown( `
-					### ${ service.header }
+					### ${ service.heading }
 
 					${ service.content }
 					${ cta }
-				` );
+			` );
 			} else {
 
 				// Photo.
-				markup += data.partials.ContentPhoto.render( data, this, {
-					src: service.src,
+				markup += data.partials.ContentPhoto.render( data, {
+					image: service.image,
 					alt: service.alt,
 					reverse: service.reverse,
 					content: `
-						### ${ service.header }
+						### ${ service.heading }
 
 						${ service.content }
 
@@ -124,7 +143,7 @@ export default class Category {
 			}
 		}
 
-		if ( data.Category?.noImages ) {
+		if ( data.Category?.textOnlyServices ) {
 
 			return /* html */ `
 				<div class="Content__apply">

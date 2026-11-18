@@ -4,7 +4,7 @@ export default class Template {
 		// 10: '',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 		return /* html */ `
 			<!-- Content here -->
 		`;

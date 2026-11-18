@@ -8,37 +8,34 @@ export default class Header {
 		10: 'js/partials/sections/Header.js',
 	};
 
-	render( data, context = this, options = {} ) {
+	render( data, options = {} ) {
+
+		if ( false === options.render ) {
+			return '';
+		}
 
 		options = {
-			render: true,
-			hideContact: false,
+			showBookNow: true,
 			...options,
 		};
 
-		if ( false === options.render ) {
-			return ``;
-		}
+		const analyticsLocation = 'Header';
 
-		const location = 'Header';
-
-		return data.partials.Section.render( data, this,
+		return data.partials.Section.render( data,
 			{
-				name: 'Header',
-				variation: options.variation ?? 'default',
+				sectionName: 'Header',
+				sectionVariation: options.variation ?? 'default',
 				containerVariation: 'default',
-				section: {
+				sectionElement: {
 					tag: 'header',
 				},
-			},
-			/* html */ `
+				content: /* html */ `
 
 					<div class="Header__logo-menu">
-						${ data.partials.LogoMark.render( data, this ) }
+						${ data.partials.LogoMark.render( data ) }
 
 						${ data.partials.Button.render(
 							data,
-							this,
 							{
 								content: '<svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free v5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>',
 								attributes: {
@@ -58,28 +55,29 @@ export default class Header {
 
 						<ul class="Header__navigation-list">
 
-							${ data.partials.NavigationLinks.render( data, this, {
-								location: location,
-								itemClass: 'Header__item',
-								linkClass: 'Header__link',
+							${ data.partials.NavigationLinks.render( data, {
+								analyticsLocation: analyticsLocation,
+								itemClassName: 'Header__item',
+								linkClassName: 'Header__link',
 							} ) }
 						</ul>
 					</nav>
 
 					<div class="Header__buttons">
 
-						${ data.partials.SecondaryCTA.render( data, this, {
-							location: location,
-							class: 'Header__button-call',
+						${ data.partials.SecondaryCTA.render( data, {
+							analyticsLocation: analyticsLocation,
+							className: 'Header__button-call',
 						} ) }
 
-						${ options.hideContact ? '' : data.partials.PrimaryCTA.render( data, this, {
-							location: location,
-							class: `Header__button-schedule`,
-							content: 'Book Now',
-						} ) }
+						${ options.showBookNow ? data.partials.PrimaryCTA.render( data, {
+							analyticsLocation: analyticsLocation,
+							className: 'Header__button-schedule',
+							label: 'Book Now',
+						} ) : '' }
 					</div>
 			`,
+		},
 		);
 	}
 }

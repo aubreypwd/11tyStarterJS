@@ -2,8 +2,8 @@ export default class Sitemap {
 
 	data() {
 		return {
-			permalink: '/sitemap.xml',
 			layout: false,
+			permalink: '/sitemap.xml',
 			eleventyExcludeFromCollections: true,
 		};
 	}

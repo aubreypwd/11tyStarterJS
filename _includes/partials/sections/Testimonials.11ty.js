@@ -4,38 +4,46 @@ export default class Testimonials {
 		10: 'css/partials/sections/Testimonials.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
+
+		if ( false === options.render ) {
+			return '';
+		}
 
 		options = {
 			variation: 'default',
+			sectionHeader: {},
+			sampleNote: 'These are invented examples, not reviews from real customers.',
+			actionLabel: 'Explore the Sample Stories',
+			actionUrl: '#',
 			...options,
 		};
 
-		return data.partials.Section.render( data, this,
+		return data.partials.Section.render( data,
 			{
-				name: 'Testimonials',
-				variation: options.variation,
+				sectionName: 'Testimonials',
+				sectionVariation: options.variation,
 				containerVariation: 'large',
-			},
-			/* html */ `
+				content: /* html */ `
 
-					${ data.partials.SectionHeader.render( data, this, {
-						name: 'Testimonials',
-						content: 'Sample Customer Stories',
-						headingClass: 'Serif Serif--regular',
+					${ data.partials.SectionHeader.render( data, {
+						sectionName: 'Testimonials',
+						heading: 'Sample Customer Stories',
+						headingClassName: 'Serif Serif--regular',
+						...options.sectionHeader,
 					} ) }
 
-					<p class="Testimonials__sample-note">These are invented examples, not reviews from real customers.</p>
+					<p class="Testimonials__sample-note">${ data.fn.escHtml( options.sampleNote ) }</p>
 					<ul class="Testimonials__list">
-						${ this.getTestimonials( data ) }
+						${ this.renderTestimonials( data, options.items ?? data.testimonials ) }
 					</ul>
 
 					<div class="Testimonials__actions">
-						${ data.partials.Link.render( data, this, {
-							content: 'Explore the Sample Stories',
+						${ data.partials.Link.render( data, {
+							content: data.fn.escHtml( options.actionLabel ),
 							attributes: {
 								class: 'Button Button--variation-orange Button--centered',
-								href: '#',
+								href: options.actionUrl,
 							},
 							umami: {
 								event: data.events.readReviews,
@@ -44,14 +52,15 @@ export default class Testimonials {
 						} ) }
 					</div>
 			`,
+		},
 		);
 	}
 
-	getTestimonials( data ) {
+	renderTestimonials( data, testimonials ) {
 
 		let markup = ``;
 
-		for ( const testimonial of data.testimonials ) {
+		for ( const testimonial of testimonials ) {
 			markup += this.renderTestimonial( data, testimonial );
 		}
 
@@ -79,7 +88,7 @@ export default class Testimonials {
 					</blockquote>
 
 					<figcaption class="Testimonials__caption">
-						${ data.partials.Link.render( data, this, {
+						${ data.partials.Link.render( data, {
 							content: data.fn.escHtml( testimonial.name ),
 							attributes: {
 								href: testimonial.reviewUrl,

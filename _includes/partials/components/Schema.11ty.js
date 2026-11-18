@@ -7,10 +7,7 @@ import {
 } from '@unhead/schema-org';
 export default class Schema {
 
-	render( data, context = this, options = {} ) {
-
-		// Class Props
-		this.context = context;
+	render( data ) {
 
 		// Content
 		return new UnheadSchema().render( data, {

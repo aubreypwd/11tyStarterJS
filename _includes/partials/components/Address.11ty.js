@@ -4,7 +4,7 @@ export default class Address {
 		10: 'css/partials/components/Address.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data ) {
 
 		return /* html */ `
 			<address class="Address">

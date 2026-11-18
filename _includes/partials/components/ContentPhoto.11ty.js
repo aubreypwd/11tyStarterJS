@@ -4,7 +4,7 @@ export default class ContentPhoto {
 		10: 'css/partials/components/ContentPhoto.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		options = {
 			reverse: false,
@@ -17,7 +17,7 @@ export default class ContentPhoto {
 
 				<!-- Image -->
 				<div class="Content__photo-block Content__photo-photo">
-					<img class="Content__photo-placeholder" src="${ data.fn.escHtml( options.src ) }" alt="${ data.fn.escHtml( options.alt ?? '' ) }" width="800" height="600" loading="lazy" decoding="async" eleventy:ignore>
+					<img class="Content__photo-placeholder" src="${ data.fn.escHtml( options.image ) }" alt="${ data.fn.escHtml( options.alt ?? '' ) }" width="800" height="600" loading="lazy" decoding="async" eleventy:ignore>
 				</div>
 
 				<!-- Content -->

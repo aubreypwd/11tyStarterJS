@@ -4,32 +4,27 @@ export default class Footer {
 		10: 'css/partials/sections/Footer.css',
 	};
 
-	render( data, context = this, options = {} ) {
-
-		options = {
-			render: true,
-			...options,
-		};
+	render( data, options = {} ) {
 
 		if ( false === options.render ) {
-			return ``;
+			return '';
 		}
 
 		return /* html */ `
 			<footer class="Footer">
 				<div class="Footer__content">
-					${ data.partials.Section.render( data, this,
+					${ data.partials.Section.render( data,
 						{
-							name: 'Footer',
+							sectionName: 'Footer',
 							containerVariation: 'small',
-							section: {
+							sectionElement: {
 								tag: 'div',
 							},
-							content: {
-								class: 'Footer__columns',
+							contentElement: {
+								className: 'Footer__columns',
 							},
+							content: this.renderColumns( data ),
 						},
-						this.renderSection( data, options ),
 					) }
 				</div>
 
@@ -40,7 +35,7 @@ export default class Footer {
 		`;
 	}
 
-	renderSection( data, options ) {
+	renderColumns( data ) {
 
 		return /* html */ `
 
@@ -49,7 +44,7 @@ export default class Footer {
 				<span class="Footer__column-heading SansSerif SansSerif--bold">Contact</span>
 
 				<div class="Footer__column-content">
-					${ data.partials.Address.render( data, this, {} ) }
+					${ data.partials.Address.render( data ) }
 				</div>
 			</div>
 
@@ -59,9 +54,9 @@ export default class Footer {
 
 				<div class="Footer__column-content">
 					<ul class="Footer__column-links">
-						${ data.partials.NavigationLinks.render( data, this, {
-							location: 'Footer',
-							itemClass: 'Footer__column-links-link',
+						${ data.partials.NavigationLinks.render( data, {
+							analyticsLocation: 'Footer',
+							itemClassName: 'Footer__column-links-link',
 							additionalLinks: [
 								{
 									content: 'Privacy Policy',
@@ -96,7 +91,7 @@ export default class Footer {
 				<span class="Footer__column-heading SansSerif SansSerif--bold">Hours</span>
 
 				<div class="Footer__column-content">
-					${ data.partials.BusinessHours.render( data, this, {} ) }
+					${ data.partials.BusinessHours.render( data ) }
 				</div>
 			</div>
 
@@ -105,7 +100,7 @@ export default class Footer {
 
 					<div class="Footer__column-mark">
 
-						${ data.partials.LogoMark.render( data, this, {
+						${ data.partials.LogoMark.render( data, {
 							variation: 'alternate',
 						} ) }
 

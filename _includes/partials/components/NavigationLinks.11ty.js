@@ -1,6 +1,6 @@
 export default class NavigationLinks {
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		// Base navigation links.
 		return /* html */ `
@@ -11,15 +11,14 @@ export default class NavigationLinks {
 				{
 					content: 'Home',
 					attributes: {
-						class: `NavigationItem__link ${ options.linkClass ?? `` }`,
+						class: `NavigationItem__link ${ options.linkClassName ?? `` }`,
 						href: '/',
 					},
 					umami: {
 						event: data.events.navigation,
-						location: options.location,
+						location: options.analyticsLocation,
 						context: 'Home',
 					},
-					test: true,
 				},
 			) }
 
@@ -29,12 +28,12 @@ export default class NavigationLinks {
 				{
 					content: 'About Alex',
 					attributes: {
-						class: `NavigationItem__link ${ options.linkClass ?? `` }`,
+						class: `NavigationItem__link ${ options.linkClassName ?? `` }`,
 						href: '#about',
 					},
 					umami: {
 						event: data.events.navigation,
-						location: options.location,
+						location: options.analyticsLocation,
 						context: 'About Alex',
 					},
 				},
@@ -46,12 +45,12 @@ export default class NavigationLinks {
 				{
 					content: 'Services',
 					attributes: {
-						class: `NavigationItem__link ${ options.linkClass ?? `` }`,
+						class: `NavigationItem__link ${ options.linkClassName ?? `` }`,
 						href: '/#services',
 					},
 					umami: {
 						event: data.events.navigation,
-						location: options.location,
+						location: options.analyticsLocation,
 						context: 'Services',
 					},
 				},
@@ -79,8 +78,8 @@ export default class NavigationLinks {
 	renderItem( data, options, linkOptions ) {
 
 		return /* html */ `
-			<li class="NavigationItem ${ options.itemClass ?? `` }">
-				${ data.partials.Link.render( data, this, linkOptions ) }
+			<li class="NavigationItem ${ options.itemClassName ?? `` }">
+				${ data.partials.Link.render( data, linkOptions ) }
 			</li>
 		`;
 	}

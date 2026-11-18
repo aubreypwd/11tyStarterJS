@@ -52,7 +52,26 @@ The last clean build produced nine files through Eleventy, plus the JavaScript b
 | `public/` | Files copied to the output root; currently the web manifest. |
 | `_site/` | Generated output, recreated by the normal full build. |
 
-The partial registry discovers nested class templates and exposes unique filename-based keys through `data.partials`. Partial render calls use data, context, and an options object. Section receives its rendered HTML slot as a fourth argument. Content receives child content as its fourth argument, renders Markdown by default, and supports HTML passthrough through `markdownIfy: false`. Its optional fifth argument supplies aside HTML.
+The partial registry discovers nested class templates and exposes unique filename-based keys through `data.partials`.
+
+Page-specific section settings live under `sections`, keyed by the exact section slot name that the layout renders. Nested objects let a page override one option without restating the section's other settings. A page can tune a section header or skip a section like this:
+
+```js
+sections: {
+	Testimonials: {
+		sectionHeader: {
+			heading: 'What Customers Say',
+		},
+	},
+	Contact: {
+		render: false,
+	},
+},
+```
+
+The layout keeps responsibility for which sections exist and their order; a missing section entry uses that section's defaults. The root `description` stays the SEO meta description, while visible Hero copy belongs under `sections.Hero`. `Category.layoutVariation` selects the home or category composition; `sections.Hero.headingLayout` describes the Hero's heading structure. Repeatable components receive options at each render call from their owning section, so each instance stays independently configurable.
+
+Partials use a consistent `render( data, options )` call when they need caller options; partials without options use `render( data )`. Put rendered child HTML in the named `content` option. The Section wrapper uses it for its child markup, while Content uses its own `content`, `renderMarkdown`, `contentVariation`, and optional `aside` settings.
 
 Layouts receive child output through `data.content`. Shared file, Markdown, escaping, date, element, asset-registry, and title helpers live in [_data/fn.js](_data/fn.js). The title separator lives in [_data/settings.js](_data/settings.js).
 

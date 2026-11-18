@@ -1,9 +1,9 @@
 export default class SecondaryCTA {
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		options = {
-			location: 'Unknown',
-			class: '',
+			analyticsLocation: 'Unknown',
+			className: '',
 
 			...options,
 		};
@@ -13,17 +13,16 @@ export default class SecondaryCTA {
 		return /* html */ `
 			${ data.partials.Link.render(
 				data,
-				this,
 				{
 					content: phoneFormatted,
 					attributes: {
 						href: `tel:${ data.schema.localBusiness.telephone }`,
 						title: `Call ${ phoneFormatted }`,
-						class: `SecondaryCTA Button Button--alt ${ options.class }`,
+						class: `SecondaryCTA Button Button--alt ${ options.className }`,
 					},
 					umami: {
 						event: data.events.callButton,
-						location: options.location,
+						location: options.analyticsLocation,
 					},
 				},
 			) }

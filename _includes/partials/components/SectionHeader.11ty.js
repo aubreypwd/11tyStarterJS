@@ -4,10 +4,10 @@ export default class SectionHeader {
 		10: 'css/partials/components/SectionHeader.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
 
 		options = {
-			name: 'SectionHeader',
+			sectionName: 'SectionHeader',
 			description: false,
 			eyebrow: false,
 			...options,
@@ -17,17 +17,17 @@ export default class SectionHeader {
 
 			<header class="
 				SectionHeader
-				${ data.fn.escHtml( options.name ) }__header
-				${ data.fn.escHtml( options.class ?? '' ) }">
+				${ data.fn.escHtml( options.sectionName ) }__header
+				${ data.fn.escHtml( options.className ?? '' ) }">
 
 					${ this.maybeRenderEyebrow( data, options ) }
 
-					<${ options.tag ?? 'h2' } class="
+					<${ options.headingTag ?? 'h2' } class="
 						SectionHeader__heading
-						${ data.fn.escHtml( options.name ) }__heading
-						${ data.fn.escHtml( options.headingClass ?? '' ) }">
-							${ data.fn.escHtml( options.content ) }
-					</${ options.tag ?? 'h2' }>
+						${ data.fn.escHtml( options.sectionName ) }__heading
+						${ data.fn.escHtml( options.headingClassName ?? '' ) }">
+							${ data.fn.escHtml( options.heading ) }
+					</${ options.headingTag ?? 'h2' }>
 
 					${ this.maybeRenderDescription( data, options ) }
 			</header>
@@ -56,7 +56,7 @@ export default class SectionHeader {
 		return /* html */ `
 			<${ options.eyebrowTag ?? 'span' } class="
 				SectionHeader__eyebrow
-				${ data.fn.escHtml( options.name ) }__eyebrow
+				${ data.fn.escHtml( options.sectionName ) }__eyebrow
 				eyebrow
 			">
 				${ data.fn.escHtml( options.eyebrow ) }

@@ -4,18 +4,23 @@ export default class Hero {
 		10: 'css/partials/sections/Hero.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
+
+		if ( false === options.render ) {
+			return '';
+		}
 
 		options = {
 			variation: 'default',
-			renderWith: true,
-			renderLocation: true,
-			renderCtas: true,
+			headingLayout: 'title-and-headline',
+			showOwnerIntroduction: true,
+			showLocation: true,
+			showCallsToAction: true,
 			heading: 'Unknown',
-			subHeading: '',
+			subheading: '',
 			description: '',
-			humanizedHeading: '',
-			location: `${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion }`,
+			headline: '',
+			locationLabel: `${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion }`,
 			...options,
 		};
 
@@ -23,39 +28,37 @@ export default class Hero {
 			throw TypeError( 'options.heading must be set (string).' );
 		}
 
-		const location = 'Hero';
+		const analyticsLocation = 'Hero';
 
-		return data.partials.Section.render( data, this,
-			{
-				name: 'Hero',
-				variation: options.variation ?? 'default',
-				containerVariation: 'default',
-			},
-			/* html */ `
-				<div class="Hero__content Hero__variation-${ options.variation ?? 'default' }">
+		return data.partials.Section.render( data, {
+			sectionName: 'Hero',
+			sectionVariation: options.variation ?? 'default',
+			containerVariation: 'default',
+			content: /* html */ `
+				<div class="Hero__content Hero__content--${ options.headingLayout }">
 
 					<div class="Hero__content-wrapper">
 
-						${ this.renderRightHeading( data, options ) }
+						${ this.renderHeadingGroup( data, options ) }
 
-						${ options.renderWith ? this.renderWith() : '' }
-						${ options.subHeading?.length ? this.renderSubHeading( options.subHeading ) : '' }
-						${ options.description?.length ? this.renderDescription( options.description ) : '' }
-						${ options.renderCtas ? this.renderCtas( data, location ) : '' }
+						${ options.showOwnerIntroduction ? this.renderOwnerIntroduction() : '' }
+						${ options.subheading?.length ? this.renderSubheading( data, options.subheading ) : '' }
+						${ options.description?.length ? this.renderDescription( data, options.description ) : '' }
+						${ options.showCallsToAction ? this.renderCallsToAction( data, analyticsLocation ) : '' }
 					</div>
 				</div>
 			`,
-		);
+		} );
 	}
 
-	renderRightHeading( data, options ) {
+	renderHeadingGroup( data, options ) {
 
-		if ( 'normal' === options.variation || 'string' !== typeof options.humanizedHeading || '' === options.humanizedHeading.trim() ) {
+		if ( 'single-heading' === options.headingLayout || 'string' !== typeof options.headline || '' === options.headline.trim() ) {
 
 			return /* html */ `
 
-				<!-- Just render the heading as humanized -->
-				${ this.renderHeading( data, options, 'Hero__humanized' ) }
+				<!-- Render a single headline when no separate title is needed. -->
+				${ this.renderHeading( data, options, 'Hero__headline' ) }
 			`;
 		}
 
@@ -63,8 +66,8 @@ export default class Hero {
 
 			${ this.renderHeading( data, options, 'Hero__heading' ) }
 
-			<div class="Hero__humanized Serif Serif--regular">
-				${ data.fn.escHtml( options.humanizedHeading ) }
+			<div class="Hero__headline Serif Serif--regular">
+				${ data.fn.escHtml( options.headline ) }
 			</div>
 		`;
 	}
@@ -74,37 +77,37 @@ export default class Hero {
 		return /* html */ `
 			<h1 class="Hero__title">
 				<span class="${ className }">${ data.fn.escHtml( options.heading ) }</span>
-				${ options.renderLocation ? this.renderLocation( options.location ) : '' }
+				${ options.showLocation ? this.renderLocation( data, options.locationLabel ) : '' }
 			</h1>
 		`;
 	}
 
-	renderWith() {
+	renderOwnerIntroduction() {
 		return /* html */ `<p class="Hero__with">With <a href="#about" class="Hero__learn-more-about-alex">Alex Morgan</a>, your project coordinator at Northline &amp; Co.</p>`;
 	}
 
-	renderLocation( location ) {
-		return /* html */ `<span class="Hero__location SansSerif SansSerif--regular"> in ${ location }</span>`;
+	renderLocation( data, locationLabel ) {
+		return /* html */ `<span class="Hero__location SansSerif SansSerif--regular"> in ${ data.fn.escHtml( locationLabel ) }</span>`;
 	}
 
-	renderSubHeading( subHeading ) {
-		return /* html */ `<h2 class="Hero__subheading Serif Serif--regular">${ subHeading }</h2>`;
+	renderSubheading( data, subheading ) {
+		return /* html */ `<h2 class="Hero__subheading Serif Serif--regular">${ data.fn.escHtml( subheading ) }</h2>`;
 	}
 
-	renderDescription( description ) {
-		return /* html */ `<div class="Hero__description">${ description }</div>`;
+	renderDescription( data, description ) {
+		return /* html */ `<div class="Hero__description">${ data.fn.markdown( description ) }</div>`;
 	}
 
-	renderCtas( data, location ) {
+	renderCallsToAction( data, analyticsLocation ) {
 
 		return /* html */ `
 			<div class="Hero__ctas">
-				${ data.partials.PrimaryCTA.render( data, this, {
-					location: location,
+				${ data.partials.PrimaryCTA.render( data, {
+					analyticsLocation: analyticsLocation,
 				} ) }
 
-				${ data.partials.SecondaryCTA.render( data, this, {
-					location: location,
+				${ data.partials.SecondaryCTA.render( data, {
+					analyticsLocation: analyticsLocation,
 				} ) }
 			</div>
 		`;

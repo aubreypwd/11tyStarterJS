@@ -84,7 +84,7 @@
 				}
 			}
 
-			.Hero__humanized {
+			.Hero__headline {
 
 				font-size: calc(var(--type-4)*1.3);
 				line-height: calc(var(--type-4)*1.3);
@@ -146,7 +146,7 @@
 		}
 
 
-		&.Hero__variation-normal {
+		&.Hero__content--single-heading {
 
 			.Hero__title {
 
@@ -168,7 +168,7 @@
 	.Hero {
 		.Hero__content {
 			.Hero__content-wrapper {
-				.Hero__humanized {
+				.Hero__headline {
 				}
 			}
 		}

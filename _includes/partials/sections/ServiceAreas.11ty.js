@@ -4,20 +4,25 @@ export default class ServiceAreas {
 		10: 'css/partials/sections/ServiceAreas.css',
 	};
 
-	render( data, context, options = {} ) {
+	render( data, options = {} ) {
+
+		if ( false === options.render ) {
+			return '';
+		}
 
 		options = {
 			variation: 'default',
+			sectionHeader: {},
+			description: 'Northline & Co. is a fictional business serving the example communities below. The map shows Central Park in New York as a sample location, not the business address.',
 			...options,
 		};
 
-		return data.partials.Section.render( data, this,
+		return data.partials.Section.render( data,
 			{
-				name: 'ServiceAreas',
-				variation: options.variation,
+				sectionName: 'ServiceAreas',
+				sectionVariation: options.variation,
 				containerVariation: 'medium',
-			},
-			/* html */ `
+				content: /* html */ `
 
 					<div class="ServiceAreas__google-map">
 						<iframe
@@ -32,24 +37,26 @@ export default class ServiceAreas {
 					</div>
 
 					<div class="ServiceAreas__content">
-						${ data.partials.SectionHeader.render( data, this, {
-							name: 'ServiceAreas',
+						${ data.partials.SectionHeader.render( data, {
+							sectionName: 'ServiceAreas',
 							eyebrow: 'Nearby Neighborhoods & Communities',
-							content: 'Serving Example City and Its Neighbors',
-							headingClass: 'ServiceAreas__content-heading Serif Serif--regular',
+							heading: 'Serving Example City and Its Neighbors',
+							headingClassName: 'ServiceAreas__content-heading Serif Serif--regular',
+							...options.sectionHeader,
 						} ) }
 
-						<p class="ServiceAreas__content-info">Northline &amp; Co. is a fictional business serving the example communities below. The map shows Central Park in New York as a sample location, not the business address.</p>
+						<p class="ServiceAreas__content-info">${ data.fn.escHtml( options.description ) }</p>
 
 						<ul class="ServiceAreas__areas">
-							${ this.renderAreas( data, context ) }
+							${ this.renderAreas( data ) }
 						</ul>
 					</div>
 			`,
+		},
 		);
 	}
 
-	renderAreas( data, context ) {
+	renderAreas( data ) {
 
 		let markup = ``;
 
