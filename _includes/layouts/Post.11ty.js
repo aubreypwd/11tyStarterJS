@@ -1,14 +1,12 @@
 import { defineArticle } from '@unhead/schema-org';
 export default class Post {
 
-	static styles = {
-		// 10: 'node_modules/prismjs/themes/prism-okaidia.css',
-	};
-
 	data() {
 
 		return {
+
 			layout: 'layouts/Base.11ty.js',
+
 			eleventyComputed: {
 
 				layoutSchema( data ) {
@@ -35,6 +33,7 @@ export default class Post {
 
 		// Content
 		return /* html */ `
+
 			<h1>${ data.fn.escHtml( data.title ) }</h1>
 
 			<ul class="PostMetadata">

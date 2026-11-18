@@ -2,6 +2,7 @@ export default class Category {
 
 	data() {
 		return {
+
 			layout: 'layouts/Base.11ty.js',
 
 			eleventyComputed: {

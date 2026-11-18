@@ -18,9 +18,7 @@ export default class Page {
 						// @TODO: Why do I have to do this?
 						heading: data.Hero?.heading || data.title.replace( ` ${ data.settings.titleSeparator } ${ data.schema.localBusiness.name } in ${ data.schema.localBusiness.address.addressLocality }, ${ data.schema.localBusiness.address.addressRegion }`, '' ),
 						subHeading: data.heroSubHeading ?? '',
-
 						description: data.heroDescription ?? data.description,
-
 						renderWith: data.Hero?.renderWith || false,
 						renderLocation: data.Hero?.renderLocation || false,
 						renderCtas: data.Hero?.renderCtas || false,
