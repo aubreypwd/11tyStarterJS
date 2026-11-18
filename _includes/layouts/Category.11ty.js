@@ -30,12 +30,31 @@ export default class Category {
 
 	render( data ) {
 
+		if ( 'home' === data.variation ) {
+
+			return /* html */ `
+
+				<!-- Hero -->
+				${ data.partials.Hero.render( data, this, data.Hero ) }
+
+				${ data.partials.About.render( data, this, {} ) } <!-- Required -->
+				${ data.partials.Testimonials.render( data, this, {} ) }
+
+				<!-- Services -->
+				${ data.partials.Section.render( data, this, { name: data.sectionName ?? 'Category__section', containerVariation: 'none' }, data.partials.Content.render( data, this, { variation: 'category', markdownIfy: false }, this.renderCategoryContent( data ) ) ) }
+
+				<!-- Other Sections -->
+				${ data.partials.Contact.render( data, this, {} ) } <!-- Required -->
+				${ data.partials.ServiceAreas.render( data, this, {} ) }
+			`;
+		}
+
 		return /* html */ `
 
 			<!-- Hero -->
 			${ data.partials.Hero.render( data, this, data.Hero ) }
 
-			<!-- Category Content -->
+			<!-- Services -->
 			${ data.partials.Section.render( data, this, { name: data.sectionName ?? 'Category__section', containerVariation: 'none' }, data.partials.Content.render( data, this, { variation: 'category', markdownIfy: false }, this.renderCategoryContent( data ) ) ) }
 
 			<!-- Other Sections -->
